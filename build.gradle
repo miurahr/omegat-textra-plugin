@@ -1,0 +1,103 @@
+apply plugin: 'java'
+apply plugin: 'jacoco'
+apply plugin: 'findbugs'
+apply plugin: 'checkstyle'
+apply plugin: 'distribution'
+
+version = '0.1'
+
+configurations {
+    provided
+}
+
+sourceSets {
+    main {
+        compileClasspath += configurations.provided
+        test.compileClasspath += configurations.provided
+        test.runtimeClasspath += configurations.provided
+    }
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile 'oauth.signpost:signpost-core:1.2.1.2'
+    compile 'oauth.signpost:signpost-commonshttp4:1.2.1.2'
+    compile 'org.apache.httpcomponents:httpclient:4.5'
+    compile 'org.json:json:20160810'
+    provided 'commons-io:commons-io:2.4'
+    provided 'commons-lang:commons-lang:2.6'
+    provided project(":stub")
+    testCompile 'org.testng:testng:6.9.10'
+    testCompile project(":stub")
+}
+test.useTestNG()
+
+jar {
+    from files(sourceSets.main.output.classesDir)
+    from {configurations.compile.collect {zipTree(it)}} {
+        exclude "META-INF/MANIFEST.MF"
+    }
+    manifest {
+        attributes("OmegaT-Plugins": "tokyo.northside.omegat.textra.OmegatTextraMachineTranslation")
+    }
+}
+
+checkstyle {
+    config = resources.text.fromFile("${rootProject.projectDir}/config/checkstyle/checkstyle.xml")
+    ignoreFailures = true
+    toolVersion = '7.1'
+}
+
+// Force prevent checkstyle/findbugs on Test.
+task checkstyleTest(overwrite: true) << {}
+task findbugsTest(overwrite: true) << {}
+
+findbugs {
+    ignoreFailures = true
+}
+tasks.withType(FindBugs) {
+    reports {
+      xml.enabled = false
+      html.enabled = true
+    }
+}
+
+task sourceJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
+}
+
+artifacts {
+    archives jar
+    archives sourceJar
+}
+
+distTar {
+  compression = Compression.GZIP
+}
+
+distributions {
+    main {
+        contents {
+            from('README.md', 'CHANGELOG.md', 'COPYING', 'DEVELOP.md')
+            from(sourceJar) {
+                into 'source'
+            }
+            from(jar) {
+                into 'plugin'
+            }
+        }
+    }
+}
+
+project(":stub") {
+    apply plugin: 'java'
+    // Force prevent checkstyle/findbugs on stub.
+    task checkstyle(overwrite: true) << {}
+    task findbugs(overwrite: true) << {}
+}
+
+
