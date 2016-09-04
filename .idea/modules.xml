@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/omegat-textra-plugin.iml" filepath="$PROJECT_DIR$/.idea/modules/omegat-textra-plugin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/omegat-textra-plugin_main.iml" filepath="$PROJECT_DIR$/.idea/modules/omegat-textra-plugin_main.iml" group="omegat-textra-plugin" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/omegat-textra-plugin_test.iml" filepath="$PROJECT_DIR$/.idea/modules/omegat-textra-plugin_test.iml" group="omegat-textra-plugin" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/stub/stub.iml" filepath="$PROJECT_DIR$/.idea/modules/stub/stub.iml" group="stub" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/stub/stub_main.iml" filepath="$PROJECT_DIR$/.idea/modules/stub/stub_main.iml" group="stub" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/stub/stub_test.iml" filepath="$PROJECT_DIR$/.idea/modules/stub/stub_test.iml" group="stub" />
+    </modules>
+  </component>
+</project>
