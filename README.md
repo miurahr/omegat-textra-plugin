@@ -6,7 +6,13 @@ This is an incomplete implementation of OmegaT plugin which support NICT TexTra 
 
 This project is distributed under the GNU general public license version 3 or later.
 
-## TexTra Service ByLaws
+## Limitation
+
+You need to agree NICT TexTra Service terms to use this plugin with OmegaT.
+The Terms limit you in many aspect, which resulted not to be used for  OSS contents, because of the terms has rules against 'No Discrimination Against Persons or Groups', and 'No Discrimination Against Fields of Endeavor'.
+Please don't use TexTra for WikiPedia, or other free document project without any writtern permissions from NICT.
+
+## TexTra Service Terms
 
 ### 「みんなの自動翻訳＠TexTra®」サービス利用規約
 
