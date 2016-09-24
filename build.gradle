@@ -3,6 +3,7 @@ apply plugin: 'jacoco'
 apply plugin: 'findbugs'
 apply plugin: 'checkstyle'
 apply plugin: 'distribution'
+apply plugin: 'idea'
 
 version = '0.1'
 
@@ -16,9 +17,22 @@ sourceSets {
         test.compileClasspath += configurations.provided
         test.runtimeClasspath += configurations.provided
     }
+    integrationTest {
+        java {
+            compileClasspath += main.output + test.output
+            compileClasspath += configurations.provided
+            runtimeClasspath += main.output + test.output
+            runtimeClasspath += configurations.provided
+            srcDir file('src/integration-test/java')
+        }
+        resources.srcDir file('src/integration-test/resources')
+    }
 }
 
 repositories {
+    maven {
+        url "https://dl.bintray.com/miurahr/maven/"
+    }
     jcenter()
 }
 
@@ -27,11 +41,10 @@ dependencies {
     compile 'oauth.signpost:signpost-commonshttp4:1.2.1.2'
     compile 'org.apache.httpcomponents:httpclient:4.5'
     compile 'org.json:json:20160810'
+    provided 'org.omegat.gradle:gradle-omegat-plugin:0.9.0'
     provided 'commons-io:commons-io:2.4'
     provided 'commons-lang:commons-lang:2.6'
-    provided project(":stub")
     testCompile 'org.testng:testng:6.9.10'
-    testCompile project(":stub")
 }
 test.useTestNG()
 
@@ -43,6 +56,10 @@ jar {
     manifest {
         attributes("OmegaT-Plugins": "tokyo.northside.omegat.textra.OmegatTextraMachineTranslation")
     }
+}
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs << "-Xlint:deprecation" << "-Xlint:unchecked"
 }
 
 checkstyle {
@@ -62,6 +79,23 @@ tasks.withType(FindBugs) {
     reports {
       xml.enabled = false
       html.enabled = true
+    }
+    setGroup('Verification')
+}
+
+task integrationTest(type: Test) {
+    description = "Integration/Acceptance Test"
+    testClassesDir = sourceSets.integrationTest.output.classesDir
+    classpath = sourceSets.integrationTest.runtimeClasspath
+    useTestNG()
+}
+check.dependsOn integrationTest
+integrationTest.mustRunAfter test
+tasks.integrationTest.setGroup('Verification')
+
+idea {
+    module {
+        testSourceDirs += file('src/integration-test/java')
     }
 }
 
@@ -92,12 +126,4 @@ distributions {
         }
     }
 }
-
-project(":stub") {
-    apply plugin: 'java'
-    // Force prevent checkstyle/findbugs on stub.
-    task checkstyle(overwrite: true) << {}
-    task findbugs(overwrite: true) << {}
-}
-
 
