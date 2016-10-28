@@ -1,15 +1,21 @@
 apply plugin: 'java'
+apply plugin: 'groovy'
 apply plugin: 'jacoco'
 apply plugin: 'findbugs'
 apply plugin: 'checkstyle'
 apply plugin: 'distribution'
 apply plugin: 'idea'
 
-version = '0.1'
+version = '0.2'
 
 configurations {
     provided
 }
+
+sourceCompatibility = jdkVersion
+targetCompatibility = jdkVersion
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+[compileJava, compileTestJava]*.options*.bootClasspath = "$JDK_HOME/jre/lib/rt.jar"
 
 sourceSets {
     main {
@@ -18,12 +24,11 @@ sourceSets {
         test.runtimeClasspath += configurations.provided
     }
     integrationTest {
+        compileClasspath += sourceSets.main.output + configurations.testRuntime  + configurations.provided
+        runtimeClasspath += main.output + test.output + configurations.provided
         java {
-            compileClasspath += main.output + test.output
-            compileClasspath += configurations.provided
-            runtimeClasspath += main.output + test.output
-            runtimeClasspath += configurations.provided
             srcDir file('src/integration-test/java')
+            srcDir file('src/integration-test/groovy')
         }
         resources.srcDir file('src/integration-test/resources')
     }
@@ -83,25 +88,58 @@ tasks.withType(FindBugs) {
     setGroup('Verification')
 }
 
+jacocoTestReport {
+    group 'Documentation'
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination "${buildDir}/reports/jacoco/testReport"
+    }
+}
+
 task integrationTest(type: Test) {
-    description = "Integration/Acceptance Test"
+    description = "Runs integration and acceptance tests."
+    group = 'Verification'
     testClassesDir = sourceSets.integrationTest.output.classesDir
     classpath = sourceSets.integrationTest.runtimeClasspath
+    reports.html.destination = file("$buildDir/reports/integrationTests")
     useTestNG()
 }
+
+task jacocoIntegrationTestReport(type: JacocoReport) {
+    group 'Documentation'
+    sourceSets sourceSets.main
+    executionData integrationTest
+    reports.html.destination "${buildDir}/reports/jacoco/integrationTestReport"
+}
+
 check.dependsOn integrationTest
+check.finalizedBy jacocoTestReport
 integrationTest.mustRunAfter test
-tasks.integrationTest.setGroup('Verification')
+
+task jacocoCombinedTestReport(type: JacocoReport) {
+    group 'Documentation'
+    sourceSets sourceSets.main
+    executionData test, integrationTest
+    reports.html.destination "${buildDir}/reports/jacoco/combinedTestReport"
+}
+integrationTest.finalizedBy (jacocoIntegrationTestReport, jacocoCombinedTestReport)
 
 idea {
     module {
         testSourceDirs += file('src/integration-test/java')
+        testSourceDirs += file('src/integration-test/groovy')
     }
 }
 
 task sourceJar(type: Jar) {
     from sourceSets.main.allSource
     classifier = 'sources'
+}
+
+javadoc {
+    classpath += configurations.provided
+    options.locale = 'en_US'
 }
 
 artifacts {
