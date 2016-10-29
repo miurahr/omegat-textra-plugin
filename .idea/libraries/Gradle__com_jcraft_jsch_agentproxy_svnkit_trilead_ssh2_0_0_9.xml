@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: com.jcraft:jsch.agentproxy.svnkit-trilead-ssh2:0.0.9">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jcraft/jsch.agentproxy.svnkit-trilead-ssh2/0.0.9/3011858150f238b6159983c39418aaa8fa1ada96/jsch.agentproxy.svnkit-trilead-ssh2-0.0.9.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jcraft/jsch.agentproxy.svnkit-trilead-ssh2/0.0.9/1db748862a8f7df9623df78148c8cbe77de27a9e/jsch.agentproxy.svnkit-trilead-ssh2-0.0.9-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

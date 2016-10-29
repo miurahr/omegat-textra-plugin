@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.languagetool:language-fr:3.5">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.languagetool/language-fr/3.5/41d063d880fb37a1a95c557282a8caed37425f7f/language-fr-3.5.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.languagetool/language-fr/3.5/e2b4dae9657accf36e14e291cbd4b553b2302018/language-fr-3.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

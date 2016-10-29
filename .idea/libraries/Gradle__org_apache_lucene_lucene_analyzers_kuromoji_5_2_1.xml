@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.apache.lucene:lucene-analyzers-kuromoji:5.2.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.lucene/lucene-analyzers-kuromoji/5.2.1/bd348c9f18662b73d22427209075a739ad33d689/lucene-analyzers-kuromoji-5.2.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.lucene/lucene-analyzers-kuromoji/5.2.1/dcaa99587637e7b2d66020e167739a653f7badfa/lucene-analyzers-kuromoji-5.2.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

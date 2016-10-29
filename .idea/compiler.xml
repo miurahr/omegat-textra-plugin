@@ -19,6 +19,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="omegat-textra-plugin_integrationTest" target="1.8" />
       <module name="omegat-textra-plugin_main" target="1.8" />
       <module name="omegat-textra-plugin_test" target="1.8" />
       <module name="stub_main" target="1.8" />

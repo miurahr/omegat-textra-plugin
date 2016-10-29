@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.languagetool:language-ta:3.5">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.languagetool/language-ta/3.5/60d7be15326f82719ce942baf90831441200c8d5/language-ta-3.5.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.languagetool/language-ta/3.5/cc54e70f6a38325b21b3e4d8134af49b86576765/language-ta-3.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
