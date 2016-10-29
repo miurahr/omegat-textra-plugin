@@ -6,6 +6,45 @@ This is an incomplete implementation of OmegaT plugin which support NICT TexTra 
 
 This project is distributed under the GNU general public license version 3 or later.
 
+## Configuration
+
+There are 4 system properties to configure TexTra API access key/secret.
+You can get these parameters from WebAPI page after you registered to TexTra service.
+
+
+```
+textra.api.username
+textra.api.key
+textra.api.secret
+textra.api.engine
+```
+
+You can register the service from
+https://mt-auto-minhon-mlt.ucri.jgn-x.jp/content/register/
+
+You can visit TexTra WebAPI page at
+https://mt-auto-minhon-mlt.ucri.jgn-x.jp/content/api/
+then goto MT page at
+https://mt-auto-minhon-mlt.ucri.jgn-x.jp/content/mt/
+
+For MT srevice, 
+
+`engine` parameter is a last part of API URL. This indicate language and mode.
+Ex. A URL of generic translation mode from English to Japanese is
+`https://mt-auto-minhon-mlt.ucri.jgn-x.jp/api/mt/generic_en_ja/`
+then `engine` become `generic_en_ja`
+
+After you get the parameter, 
+please add these in OmegaT launch script and replace XXX with your value.
+
+```
+-Dtextra.api.username=myuser -Dtextra.api.key=XXX -Dtextra.api.secret=XXX -Dtextra.api.engine=XXX
+
+```
+
+Finally, in OmegaT, you can enable the plugin using **Options > Machine Translate > TexTra**.
+When enabled, machine translations suggestions will apear in the Machine Translation pane.
+
 ## Limitation
 
 You need to agree NICT TexTra Service terms to use this plugin with OmegaT.
