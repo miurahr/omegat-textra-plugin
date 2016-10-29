@@ -69,12 +69,13 @@ import static tokyo.northside.omegat.textra.TextraOptions.TranslationMode.MINNA;
  */
 @SuppressWarnings({ "unchecked", "rawtypes" })
 public class OmegatTextraMachineTranslation implements IMachineTranslation, ActionListener {
-    private static final String API_URL = "https://mt-auto-minhon-mlt.ucri.jgn-x.jp/api/mt/";
+    public static final String API_URL = "https://mt-auto-minhon-mlt.ucri.jgn-x.jp/api/mt/";
+    public static final String REGISTRATION_URL = "https://mt-auto-minhon-mlt.ucri.jgn-x.jp/content/register/";
+    public static final String API_KEY_URL = "https://mt-auto-minhon-mlt.ucri.jgn-x.jp/content/mt/";
+
     private static final int CONNECTION_TIMEOUT = 2 * 60 * 1000;
     private static final int SO_TIMEOUT = 10 * 60 * 1000;
-
     private boolean enabled;
-
     private TextraOptions options;
 
     /**
@@ -83,6 +84,9 @@ public class OmegatTextraMachineTranslation implements IMachineTranslation, Acti
      */
     private final Map<String, String> cache = Collections.synchronizedMap(new HashMap<String, String>());
 
+    /**
+     * Preparation for OmegaT Menu.
+     */
     private final JMenu menuItem = new JMenu();
     private final JMenuItem enableMenuItem = new JMenuItem();
     private final JMenuItem optionMenuItem = new JMenuItem();
@@ -162,15 +166,16 @@ public class OmegatTextraMachineTranslation implements IMachineTranslation, Acti
             if (dialog.isModified(options)) {
                 dialog.getData(options);
             }
-            setPreference(options);
+            savePreferences(options);
         }
     }
 
-    private void setPreference(TextraOptions options) {
+    private void savePreferences(TextraOptions options) {
         Preferences.setPreference(OPTION_TEXTRA_USERNAME, options.getUsername());
         Preferences.setPreference(OPTION_TEXTRA_APIKEY, options.getApikey());
         Preferences.setPreference(OPTION_TEXTRA_SECRET, options.getSecret());
         Preferences.setPreference(OPTION_TEXTRA_TRANSLATE_MODE, options.getMode());
+        Preferences.save();
     }
 
     public boolean isEnabled() {
