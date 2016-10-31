@@ -268,7 +268,7 @@ public class TextraOptionDialog extends JDialog {
         panel6.setLayout(new GridLayoutManager(4, 1, new Insets(0, 0, 0, 0), -1, -1));
         panel5.add(panel6, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         generalModeRadioButton = new JRadioButton();
-        generalModeRadioButton.setActionCommand("GENERAL");
+        generalModeRadioButton.setActionCommand("GENERIC");
         generalModeRadioButton.setSelected(true);
         this.$$$loadButtonText$$$(generalModeRadioButton, ResourceBundle.getBundle("tokyo/northside/omegat/textra/TextraMachineTranslation").getString("GeneralMode"));
         panel6.add(generalModeRadioButton, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
@@ -292,7 +292,7 @@ public class TextraOptionDialog extends JDialog {
         this.$$$loadButtonText$$$(JPOModeRadioButton, ResourceBundle.getBundle("tokyo/northside/omegat/textra/TextraMachineTranslation").getString("JpoPatentMode"));
         panel7.add(JPOModeRadioButton, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         JPOPatentOrderModeRadioButton = new JRadioButton();
-        JPOPatentOrderModeRadioButton.setActionCommand("JPO_PATENT_CLAIM");
+        JPOPatentOrderModeRadioButton.setActionCommand("JPO_CLAIM");
         this.$$$loadButtonText$$$(JPOPatentOrderModeRadioButton, ResourceBundle.getBundle("tokyo/northside/omegat/textra/TextraMachineTranslation").getString("JpoOrderMode"));
         panel7.add(JPOPatentOrderModeRadioButton, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         JPONICTPatentModeRadioButton = new JRadioButton();

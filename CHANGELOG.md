@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Fixed
+- Generic mode made exception with enum value.
 
 ## [0.2]
 ### Add
