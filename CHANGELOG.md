@@ -2,10 +2,21 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
-### Fixed
-- Generic mode made exception with enum value.
 
-## [0.2]
+
+## [0.3] - 2016-10-31
+### Add
+- Mode and language support validation check.
+
+### Changed
+- Use SLF4J for error message logging.
+
+### Fixed
+- Generic/JPO patent mode made exception with enum value.
+- Coding style improvement.
+- Potential NPE with Cache handling.
+
+## [0.2] - 2016-10-29
 ### Add
 - Configuration dialog for TexTra API key, secret and mode.
 
@@ -21,5 +32,6 @@ All notable changes to this project will be documented in this file.
 ### Added
 - Start project.
 
-[Unreleased]: https://github.com/miurahr/omegat-markdown-plugin/compare/v0.2...HEAD
+[Unreleased]: https://github.com/miurahr/omegat-markdown-plugin/compare/v0.3...HEAD
+[0.3]: https://github.com/miurahr/omegat-markdown-plugin/compare/v0.2...v0.3
 [0.2]: https://github.com/miurahr/omegat-markdown-plugin/compare/v0.1...v0.2
