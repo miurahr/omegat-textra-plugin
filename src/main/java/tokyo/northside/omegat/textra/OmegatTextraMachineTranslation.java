@@ -305,7 +305,9 @@ public class OmegatTextraMachineTranslation implements IMachineTranslation, Acti
     public String getTranslation(Language sLang, Language tLang, String text) throws Exception {
         if (enabled) {
             String result = translate(sLang, tLang, text);
-            putToCache(sLang, tLang, text, result);
+            if (result != null) {
+                putToCache(sLang, tLang, text, result);
+            }
             return result;
         } else {
             return null;
