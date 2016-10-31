@@ -143,6 +143,7 @@
                       <actionCommand value="GENERIC" noi18n="true"/>
                       <selected value="true"/>
                       <text resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="GeneralMode"/>
+                      <toolTipText resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="GenericModeToolTip"/>
                     </properties>
                   </component>
                   <component id="7c5fd" class="javax.swing.JRadioButton" binding="generalPlusModeRadioButton">
@@ -152,6 +153,7 @@
                     <properties>
                       <actionCommand value="MINNA" noi18n="true"/>
                       <text resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="GeneralPlusMode"/>
+                      <toolTipText resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="MinnaModeToolTip"/>
                     </properties>
                   </component>
                   <component id="acf2c" class="javax.swing.JRadioButton" binding="addressModeRadioButton" default-binding="true">
@@ -189,6 +191,7 @@
                     <properties>
                       <actionCommand value="JPO" noi18n="true"/>
                       <text resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="JpoPatentMode"/>
+                      <toolTipText resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="JpoPatentModeToolTip"/>
                     </properties>
                   </component>
                   <component id="e57f1" class="javax.swing.JRadioButton" binding="JPOPatentOrderModeRadioButton">
@@ -207,6 +210,7 @@
                     <properties>
                       <actionCommand value="JPO_NICT" noi18n="true"/>
                       <text resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="JpoNictPatentMode"/>
+                      <toolTipText resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="JpoNictPatentModeToolTip"/>
                     </properties>
                   </component>
                   <component id="e2a39" class="javax.swing.JRadioButton" binding="JPONICTPatentOrderRadioButton">

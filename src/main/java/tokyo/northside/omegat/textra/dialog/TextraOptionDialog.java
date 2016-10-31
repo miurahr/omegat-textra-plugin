@@ -271,10 +271,12 @@ public class TextraOptionDialog extends JDialog {
         generalModeRadioButton.setActionCommand("GENERIC");
         generalModeRadioButton.setSelected(true);
         this.$$$loadButtonText$$$(generalModeRadioButton, ResourceBundle.getBundle("tokyo/northside/omegat/textra/TextraMachineTranslation").getString("GeneralMode"));
+        generalModeRadioButton.setToolTipText(ResourceBundle.getBundle("tokyo/northside/omegat/textra/TextraMachineTranslation").getString("GenericModeToolTip"));
         panel6.add(generalModeRadioButton, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         generalPlusModeRadioButton = new JRadioButton();
         generalPlusModeRadioButton.setActionCommand("MINNA");
         this.$$$loadButtonText$$$(generalPlusModeRadioButton, ResourceBundle.getBundle("tokyo/northside/omegat/textra/TextraMachineTranslation").getString("GeneralPlusMode"));
+        generalPlusModeRadioButton.setToolTipText(ResourceBundle.getBundle("tokyo/northside/omegat/textra/TextraMachineTranslation").getString("MinnaModeToolTip"));
         panel6.add(generalPlusModeRadioButton, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         addressModeRadioButton = new JRadioButton();
         addressModeRadioButton.setActionCommand("ADDRESS");
@@ -290,6 +292,7 @@ public class TextraOptionDialog extends JDialog {
         JPOModeRadioButton = new JRadioButton();
         JPOModeRadioButton.setActionCommand("JPO");
         this.$$$loadButtonText$$$(JPOModeRadioButton, ResourceBundle.getBundle("tokyo/northside/omegat/textra/TextraMachineTranslation").getString("JpoPatentMode"));
+        JPOModeRadioButton.setToolTipText(ResourceBundle.getBundle("tokyo/northside/omegat/textra/TextraMachineTranslation").getString("JpoPatentModeToolTip"));
         panel7.add(JPOModeRadioButton, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         JPOPatentOrderModeRadioButton = new JRadioButton();
         JPOPatentOrderModeRadioButton.setActionCommand("JPO_CLAIM");
@@ -298,6 +301,7 @@ public class TextraOptionDialog extends JDialog {
         JPONICTPatentModeRadioButton = new JRadioButton();
         JPONICTPatentModeRadioButton.setActionCommand("JPO_NICT");
         this.$$$loadButtonText$$$(JPONICTPatentModeRadioButton, ResourceBundle.getBundle("tokyo/northside/omegat/textra/TextraMachineTranslation").getString("JpoNictPatentMode"));
+        JPONICTPatentModeRadioButton.setToolTipText(ResourceBundle.getBundle("tokyo/northside/omegat/textra/TextraMachineTranslation").getString("JpoNictPatentModeToolTip"));
         panel7.add(JPONICTPatentModeRadioButton, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         JPONICTPatentOrderRadioButton = new JRadioButton();
         JPONICTPatentOrderRadioButton.setActionCommand("JPO_NICT_CLAIM");
