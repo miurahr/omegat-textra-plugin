@@ -215,7 +215,14 @@ public class OmegatTextraMachineTranslation implements IMachineTranslation, Acti
         String apiEngine = options.getModeString();
         String sourceLang = sLang.getLanguageCode();
         String targetLang = tLang.getLanguageCode();
+
+        if (!options.isCombinationValid(sourceLang, targetLang)) {
+            logger.info("Invalid language combination for " + apiEngine + " and " + sourceLang + ", " + targetLang);
+            return null;
+        }
+
         String apiUrl = getAccessUrl(apiEngine, sourceLang, targetLang);
+        logger.debug("Access URL:" + apiUrl);
         RequestConfig requestConfig = RequestConfig.custom()
                 .setConnectTimeout(CONNECTION_TIMEOUT)
                 .setSocketTimeout(SO_TIMEOUT)
