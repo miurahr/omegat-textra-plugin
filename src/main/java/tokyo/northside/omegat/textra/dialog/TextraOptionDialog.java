@@ -20,6 +20,12 @@ import static tokyo.northside.omegat.textra.OmegatTextraMachineTranslation.API_K
 import static tokyo.northside.omegat.textra.OmegatTextraMachineTranslation.REGISTRATION_URL;
 import static tokyo.northside.omegat.textra.TextraOptions.TranslationMode.*;
 
+
+/**
+ * Dialog for configure TexTra options.
+ *
+ * @author Hiroshi Miura
+ */
 public class TextraOptionDialog extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
@@ -44,6 +50,9 @@ public class TextraOptionDialog extends JDialog {
 
     private boolean updated;
 
+    /**
+     * Dialog constructor.
+     */
     public TextraOptionDialog() {
         updated = false;
         setContentPane(contentPane);
@@ -108,7 +117,12 @@ public class TextraOptionDialog extends JDialog {
         dispose();
     }
 
-    public void setData(TextraOptions data) {
+    /**
+     * Setter for Dialog data.
+     *
+     * @param data dialog data.
+     */
+    public void setData(final TextraOptions data) {
         userNameTextField.setText(data.getUsername());
         apikeyTextField.setText(data.getApikey());
         secretTextField.setText(data.getSecret());
@@ -142,14 +156,25 @@ public class TextraOptionDialog extends JDialog {
         }
     }
 
-    public void getData(TextraOptions data) {
+    /**
+     * Getter for dialog data.
+     *
+     * @param data dialog data.
+     */
+    public void getData(final TextraOptions data) {
         data.setUsername(userNameTextField.getText());
         data.setApikey(apikeyTextField.getText());
         data.setSecret(secretTextField.getText());
         data.setMode(valueOf(modeButtonGroup.getSelection().getActionCommand()));
     }
 
-    public boolean isModified(TextraOptions data) {
+    /**
+     * Is dialog options changed?
+     *
+     * @param data previous data.
+     * @return true if user modified values.
+     */
+    public boolean isModified(final TextraOptions data) {
         if (!updated) {
             return false;
         }
@@ -167,6 +192,18 @@ public class TextraOptionDialog extends JDialog {
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
+    }
+
+    /**
+     * Only for test purpose.
+     *
+     * @param args command line arguments.
+     */
+    public static void main(String[] args) {
+        TextraOptionDialog dialog = new TextraOptionDialog();
+        dialog.pack();
+        dialog.setVisible(true);
+        System.exit(0);
     }
 
     {
@@ -347,16 +384,5 @@ public class TextraOptionDialog extends JDialog {
      */
     public JComponent $$$getRootComponent$$$() {
         return contentPane;
-    }
-
-    /**
-     * for test purpose.
-     * @param args
-     */
-    public static void main(String[] args) {
-        TextraOptionDialog dialog = new TextraOptionDialog();
-        dialog.pack();
-        dialog.setVisible(true);
-        System.exit(0);
     }
 }
