@@ -34,6 +34,8 @@ import java.util.Map;
 
 import javax.swing.*;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import tokyo.northside.omegat.textra.dialog.TextraOptionDialog;
 
 import org.omegat.core.Core;
@@ -72,7 +74,7 @@ public class OmegatTextraMachineTranslation implements IMachineTranslation, Acti
     public static final String API_URL = "https://mt-auto-minhon-mlt.ucri.jgn-x.jp/api/mt/";
     public static final String REGISTRATION_URL = "https://mt-auto-minhon-mlt.ucri.jgn-x.jp/content/register/";
     public static final String API_KEY_URL = "https://mt-auto-minhon-mlt.ucri.jgn-x.jp/content/mt/";
-
+    private static final Logger logger = LoggerFactory.getLogger(OmegatTextraMachineTranslation.class);
     private static final int CONNECTION_TIMEOUT = 2 * 60 * 1000;
     private static final int SO_TIMEOUT = 10 * 60 * 1000;
     private boolean enabled;
@@ -259,7 +261,7 @@ public class OmegatTextraMachineTranslation implements IMachineTranslation, Acti
             consumer.sign(httpPost);
         } catch (OAuthMessageSignerException | OAuthExpectationFailedException
                 | OAuthCommunicationException ex) {
-            System.err.println(ex.getMessage());
+            logger.info("OAuth error: " + ex.getMessage());
             return null;
         }
 
@@ -270,7 +272,7 @@ public class OmegatTextraMachineTranslation implements IMachineTranslation, Acti
             respBodyStream = httpResponse.getEntity().getContent();
             respStatus = httpResponse.getStatusLine().getStatusCode();
         } catch (IOException  ex) {
-            System.err.println(ex.getMessage());
+            logger.info("http access error: " + ex.getMessage());
             return null;
         }
 
@@ -287,7 +289,7 @@ public class OmegatTextraMachineTranslation implements IMachineTranslation, Acti
             JSONObject resultset = jobj.getJSONObject("resultset");
             result = resultset.getJSONObject("result").getString("text");
         } catch (IOException ex) {
-            System.err.println(ex.getMessage());
+            logger.info("Invalid http response: " + ex.getMessage());
             return null;
         }
         return result;
