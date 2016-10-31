@@ -75,6 +75,8 @@ checkstyle {
     ignoreFailures = true
     toolVersion = '7.1'
 }
+// Exclude generated source.
+checkstyleMain.exclude '**/dialog/TextraOptionDialog.java'
 
 // Force prevent checkstyle/findbugs on Test.
 task checkstyleTest(overwrite: true) << {}
