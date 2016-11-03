@@ -193,12 +193,12 @@ public class TextraOptions {
 
     /**
      * Setter of Apikey.
-     * @param key to set.
+     * @param apiKey to set.
      * @return this object.
      */
     @SuppressWarnings("HiddenField")
-    public TextraOptions setApikey(final String key) {
-        this.apikey = key;
+    public TextraOptions setApikey(final String apiKey) {
+        this.apikey = apiKey;
         return this;
     }
 
@@ -271,14 +271,31 @@ public class TextraOptions {
 
     /**
      * Set language options.
+     * <p>
+     *     Format language string as like "zh-CN", "en", "ja"
+     *     to be a proper case.
+     *     Because OmegaT may give language in capital letter such as "EN".
+     * </p>
      * @param sLang source language.
      * @param tLang target language.
      * @return this object.
      */
     public TextraOptions setLang(final String sLang, final String tLang) {
-        this.sourceLang = sLang;
-        this.targetLang = tLang;
+        this.sourceLang = formatLang(sLang);
+        this.targetLang = formatLang(tLang);
         return this;
+    }
+
+    private String formatLang(final String lang) {
+        String result;
+        if (lang.contains("-")) {
+            int index = lang.indexOf("-");
+            result = lang.substring(0, index).toLowerCase() + lang
+                    .substring(index, lang.length() - index ).toUpperCase();
+        } else {
+            result = lang.toLowerCase();
+        }
+        return result;
     }
 
     /**

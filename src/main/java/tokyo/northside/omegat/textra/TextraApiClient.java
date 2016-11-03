@@ -42,20 +42,6 @@ public class TextraApiClient {
     private RequestConfig requestConfig;
 
     /**
-     * Constructor prepares httpClient object.
-     */
-    public TextraApiClient() {
-        requestConfig = RequestConfig.custom()
-                .setConnectTimeout(CONNECTION_TIMEOUT)
-                .setSocketTimeout(SO_TIMEOUT)
-                .build();
-        httpClient = HttpClientBuilder.create()
-                .setDefaultRequestConfig(requestConfig)
-                .setRetryHandler(new DefaultHttpRequestRetryHandler(3, true))
-                .build();
-    }
-
-    /**
      * Try authenticate OAuth with given key/secret.
      * @param options connectivity options.
      * @param text source text for translation.
@@ -67,6 +53,14 @@ public class TextraApiClient {
 
     private void authenticate(final String url, final String apiUsername, final String apiKey,
                       final String apiSecret, final String text) {
+        httpClient = HttpClientBuilder.create()
+                .setDefaultRequestConfig(requestConfig)
+                .setRetryHandler(new DefaultHttpRequestRetryHandler(3, true))
+                .build();
+        requestConfig = RequestConfig.custom()
+                .setConnectTimeout(CONNECTION_TIMEOUT)
+                .setSocketTimeout(SO_TIMEOUT)
+                .build();
         httpPost = new HttpPost(url);
         httpPost.setConfig(requestConfig);
         OAuthConsumer consumer = new CommonsHttpOAuthConsumer(apiKey, apiSecret);
@@ -76,8 +70,9 @@ public class TextraApiClient {
         postParameters.add(new BasicNameValuePair("name", apiUsername));
         postParameters.add(new BasicNameValuePair("type", "json"));
         postParameters.add(new BasicNameValuePair("text", text));
+
         try {
-            new UrlEncodedFormEntity(postParameters, "UTF-8");
+            httpPost.setEntity(new UrlEncodedFormEntity(postParameters, "UTF-8"));
         } catch (UnsupportedEncodingException ex) {
             LOGGER.info("Encoding error.");
         }
@@ -115,6 +110,7 @@ public class TextraApiClient {
         try (BufferedInputStream bis = new BufferedInputStream(respBodyStream)) {
             LOGGER.debug("Http response status: " + respStatus);
             String rsp = IOUtils.toString(bis);
+            LOGGER.info("response body: " + rsp);
             JSONObject jobj = new JSONObject(rsp);
             JSONObject resultset = jobj.getJSONObject("resultset");
             result = resultset.getJSONObject("result").getString("text");
