@@ -3,6 +3,18 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.4] - 2016-11-03
+### Add
+- Unit tests
+
+### Changed
+- Refactoring class design.
+- Ignore exception if fails launching web browser on desktop.
+
+### Fixed
+- Method name typo: Not found unloadPlugin method when exit.
+- Build system typo for integration test.
+
 
 ## [0.3] - 2016-10-31
 ### Add
@@ -15,6 +27,7 @@ All notable changes to this project will be documented in this file.
 - Generic/JPO patent mode made exception with enum value.
 - Coding style improvement.
 - Potential NPE with Cache handling.
+
 
 ## [0.2] - 2016-10-29
 ### Add
@@ -32,6 +45,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 - Start project.
 
-[Unreleased]: https://github.com/miurahr/omegat-markdown-plugin/compare/v0.3...HEAD
+[Unreleased]: https://github.com/miurahr/omegat-markdown-plugin/compare/v0.4...HEAD
+[0.4]: https://github.com/miurahr/omegat-markdown-plugin/compare/v0.3...v0.4
 [0.3]: https://github.com/miurahr/omegat-markdown-plugin/compare/v0.2...v0.3
 [0.2]: https://github.com/miurahr/omegat-markdown-plugin/compare/v0.1...v0.2
