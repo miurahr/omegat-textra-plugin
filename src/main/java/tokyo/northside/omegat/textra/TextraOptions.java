@@ -12,67 +12,69 @@ public class TextraOptions {
     private String username;
     private String apikey;
     private String secret;
-    private TranslationMode mode;
+    private Mode mode;
+    private String sourceLang;
+    private String targetLang;
 
     private Set<Combination> combination = new HashSet<>();
 
     {
-        combination.add(new Combination(TranslationMode.GENERIC, "ja", "en"));
-        combination.add(new Combination(TranslationMode.GENERIC, "en", "ja"));
-        combination.add(new Combination(TranslationMode.GENERIC, "ka", "ja"));
-        combination.add(new Combination(TranslationMode.GENERIC, "ja", "ka"));
-        combination.add(new Combination(TranslationMode.GENERIC, "ka", "en"));
-        combination.add(new Combination(TranslationMode.GENERIC, "en", "ka"));
-        combination.add(new Combination(TranslationMode.GENERIC, "en", "zh-CN"));
-        combination.add(new Combination(TranslationMode.GENERIC, "en", "zh-TW"));
-        combination.add(new Combination(TranslationMode.GENERIC, "ja", "zh-CN"));
-        combination.add(new Combination(TranslationMode.GENERIC, "ja", "zh-TW"));
-        combination.add(new Combination(TranslationMode.GENERIC, "zh-CN", "en"));
-        combination.add(new Combination(TranslationMode.GENERIC, "zh-TW", "en"));
-        combination.add(new Combination(TranslationMode.GENERIC, "zh-CN", "ja"));
-        combination.add(new Combination(TranslationMode.GENERIC, "zh-TW", "ja"));
-        combination.add(new Combination(TranslationMode.ADDRESS, "ja", "en"));
-        combination.add(new Combination(TranslationMode.ADDRESS, "en", "ja"));
+        combination.add(new Combination(Mode.GENERIC, "ja", "en"));
+        combination.add(new Combination(Mode.GENERIC, "en", "ja"));
+        combination.add(new Combination(Mode.GENERIC, "ka", "ja"));
+        combination.add(new Combination(Mode.GENERIC, "ja", "ka"));
+        combination.add(new Combination(Mode.GENERIC, "ka", "en"));
+        combination.add(new Combination(Mode.GENERIC, "en", "ka"));
+        combination.add(new Combination(Mode.GENERIC, "en", "zh-CN"));
+        combination.add(new Combination(Mode.GENERIC, "en", "zh-TW"));
+        combination.add(new Combination(Mode.GENERIC, "ja", "zh-CN"));
+        combination.add(new Combination(Mode.GENERIC, "ja", "zh-TW"));
+        combination.add(new Combination(Mode.GENERIC, "zh-CN", "en"));
+        combination.add(new Combination(Mode.GENERIC, "zh-TW", "en"));
+        combination.add(new Combination(Mode.GENERIC, "zh-CN", "ja"));
+        combination.add(new Combination(Mode.GENERIC, "zh-TW", "ja"));
+        combination.add(new Combination(Mode.ADDRESS, "ja", "en"));
+        combination.add(new Combination(Mode.ADDRESS, "en", "ja"));
 
-        combination.add(new Combination(TranslationMode.JPO_CLAIM, "zh-CN", "ja"));
-        combination.add(new Combination(TranslationMode.JPO_CLAIM, "zh-TW", "ja"));
-        combination.add(new Combination(TranslationMode.JPO_CLAIM, "ja", "zh-CN"));
-        combination.add(new Combination(TranslationMode.JPO_CLAIM, "ja", "zh-TW"));
+        combination.add(new Combination(Mode.JPO_CLAIM, "zh-CN", "ja"));
+        combination.add(new Combination(Mode.JPO_CLAIM, "zh-TW", "ja"));
+        combination.add(new Combination(Mode.JPO_CLAIM, "ja", "zh-CN"));
+        combination.add(new Combination(Mode.JPO_CLAIM, "ja", "zh-TW"));
 
-        combination.add(new Combination(TranslationMode.JPO_NICT_CLAIM, "ja", "en"));
-        combination.add(new Combination(TranslationMode.JPO_NICT_CLAIM, "en", "ja"));
+        combination.add(new Combination(Mode.JPO_NICT_CLAIM, "ja", "en"));
+        combination.add(new Combination(Mode.JPO_NICT_CLAIM, "en", "ja"));
 
-        combination.add(new Combination(TranslationMode.JPO_NICT, "en", "ja"));
-        combination.add(new Combination(TranslationMode.JPO_NICT, "ka", "ja"));
-        combination.add(new Combination(TranslationMode.JPO_NICT, "ja", "en"));
-        combination.add(new Combination(TranslationMode.JPO_NICT, "ja", "ka"));
+        combination.add(new Combination(Mode.JPO_NICT, "en", "ja"));
+        combination.add(new Combination(Mode.JPO_NICT, "ka", "ja"));
+        combination.add(new Combination(Mode.JPO_NICT, "ja", "en"));
+        combination.add(new Combination(Mode.JPO_NICT, "ja", "ka"));
 
-        combination.add(new Combination(TranslationMode.JPO, "zh-CN", "ja"));
-        combination.add(new Combination(TranslationMode.JPO, "zh-TW", "ja"));
-        combination.add(new Combination(TranslationMode.JPO, "ja", "zh-CN"));
-        combination.add(new Combination(TranslationMode.JPO, "ja", "zh-TW"));
+        combination.add(new Combination(Mode.JPO, "zh-CN", "ja"));
+        combination.add(new Combination(Mode.JPO, "zh-TW", "ja"));
+        combination.add(new Combination(Mode.JPO, "ja", "zh-CN"));
+        combination.add(new Combination(Mode.JPO, "ja", "zh-TW"));
 
-        combination.add(new Combination(TranslationMode.MINNA, "ja", "en"));
-        combination.add(new Combination(TranslationMode.MINNA, "en", "ja"));
-        combination.add(new Combination(TranslationMode.MINNA, "ja", "ka"));
-        combination.add(new Combination(TranslationMode.MINNA, "ka", "ja"));
-        combination.add(new Combination(TranslationMode.MINNA, "ja", "zh-CN"));
-        combination.add(new Combination(TranslationMode.MINNA, "ja", "zh-TW"));
-        combination.add(new Combination(TranslationMode.MINNA, "zh-CN", "ja"));
-        combination.add(new Combination(TranslationMode.MINNA, "zh-TW", "ja"));
+        combination.add(new Combination(Mode.MINNA, "ja", "en"));
+        combination.add(new Combination(Mode.MINNA, "en", "ja"));
+        combination.add(new Combination(Mode.MINNA, "ja", "ka"));
+        combination.add(new Combination(Mode.MINNA, "ka", "ja"));
+        combination.add(new Combination(Mode.MINNA, "ja", "zh-CN"));
+        combination.add(new Combination(Mode.MINNA, "ja", "zh-TW"));
+        combination.add(new Combination(Mode.MINNA, "zh-CN", "ja"));
+        combination.add(new Combination(Mode.MINNA, "zh-TW", "ja"));
 
-        combination.add(new Combination(TranslationMode.PATENT, "zh-CN", "en"));
-        combination.add(new Combination(TranslationMode.PATENT, "zh-TW", "en"));
-        combination.add(new Combination(TranslationMode.PATENT, "en", "zh-CN"));
-        combination.add(new Combination(TranslationMode.PATENT, "en", "zh-TW"));
+        combination.add(new Combination(Mode.PATENT, "zh-CN", "en"));
+        combination.add(new Combination(Mode.PATENT, "zh-TW", "en"));
+        combination.add(new Combination(Mode.PATENT, "en", "zh-CN"));
+        combination.add(new Combination(Mode.PATENT, "en", "zh-TW"));
     }
 
     private static class Combination {
-        static TranslationMode mode;
+        static Mode mode;
         static String sLang;
         static String tLang;
 
-        Combination (final TranslationMode mode, final String sLang, final String tLang) {
+        Combination (final Mode mode, final String sLang, final String tLang) {
             this.mode = mode;
             this.sLang = sLang;
             this.tLang = tLang;
@@ -110,20 +112,19 @@ public class TextraOptions {
          */
         @Override
         public int hashCode() {
-            String base = mode.name().toLowerCase() + "_" + sLang.toLowerCase() + "_" + tLang.toLowerCase();
-            return base.hashCode();
+            return (mode.name() + sLang.toLowerCase() + tLang.toLowerCase()).hashCode();
         }
     }
 
-    public boolean isCombinationValid(final String sLang, final String tLang) {
-        return combination.contains(new Combination(mode, sLang, tLang));
+    public boolean isCombinationValid() {
+        return combination.contains(new Combination(mode, sourceLang, targetLang));
     }
 
     /**
      * Translation mode.
      * These name is as same as an part of API URL.
      */
-    public enum TranslationMode {
+    public enum Mode {
         /** generic translation.
          * English/Japanese/Chinese/Korean
          */
@@ -156,14 +157,6 @@ public class TextraOptions {
          * Japanese/English
          */
         JPO_NICT_CLAIM;
-    }
-
-    /**
-     * A part of URL string for the mode.
-     * @return API mode string for target URL.
-     */
-    public String getModeString() {
-        return mode.name().replace("_", "-").toLowerCase();
     }
 
     /**
@@ -218,7 +211,7 @@ public class TextraOptions {
      * Getter of mode.
      * @return TranslateMode enum value.
      */
-    public TranslationMode getMode() {
+    public Mode getMode() {
         return mode;
     }
 
@@ -226,7 +219,49 @@ public class TextraOptions {
      * Setter of mode.
      * @param mode TranslateMode.
      */
-    public void setMode(final TranslationMode mode) {
+    public void setMode(final Mode mode) {
         this.mode = mode;
+    }
+
+    /**
+     * Get mode name.
+     * @return API mode string for target URL.
+     */
+    public String getModeName() {
+        return mode.name();
+    }
+
+    /**
+     * Setter of mode by String.
+     */
+    public void setMode(final String name) {
+        if (name != null) {
+            mode = Enum.valueOf(Mode.class, name);
+        }
+    }
+
+    /**
+     * Ask mode.
+     * @return true if mode name equals.
+     */
+    public boolean isMode(final String name) {
+        if (name == null) return false;
+        return mode==Enum.valueOf(Mode.class, name);
+    }
+
+    public String getSourceLang() {
+        return sourceLang;
+    }
+
+    public void setSourceLang(String sLang) {
+        this.sourceLang = sLang;
+    }
+
+    public String getTargetLang() {
+        return targetLang;
+    }
+
+    public void setTargetLang(String tLang) {
+        this.targetLang = tLang;
     }
 }
