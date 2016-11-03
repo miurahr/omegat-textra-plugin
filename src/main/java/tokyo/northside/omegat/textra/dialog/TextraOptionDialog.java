@@ -4,21 +4,12 @@ import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
 import tokyo.northside.omegat.textra.TextraOptions;
-import tokyo.northside.omegat.textra.TextraOptions.TranslationMode;
 import tokyo.northside.omegat.textra.WebBrowser;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.ResourceBundle;
-
-import static tokyo.northside.omegat.textra.OmegatTextraMachineTranslation.API_KEY_URL;
-import static tokyo.northside.omegat.textra.OmegatTextraMachineTranslation.REGISTRATION_URL;
-import static tokyo.northside.omegat.textra.TextraOptions.TranslationMode.*;
 
 
 /**
@@ -48,6 +39,9 @@ public class TextraOptionDialog extends JDialog {
     private JButton checkTexTraAPIKeyButton;
     private ButtonGroup modeButtonGroup;
 
+    private static final String REGISTRATION_URL = "https://mt-auto-minhon-mlt.ucri.jgn-x.jp/content/register/";
+    private static final String API_KEY_URL = "https://mt-auto-minhon-mlt.ucri.jgn-x.jp/content/mt/";
+
     private boolean updated;
 
     /**
@@ -58,54 +52,14 @@ public class TextraOptionDialog extends JDialog {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
-
-        buttonOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onOK();
-            }
-        });
-
-        buttonCancel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        });
-
-        // call onCancel() when cross is clicked
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                onCancel();
-            }
-        });
-
+        buttonOK.addActionListener(e -> onOK());
+        buttonCancel.addActionListener(e -> onCancel());
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         // call onCancel() on ESCAPE
-        contentPane.registerKeyboardAction(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-
-        registerNewTexTraUserButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                try {
-                    WebBrowser.launch(REGISTRATION_URL);
-                } catch (Exception e) {
-                    // TODO: implement me.
-                }
-            }
-        });
-        checkTexTraAPIKeyButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                try {
-                    WebBrowser.launch(API_KEY_URL);
-                } catch (Exception e) {
-                    // TODO: implement me.
-                }
-            }
-        });
+        contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
+                JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        registerNewTexTraUserButton.addActionListener(actionEvent ->  WebBrowser.launch(REGISTRATION_URL));
+        checkTexTraAPIKeyButton.addActionListener(actionEvent -> WebBrowser.launch(API_KEY_URL));
     }
 
     private void onOK() {
@@ -126,8 +80,7 @@ public class TextraOptionDialog extends JDialog {
         userNameTextField.setText(data.getUsername());
         apikeyTextField.setText(data.getApikey());
         secretTextField.setText(data.getSecret());
-        TranslationMode mode = data.getMode();
-        switch (mode) {
+        switch (data.getMode()) {
             case ADDRESS:
                 addressModeRadioButton.setSelected(true);
                 break;
@@ -165,7 +118,7 @@ public class TextraOptionDialog extends JDialog {
         data.setUsername(userNameTextField.getText());
         data.setApikey(apikeyTextField.getText());
         data.setSecret(secretTextField.getText());
-        data.setMode(valueOf(modeButtonGroup.getSelection().getActionCommand()));
+        data.setMode(modeButtonGroup.getSelection().getActionCommand());
     }
 
     /**
@@ -184,7 +137,7 @@ public class TextraOptionDialog extends JDialog {
             return true;
         if (secretTextField.getText() != null ? !secretTextField.getText().equals(data.getSecret()) : data.getSecret() != null)
             return true;
-        if (!TranslationMode.valueOf(modeButtonGroup.getSelection().getActionCommand()).equals(data.getMode())) {
+        if (!data.isMode(modeButtonGroup.getSelection().getActionCommand())) {
             return true;
         }
         return false;
