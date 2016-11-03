@@ -22,14 +22,8 @@ package tokyo.northside.omegat.textra;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.swing.*;
@@ -42,26 +36,10 @@ import org.omegat.core.Core;
 import org.omegat.gui.exttrans.IMachineTranslation;
 import org.omegat.util.Language;
 
-import oauth.signpost.OAuthConsumer;
-import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer;
-import oauth.signpost.exception.OAuthCommunicationException;
-import oauth.signpost.exception.OAuthExpectationFailedException;
-import oauth.signpost.exception.OAuthMessageSignerException;
-
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.config.RequestConfig;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.commons.io.IOUtils;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpRequestRetryHandler;
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONObject;
 import org.omegat.util.Preferences;
 import org.openide.awt.Mnemonics;
 
-import static tokyo.northside.omegat.textra.TextraOptions.TranslationMode.MINNA;
+import static tokyo.northside.omegat.textra.TextraOptions.Mode.MINNA;
 
 
 /**
@@ -71,14 +49,9 @@ import static tokyo.northside.omegat.textra.TextraOptions.TranslationMode.MINNA;
  */
 @SuppressWarnings({ "unchecked", "rawtypes" })
 public class OmegatTextraMachineTranslation implements IMachineTranslation, ActionListener {
-    public static final String API_URL = "https://mt-auto-minhon-mlt.ucri.jgn-x.jp/api/mt/";
-    public static final String REGISTRATION_URL = "https://mt-auto-minhon-mlt.ucri.jgn-x.jp/content/register/";
-    public static final String API_KEY_URL = "https://mt-auto-minhon-mlt.ucri.jgn-x.jp/content/mt/";
     private static final Logger logger = LoggerFactory.getLogger(OmegatTextraMachineTranslation.class);
-    private static final int CONNECTION_TIMEOUT = 2 * 60 * 1000;
-    private static final int SO_TIMEOUT = 10 * 60 * 1000;
-    private boolean enabled;
-    private TextraOptions options;
+    protected boolean enabled;
+    protected TextraOptions options;
 
     /**
      * Machine translation implementation can use this cache for skip requests twice. Cache will not be
@@ -114,12 +87,15 @@ public class OmegatTextraMachineTranslation implements IMachineTranslation, Acti
      */
     public OmegatTextraMachineTranslation() {
         initOptions();
-        enabled = Preferences.isPreference(OPTION_ALLOW_TEXTRA_TRANSLATE);
+        initEnabled();
         initMenus();
-        Core.getMainWindow().getMainMenu().getMachineTranslationMenu().add(menuItem);
     }
 
-    private void initOptions() {
+    protected void initEnabled() {
+        enabled = Preferences.isPreference(OPTION_ALLOW_TEXTRA_TRANSLATE);
+    }
+
+    protected void initOptions() {
         options = new TextraOptions();
         options.setUsername(Preferences.getPreference(OPTION_TEXTRA_USERNAME));
         options.setApikey(Preferences.getPreference(OPTION_TEXTRA_APIKEY));
@@ -127,7 +103,7 @@ public class OmegatTextraMachineTranslation implements IMachineTranslation, Acti
         options.setMode(Preferences.getPreferenceEnumDefault(OPTION_TEXTRA_TRANSLATE_MODE, MINNA));
     }
 
-    private void initMenus() {
+    protected void initMenus() {
         Mnemonics.setLocalizedText(optionMenuItem, MENU_SET_OPTIONS);
         optionMenuItem.setActionCommand(ACTION_MENU_OPTIONS);
         updateMenuItem();
@@ -135,6 +111,7 @@ public class OmegatTextraMachineTranslation implements IMachineTranslation, Acti
         menuItem.add(optionMenuItem);
         enableMenuItem.addActionListener(this);
         optionMenuItem.addActionListener(this);
+        Core.getMainWindow().getMainMenu().getMachineTranslationMenu().add(menuItem);
     }
 
     private void updateMenuItem() {
@@ -206,101 +183,23 @@ public class OmegatTextraMachineTranslation implements IMachineTranslation, Acti
      * Unregister plugin.
      * Currently not supported.
      */
-    public static void enloadPlugins() {
+    public static void unloadPlugins() {
     }
 
     protected String translate(final Language sLang, final Language tLang, final String text)
             throws Exception {
-
-        String apiEngine = options.getModeString();
-        String sourceLang = sLang.getLanguageCode();
-        String targetLang = tLang.getLanguageCode();
-
-        if (!options.isCombinationValid(sourceLang, targetLang)) {
-            logger.info("Invalid language combination for " + apiEngine + " and " + sourceLang + ", " + targetLang);
+        // Set TexTra access options
+        options.setSourceLang(sLang.getLanguageCode());
+        options.setTargetLang(tLang.getLanguageCode());
+        if (!options.isCombinationValid()) {
+            logger.info("Invalid language combination for " + options.getModeName() + " and " +
+                    options.getSourceLang() + ", " + options.getTargetLang());
             return null;
         }
-
-        String apiUrl = getAccessUrl(apiEngine, sourceLang, targetLang);
-        logger.debug("Access URL:" + apiUrl);
-        RequestConfig requestConfig = RequestConfig.custom()
-                .setConnectTimeout(CONNECTION_TIMEOUT)
-                .setSocketTimeout(SO_TIMEOUT)
-                .build();
-        HttpClient httpClient = HttpClientBuilder.create()
-                .setDefaultRequestConfig(requestConfig)
-                .setRetryHandler(new DefaultHttpRequestRetryHandler(3, true))
-                .build();
-        return requestTranslate(httpClient, apiUrl, text);
-    }
-
-    private String getAccessUrl(final String engine, final String sourceLang,
-                                final String targetLang) {
-        return API_URL + engine + "_" + sourceLang +
-                "_" + targetLang + "/";
-    }
-
-    private String requestTranslate(final HttpClient httpClient, final String url, final String text) {
-        String apiUsername = options.getUsername();
-        String apiKey = options.getApikey();
-        String apiSecret = options.getSecret();
-
-        HttpPost httpPost = new HttpPost(url);
-        OAuthConsumer consumer = new CommonsHttpOAuthConsumer(apiKey, apiSecret);
-        RequestConfig requestConfig = RequestConfig.custom()
-            .setConnectTimeout(CONNECTION_TIMEOUT)
-            .setSocketTimeout(SO_TIMEOUT)
-            .build();
-        httpPost.setConfig(requestConfig);
-        List<BasicNameValuePair> postParameters = new ArrayList<>(5);
-        postParameters.add(new BasicNameValuePair("key", apiKey));
-        postParameters.add(new BasicNameValuePair("name", apiUsername));
-        postParameters.add(new BasicNameValuePair("type", "json"));
-        postParameters.add(new BasicNameValuePair("text", text));
-
-        try {
-            httpPost.setEntity(new UrlEncodedFormEntity(postParameters, "UTF-8"));
-        } catch (UnsupportedEncodingException ex) {
-            return null;
-        }
-
-        try {
-            consumer.sign(httpPost);
-        } catch (OAuthMessageSignerException | OAuthExpectationFailedException
-                | OAuthCommunicationException ex) {
-            logger.info("OAuth error: " + ex.getMessage());
-            return null;
-        }
-
-        int respStatus;
-        InputStream respBodyStream;
-        try {
-            HttpResponse httpResponse = httpClient.execute(httpPost);
-            respBodyStream = httpResponse.getEntity().getContent();
-            respStatus = httpResponse.getStatusLine().getStatusCode();
-        } catch (IOException  ex) {
-            logger.info("http access error: " + ex.getMessage());
-            return null;
-        }
-
-        if (respStatus != 200) {
-            System.err.println(String.format("Get response: %d", respStatus));
-            return null;
-        }
-
-        String result;
-        try (BufferedInputStream bis = new BufferedInputStream(respBodyStream)) {
-            System.out.println("Http response status: " + respStatus);
-            String rsp = IOUtils.toString(bis);
-            JSONObject jobj = new JSONObject(rsp);
-            JSONObject resultset = jobj.getJSONObject("resultset");
-            result = resultset.getJSONObject("result").getString("text");
-        } catch (IOException ex) {
-            logger.info("Invalid http response: " + ex.getMessage());
-            return null;
-        }
-        return result;
-    }
+        // Get HttpClient and HttpPost, then get response for the request.
+        HttpRequestPair pair = TextraApiHelper.query(options, text);
+        return TextraApiHelper.getResponse(pair);
+     }
 
     public String getTranslation(Language sLang, Language tLang, String text) throws Exception {
         if (enabled) {
