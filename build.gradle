@@ -28,6 +28,8 @@ sourceSets {
         runtimeClasspath += main.output + test.output + configurations.provided
         java {
             srcDir file('src/integration-test/java')
+        }
+        groovy {
             srcDir file('src/integration-test/groovy')
         }
         resources.srcDir file('src/integration-test/resources')
