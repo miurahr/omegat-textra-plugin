@@ -186,23 +186,25 @@ public class OmegatTextraMachineTranslation implements IMachineTranslation, Acti
     public static void unloadPlugins() {
     }
 
-    protected String translate(final Language sLang, final Language tLang, final String text)
+    protected String translate(final String text)
             throws Exception {
-        // Set TexTra access options
-        options.setLang(sLang.getLanguageCode(), tLang.getLanguageCode());
-        if (!options.isCombinationValid()) {
-            logger.info("Invalid language combination for " + options.getModeName() + " and " +
-                    options.getSourceLang() + ", " + options.getTargetLang());
-            return null;
-        }
-        // Get HttpClient and HttpPost, then get response for the request.
-        HttpRequestPair pair = TextraApiHelper.query(options, text);
-        return TextraApiHelper.getResponse(pair);
+       // Access to TexTra Web API
+        TextraApiClient client = new TextraApiClient();
+        client.authenticate(options, text);
+        return client.executeTranslation();
      }
 
     public String getTranslation(Language sLang, Language tLang, String text) throws Exception {
         if (enabled) {
-            String result = translate(sLang, tLang, text);
+            // Set TexTra access options
+            options.setLang(sLang.getLanguageCode(), tLang.getLanguageCode());
+            if (!options.isCombinationValid()) {
+                logger.info("Invalid language combination for " + options.getModeName() + " and " +
+                        options.getSourceLang() + ", " + options.getTargetLang());
+                return null;
+            }
+
+            String result = translate(text);
             if (result != null) {
                 putToCache(sLang, tLang, text, result);
             }

@@ -23,9 +23,9 @@ class OmegatTextraMachineTranslationTest  {
         }
 
         @Override
-        protected String translate(final Language sLang, final Language tLang, final String text)
+        protected String translate(final String text)
                 throws Exception {
-            return "Translated."
+            return "Translated " + text
         }
     }
 
@@ -48,13 +48,15 @@ class OmegatTextraMachineTranslationTest  {
     void testGetTranslation() {
         Language sLang = new Language("en")
         Language tLang = new Language("ja")
-        assertEquals(mock.getTranslation(sLang, tLang, "Source text."), "Translated.")
+        String text = "Source Text."
+        assertEquals(mock.getTranslation(sLang, tLang, text), "Translated " + text)
     }
 
     @Test(dependsOnMethods = "testGetTranslation")
     void testGetCachedTranslation() {
         Language sLang = new Language("en")
         Language tLang = new Language("ja")
-        assertEquals(mock.getCachedTranslation(sLang, tLang, "Source text."), "Translated.")
+        String text = "Source text." // Same as testGetTranslation()
+        assertEquals(mock.getCachedTranslation(sLang, tLang, text), "Translated " + text)
     }
 }
