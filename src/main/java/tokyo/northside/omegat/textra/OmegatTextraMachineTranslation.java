@@ -96,11 +96,11 @@ public class OmegatTextraMachineTranslation implements IMachineTranslation, Acti
     }
 
     protected void initOptions() {
-        options = new TextraOptions();
-        options.setUsername(Preferences.getPreference(OPTION_TEXTRA_USERNAME));
-        options.setApikey(Preferences.getPreference(OPTION_TEXTRA_APIKEY));
-        options.setSecret(Preferences.getPreference(OPTION_TEXTRA_SECRET));
-        options.setMode(Preferences.getPreferenceEnumDefault(OPTION_TEXTRA_TRANSLATE_MODE, MINNA));
+        options = new TextraOptions()
+                .setUsername(Preferences.getPreference(OPTION_TEXTRA_USERNAME))
+                .setApikey(Preferences.getPreference(OPTION_TEXTRA_APIKEY))
+                .setSecret(Preferences.getPreference(OPTION_TEXTRA_SECRET))
+                .setMode(Preferences.getPreferenceEnumDefault(OPTION_TEXTRA_TRANSLATE_MODE, MINNA));
     }
 
     protected void initMenus() {
@@ -189,8 +189,7 @@ public class OmegatTextraMachineTranslation implements IMachineTranslation, Acti
     protected String translate(final Language sLang, final Language tLang, final String text)
             throws Exception {
         // Set TexTra access options
-        options.setSourceLang(sLang.getLanguageCode());
-        options.setTargetLang(tLang.getLanguageCode());
+        options.setLang(sLang.getLanguageCode(), tLang.getLanguageCode());
         if (!options.isCombinationValid()) {
             logger.info("Invalid language combination for " + options.getModeName() + " and " +
                     options.getSourceLang() + ", " + options.getTargetLang());

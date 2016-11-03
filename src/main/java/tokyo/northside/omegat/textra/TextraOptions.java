@@ -171,8 +171,9 @@ public class TextraOptions {
      * Setter of username.
      * @param username to set.
      */
-    public void setUsername(final String username) {
+    public TextraOptions setUsername(final String username) {
         this.username = username;
+        return this;
     }
 
     /**
@@ -187,8 +188,9 @@ public class TextraOptions {
      * Setter of Apikey.
      * @param apikey to set.
      */
-    public void setApikey(final String apikey) {
+    public TextraOptions setApikey(final String apikey) {
         this.apikey = apikey;
+        return this;
     }
 
     /**
@@ -203,8 +205,9 @@ public class TextraOptions {
      * Setter of secret.
      * @param secret to set.
      */
-    public void setSecret(final String secret) {
+    public TextraOptions setSecret(final String secret) {
         this.secret = secret;
+        return this;
     }
 
     /**
@@ -219,8 +222,9 @@ public class TextraOptions {
      * Setter of mode.
      * @param mode TranslateMode.
      */
-    public void setMode(final Mode mode) {
+    public TextraOptions setMode(final Mode mode) {
         this.mode = mode;
+        return this;
     }
 
     /**
@@ -234,10 +238,11 @@ public class TextraOptions {
     /**
      * Setter of mode by String.
      */
-    public void setMode(final String name) {
+    public TextraOptions setMode(final String name) {
         if (name != null) {
             mode = Enum.valueOf(Mode.class, name);
         }
+        return this;
     }
 
     /**
@@ -247,6 +252,12 @@ public class TextraOptions {
     public boolean isMode(final String name) {
         if (name == null) return false;
         return mode==Enum.valueOf(Mode.class, name);
+    }
+
+    public TextraOptions setLang(final String sLang, final String tLang) {
+        this.sourceLang = sLang;
+        this.targetLang = tLang;
+        return this;
     }
 
     public String getSourceLang() {
