@@ -26,7 +26,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.swing.*;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,15 +50,18 @@ import static tokyo.northside.omegat.textra.TextraOptions.Mode.MINNA;
  */
 @SuppressWarnings({ "unchecked", "rawtypes" })
 public class OmegatTextraMachineTranslation implements IMachineTranslation, ActionListener {
-    private static final Logger logger = LoggerFactory.getLogger(OmegatTextraMachineTranslation.class);
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(OmegatTextraMachineTranslation.class);
     protected boolean enabled;
     protected TextraOptions options;
 
     /**
-     * Machine translation implementation can use this cache for skip requests twice. Cache will not be
-     * cleared during OmegaT work, but it's okay - nobody will work weeks without exit.
+     * Machine translation implementation can use this cache for skip requests twice.
+     * Cache will not be cleared during OmegaT work.
+     * FIXME: add timeout and flush functionality.
      */
-    private final Map<String, String> cache = Collections.synchronizedMap(new HashMap<String, String>());
+    private final Map<String, String> cache = Collections.synchronizedMap(new HashMap<String,
+            String>());
 
     /**
      * Preparation for OmegaT Menu.
@@ -126,14 +130,18 @@ public class OmegatTextraMachineTranslation implements IMachineTranslation, Acti
         }
     }
 
+    /**
+     * Menu action definitions.
+     * @param e action event from menu.
+     */
     @SuppressWarnings("StatementWithEmptyBody")
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(final ActionEvent e) {
         String action = e.getActionCommand();
         if (ACTION_MENU_DISABLE.equals(action)) {
             enabled = false;
             updateMenuItem();
             Preferences.setPreference(OPTION_ALLOW_TEXTRA_TRANSLATE, enabled);
-        } else if (ACTION_MENU_ENABLE.equals(action)){
+        } else if (ACTION_MENU_ENABLE.equals(action)) {
             enabled = true;
             updateMenuItem();
             Preferences.setPreference(OPTION_ALLOW_TEXTRA_TRANSLATE, enabled);
@@ -145,11 +153,11 @@ public class OmegatTextraMachineTranslation implements IMachineTranslation, Acti
             if (dialog.isModified(options)) {
                 dialog.getData(options);
             }
-            savePreferences(options);
+            savePreferences();
         }
     }
 
-    private void savePreferences(TextraOptions options) {
+    private void savePreferences() {
         Preferences.setPreference(OPTION_TEXTRA_USERNAME, options.getUsername());
         Preferences.setPreference(OPTION_TEXTRA_APIKEY, options.getApikey());
         Preferences.setPreference(OPTION_TEXTRA_SECRET, options.getSecret());
@@ -157,6 +165,10 @@ public class OmegatTextraMachineTranslation implements IMachineTranslation, Acti
         Preferences.save();
     }
 
+    /**
+     * Return status.
+     * @return true if enabled, otherwise false.
+     */
     public boolean isEnabled() {
         return enabled;
     }
@@ -186,6 +198,12 @@ public class OmegatTextraMachineTranslation implements IMachineTranslation, Acti
     public static void unloadPlugins() {
     }
 
+    /**
+     * Call Web API to translate.
+     * @param text source text.
+     * @return translated test.
+     * @throws Exception when error happened.
+     */
     protected String translate(final String text)
             throws Exception {
        // Access to TexTra Web API
@@ -194,13 +212,25 @@ public class OmegatTextraMachineTranslation implements IMachineTranslation, Acti
         return client.executeTranslation();
      }
 
-    public String getTranslation(Language sLang, Language tLang, String text) throws Exception {
+    /**
+     * Return machine translation result.
+     *
+     * {@link IMachineTranslation()#getTranslation}
+     * @param sLang source language.
+     * @param tLang target language.
+     * @param text source text.
+     * @return translated text.
+     * @throws Exception when error happened.
+     */
+    public String getTranslation(final Language sLang, final Language tLang, final String text)
+            throws Exception {
         if (enabled) {
             // Set TexTra access options
             options.setLang(sLang.getLanguageCode(), tLang.getLanguageCode());
             if (!options.isCombinationValid()) {
-                logger.info("Invalid language combination for " + options.getModeName() + " and " +
-                        options.getSourceLang() + ", " + options.getTargetLang());
+                LOGGER.info(String.format("Invalid language combination for %s with source %s, "
+                                + " and target %s.",
+                        options.getModeName(), options.getSourceLang(), options.getTargetLang()));
                 return null;
             }
 
@@ -214,7 +244,15 @@ public class OmegatTextraMachineTranslation implements IMachineTranslation, Acti
         }
     }
 
-    public String getCachedTranslation(Language sLang, Language tLang, String text) {
+    /**
+     * Get translated result from cache.
+     * @param sLang source language.
+     * @param tLang target language.
+     * @param text source text.
+     * @return translated text if cache exist, otherwise null.
+     */
+    public String getCachedTranslation(final Language sLang, final Language tLang,
+                                       final String text) {
         if (enabled) {
             return getFromCache(sLang, tLang, text);
         } else {
@@ -222,11 +260,12 @@ public class OmegatTextraMachineTranslation implements IMachineTranslation, Acti
         }
     }
 
-    private String getFromCache(Language sLang, Language tLang, String text) {
+    private String getFromCache(final Language sLang, final Language tLang, final String text) {
         return cache.get(sLang + "/" + tLang + "/" + text);
     }
 
-    private String putToCache(Language sLang, Language tLang, String text, String result) {
+    private String putToCache(final Language sLang, final Language tLang, final String text,
+                              final String result) {
         return cache.put(sLang + "/" + tLang + "/" + text, result);
     }
 }

@@ -25,15 +25,16 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * TexTra access API client.
  *
- * @Author Hiroshi Miura
+ * @author Hiroshi Miura
  */
-class TextraApiClient {
+public class TextraApiClient {
     private static final int CONNECTION_TIMEOUT = 2 * 60 * 1000;
     private static final int SO_TIMEOUT = 10 * 60 * 1000;
-    private static final Logger logger = LoggerFactory.getLogger(TextraApiClient.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TextraApiClient.class);
     private static final String API_URL = "https://mt-auto-minhon-mlt.ucri.jgn-x.jp/api/mt/";
 
     private HttpClient httpClient;
@@ -43,7 +44,7 @@ class TextraApiClient {
     /**
      * Constructor prepares httpClient object.
      */
-    TextraApiClient() {
+    public TextraApiClient() {
         requestConfig = RequestConfig.custom()
                 .setConnectTimeout(CONNECTION_TIMEOUT)
                 .setSocketTimeout(SO_TIMEOUT)
@@ -59,12 +60,13 @@ class TextraApiClient {
      * @param options connectivity options.
      * @param text source text for translation.
      */
-    void authenticate(final TextraOptions options, final String text) {
-        authenticate(getAccessUrl(options), options.getUsername(), options.getApikey(), options.getSecret(), text);
+    public void authenticate(final TextraOptions options, final String text) {
+        authenticate(getAccessUrl(options), options.getUsername(), options.getApikey(),
+                options.getSecret(), text);
     }
 
-    void authenticate(final String url, final String apiUsername, final String apiKey, final String apiSecret,
-                      final String text) {
+    private void authenticate(final String url, final String apiUsername, final String apiKey,
+                      final String apiSecret, final String text) {
         httpPost = new HttpPost(url);
         httpPost.setConfig(requestConfig);
         OAuthConsumer consumer = new CommonsHttpOAuthConsumer(apiKey, apiSecret);
@@ -77,14 +79,14 @@ class TextraApiClient {
         try {
             new UrlEncodedFormEntity(postParameters, "UTF-8");
         } catch (UnsupportedEncodingException ex) {
-            logger.info("Encoding error.");
+            LOGGER.info("Encoding error.");
         }
 
         try {
             consumer.sign(httpPost);
         } catch (OAuthMessageSignerException | OAuthExpectationFailedException
                 | OAuthCommunicationException ex) {
-            logger.info("OAuth error: " + ex.getMessage());
+            LOGGER.info("OAuth error: " + ex.getMessage());
         }
     }
 
@@ -92,7 +94,7 @@ class TextraApiClient {
      * Execute translation on Web API.
      * @return translated text when success, otherwise return null.
      */
-    String executeTranslation() {
+    public String executeTranslation() {
         int respStatus;
         InputStream respBodyStream;
         try {
@@ -100,24 +102,24 @@ class TextraApiClient {
             respBodyStream = httpResponse.getEntity().getContent();
             respStatus = httpResponse.getStatusLine().getStatusCode();
         } catch (IOException ex) {
-            logger.info("http access error: " + ex.getMessage());
+            LOGGER.info("http access error: " + ex.getMessage());
             return null;
         }
 
         if (respStatus != 200) {
-            logger.info(String.format("Get response: %d", respStatus));
+            LOGGER.info(String.format("Get response: %d", respStatus));
             return null;
         }
 
         String result;
         try (BufferedInputStream bis = new BufferedInputStream(respBodyStream)) {
-            logger.debug("Http response status: " + respStatus);
+            LOGGER.debug("Http response status: " + respStatus);
             String rsp = IOUtils.toString(bis);
             JSONObject jobj = new JSONObject(rsp);
             JSONObject resultset = jobj.getJSONObject("resultset");
             result = resultset.getJSONObject("result").getString("text");
         } catch (IOException ex) {
-            logger.info("Invalid http response: " + ex.getMessage());
+            LOGGER.info("Invalid http response: " + ex.getMessage());
             return null;
         }
         return result;
@@ -125,9 +127,9 @@ class TextraApiClient {
 
     private static String getAccessUrl(final TextraOptions options) {
         String apiEngine = options.getModeName().replace("_", "-").toLowerCase();
-        String apiUrl = API_URL + apiEngine + "_" + options.getSourceLang() +
-                "_" + options.getTargetLang() + "/";
-        logger.debug("Access URL:" + apiUrl);
+        String apiUrl = API_URL + apiEngine + "_" + options.getSourceLang()
+                + "_" + options.getTargetLang() + "/";
+        LOGGER.debug("Access URL:" + apiUrl);
         return apiUrl;
     }
 }

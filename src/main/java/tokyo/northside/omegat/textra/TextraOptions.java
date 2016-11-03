@@ -69,12 +69,21 @@ public class TextraOptions {
         combination.add(new Combination(Mode.PATENT, "en", "zh-TW"));
     }
 
-    private static class Combination {
-        static Mode mode;
-        static String sLang;
-        static String tLang;
+    /**
+     * Class for check mode, language combination.
+     */
+    private class Combination {
+        private Mode mode;
+        private String sLang;
+        private String tLang;
 
-        Combination (final Mode mode, final String sLang, final String tLang) {
+        /**
+         * Constructor.
+         * @param mode mode.
+         * @param sLang source language.
+         * @param tLang target language.
+         */
+        Combination(final Mode mode, final String sLang, final String tLang) {
             this.mode = mode;
             this.sLang = sLang;
             this.tLang = tLang;
@@ -86,7 +95,7 @@ public class TextraOptions {
          * @return true if three values are equals.
          */
         @Override
-        public boolean equals(Object o) {
+        public boolean equals(final Object o) {
             if (o == null) {
                 return false;
             }
@@ -94,16 +103,8 @@ public class TextraOptions {
                 return false;
             }
             Combination other = (Combination) o;
-            if (!other.mode.equals(this.mode)) {
-                return false;
-            }
-            if (!other.sLang.toLowerCase().equals(this.sLang.toLowerCase())) {
-                return false;
-            }
-            if (!other.tLang.toLowerCase().equals(this.tLang.toLowerCase())) {
-                return false;
-            }
-            return true;
+            return other.mode.equals(this.mode) && other.sLang.toLowerCase().equals(this.sLang
+                    .toLowerCase()) && other.tLang.toLowerCase().equals(this.tLang.toLowerCase());
         }
 
         /**
@@ -116,6 +117,10 @@ public class TextraOptions {
         }
     }
 
+    /**
+     * Check if parameter combination is valid or not.
+     * @return true is combination is valid, otherwise false.
+     */
     public boolean isCombinationValid() {
         return combination.contains(new Combination(mode, sourceLang, targetLang));
     }
@@ -156,7 +161,7 @@ public class TextraOptions {
         /** JPO+NICT patent claim translation.
          * Japanese/English
          */
-        JPO_NICT_CLAIM;
+        JPO_NICT_CLAIM
     }
 
     /**
@@ -170,7 +175,9 @@ public class TextraOptions {
     /**
      * Setter of username.
      * @param username to set.
+     * @return this object.
      */
+    @SuppressWarnings("HiddenField")
     public TextraOptions setUsername(final String username) {
         this.username = username;
         return this;
@@ -186,10 +193,12 @@ public class TextraOptions {
 
     /**
      * Setter of Apikey.
-     * @param apikey to set.
+     * @param key to set.
+     * @return this object.
      */
-    public TextraOptions setApikey(final String apikey) {
-        this.apikey = apikey;
+    @SuppressWarnings("HiddenField")
+    public TextraOptions setApikey(final String key) {
+        this.apikey = key;
         return this;
     }
 
@@ -204,7 +213,9 @@ public class TextraOptions {
     /**
      * Setter of secret.
      * @param secret to set.
+     * @return this object.
      */
+    @SuppressWarnings("HiddenField")
     public TextraOptions setSecret(final String secret) {
         this.secret = secret;
         return this;
@@ -221,7 +232,9 @@ public class TextraOptions {
     /**
      * Setter of mode.
      * @param mode TranslateMode.
+     * @return this object.
      */
+    @SuppressWarnings("HiddenField")
     public TextraOptions setMode(final Mode mode) {
         this.mode = mode;
         return this;
@@ -237,6 +250,8 @@ public class TextraOptions {
 
     /**
      * Setter of mode by String.
+     * @param name String.
+     * @return this object.
      */
     public TextraOptions setMode(final String name) {
         if (name != null) {
@@ -247,32 +262,38 @@ public class TextraOptions {
 
     /**
      * Ask mode.
+     * @param name Mode name.
      * @return true if mode name equals.
      */
     public boolean isMode(final String name) {
-        if (name == null) return false;
-        return mode==Enum.valueOf(Mode.class, name);
+        return name != null && mode == Enum.valueOf(Mode.class, name);
     }
 
+    /**
+     * Set language options.
+     * @param sLang source language.
+     * @param tLang target language.
+     * @return this object.
+     */
     public TextraOptions setLang(final String sLang, final String tLang) {
         this.sourceLang = sLang;
         this.targetLang = tLang;
         return this;
     }
 
-    public String getSourceLang() {
+    /**
+     * Get source language string.
+     * @return source language.
+     */
+    String getSourceLang() {
         return sourceLang;
     }
 
-    public void setSourceLang(String sLang) {
-        this.sourceLang = sLang;
-    }
-
-    public String getTargetLang() {
+    /**
+     * Get target language string.
+     * @return target language.
+     */
+    String getTargetLang() {
         return targetLang;
-    }
-
-    public void setTargetLang(String tLang) {
-        this.targetLang = tLang;
     }
 }

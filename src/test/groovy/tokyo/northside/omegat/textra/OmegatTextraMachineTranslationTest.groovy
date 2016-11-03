@@ -19,7 +19,7 @@ class OmegatTextraMachineTranslationTest  {
         }
 
         protected void initOptions() {
-            // do nothing
+            options = new TextraOptions().setMode("MINNA")
         }
 
         @Override
@@ -56,7 +56,7 @@ class OmegatTextraMachineTranslationTest  {
     void testGetCachedTranslation() {
         Language sLang = new Language("en")
         Language tLang = new Language("ja")
-        String text = "Source text." // Same as testGetTranslation()
+        String text = "Source Text." // Same as testGetTranslation()
         assertEquals(mock.getCachedTranslation(sLang, tLang, text), "Translated " + text)
     }
 }
