@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 - Refactoring class design.
+- Introduce TextraApiClient class.
 - Ignore exception if fails launching web browser on desktop.
 
 ### Fixed
