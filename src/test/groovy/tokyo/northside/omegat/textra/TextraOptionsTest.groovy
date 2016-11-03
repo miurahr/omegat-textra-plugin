@@ -17,10 +17,16 @@ class TextraOptionsTest {
     @Test
     void testIsCombinationValid() {
         options.setMode("GENERIC")
-        assertTrue(options.isCombinationValid("en", "ja"))
-        assertFalse(options.isCombinationValid("fr", "en"))
+        options.setSourceLang("ja")
+        options.setTargetLang("en")
+        assertTrue(options.isCombinationValid())
+        options.setSourceLang("fr")
+        options.setTargetLang("en")
+        assertFalse(options.isCombinationValid())
         options.setMode("PATENT")
-        assertTrue(options.isCombinationValid("en", "zh-CN"))
+        options.setSourceLang("en")
+        options.setTargetLang("zh-CN")
+        assertTrue(options.isCombinationValid())
     }
 
     @Test

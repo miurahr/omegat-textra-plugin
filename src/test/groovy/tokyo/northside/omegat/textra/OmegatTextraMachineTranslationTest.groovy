@@ -22,6 +22,7 @@ class OmegatTextraMachineTranslationTest  {
             // do nothing
         }
 
+        @Override
         protected String translate(final Language sLang, final Language tLang, final String text)
                 throws Exception {
             return "Translated."
@@ -41,15 +42,6 @@ class OmegatTextraMachineTranslationTest  {
     @Test
     void testGetName() {
         assertEquals(mock.getName(), "TexTra Powered by NICT")
-    }
-
-    @Test
-    void testGetAccessUrl() {
-        String apiEngine = "generic"
-        String sourceLang = "en"
-        String targetLang = "ja"
-        String expected = mock.API_URL + apiEngine + "_" + sourcelang + "_" + targetLang
-        assertEquals(mock.getAccessUrl(apiEngine, sourceLang, targetLang), expected)
     }
 
     @Test
