@@ -7,6 +7,7 @@ import java.net.URISyntaxException;
 
 /**
  * Launch default browser and go to url.
+ * @author Hiroshi Miura
  */
 public final class WebBrowser {
     /**

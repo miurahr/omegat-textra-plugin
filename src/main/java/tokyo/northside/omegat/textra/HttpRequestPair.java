@@ -4,21 +4,25 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 
 
-public class HttpRequestPair {
+/**
+ * Container for HttpClient and HttpPost pair.
+ * @author Hiroshi Miura
+ */
+class HttpRequestPair {
 
         private HttpPost httpPost;
         private HttpClient httpClient;
 
-        public HttpRequestPair(final HttpClient httpClient, final HttpPost httpPost) {
+        HttpRequestPair(final HttpClient httpClient, final HttpPost httpPost) {
             this.httpClient = httpClient;
             this.httpPost = httpPost;
         }
 
-        public HttpPost getHttpPost() {
+        HttpPost getHttpPost() {
             return httpPost;
         }
 
-        public HttpClient getHttpClient() {
+        HttpClient getHttpClient() {
             return httpClient;
         }
 }

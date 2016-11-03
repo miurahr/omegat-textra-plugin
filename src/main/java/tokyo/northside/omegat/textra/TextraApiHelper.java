@@ -26,13 +26,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by miurahr on 16/11/02.
+ * TexTra access API helper class.
+ * <p>
+ *     query() returns HttpClient and HttpPost object pair.
+ *     getResponse(pair) returns result.
+ * </p>
+ * @Author Hiroshi Miura
  */
-public class TextraApiHelper {
+class TextraApiHelper {
     private static final int CONNECTION_TIMEOUT = 2 * 60 * 1000;
     private static final int SO_TIMEOUT = 10 * 60 * 1000;
     private static final Logger logger = LoggerFactory.getLogger(TextraApiHelper.class);
-    public static final String API_URL = "https://mt-auto-minhon-mlt.ucri.jgn-x.jp/api/mt/";
+    private static final String API_URL = "https://mt-auto-minhon-mlt.ucri.jgn-x.jp/api/mt/";
 
     private static String getAccessUrl(final TextraOptions options) {
         String apiEngine = options.getModeName().replace("_", "-").toLowerCase();
@@ -42,11 +47,11 @@ public class TextraApiHelper {
         return apiUrl;
     }
 
-    public static HttpRequestPair query(final TextraOptions options, final String text) {
+    static HttpRequestPair query(final TextraOptions options, final String text) {
         return query(getAccessUrl(options), options.getUsername(), options.getApikey(), options.getSecret(), text);
     }
 
-    public static HttpRequestPair query(final String url, final String apiUsername, final String apiKey, final String apiSecret,
+    static HttpRequestPair query(final String url, final String apiUsername, final String apiKey, final String apiSecret,
                   final String text) {
         HttpPost httpPost = new HttpPost(url);
         OAuthConsumer consumer = new CommonsHttpOAuthConsumer(apiKey, apiSecret);
@@ -82,7 +87,7 @@ public class TextraApiHelper {
         return new HttpRequestPair(httpClient, httpPost);
     }
 
-    public static String getResponse(final HttpRequestPair pair) {
+    static String getResponse(final HttpRequestPair pair) {
         int respStatus;
         InputStream respBodyStream;
         try {
