@@ -40,7 +40,6 @@ repositories {
     maven {
         url "https://dl.bintray.com/omegat-org/maven/"
     }
-    flatDir dirs: "${rootDir}/lib"
     jcenter()
 }
 
@@ -49,7 +48,7 @@ dependencies {
     compile 'oauth.signpost:signpost-commonshttp4:1.2.1.2'
     compile 'org.apache.httpcomponents:httpclient:4.5'
     compile 'org.json:json:20160810'
-    compile name: 'forms_rt', version: '162.1121.32'
+    compile fileTree(dir: 'lib', include: '*.jar')
     compile 'org.slf4j:slf4j-api:1.7.21'
     provided 'org.omegat:omegat:4.0.1'
     provided 'commons-io:commons-io:2.4'
