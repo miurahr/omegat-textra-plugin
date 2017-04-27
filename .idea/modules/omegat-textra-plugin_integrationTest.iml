@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module external.linked.project.id="omegat-textra-plugin:integrationTest" external.linked.project.path="$MODULE_DIR$/../.." external.root.project.path="$MODULE_DIR$/../.." external.system.id="GRADLE" external.system.module.group="" external.system.module.type="sourceSet" external.system.module.version="0.2" type="JAVA_MODULE" version="4">
+<module external.linked.project.id="omegat-textra-plugin:integrationTest" external.linked.project.path="$MODULE_DIR$/../.." external.root.project.path="$MODULE_DIR$/../.." external.system.id="GRADLE" external.system.module.group="" external.system.module.type="sourceSet" external.system.module.version="0.4" type="JAVA_MODULE" version="4">
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/../../build/classes/integrationTest" />
     <exclude-output />
@@ -20,7 +20,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../lib/forms_rt-162.1121.32.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../lib/intellij_forms_rt.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -30,6 +30,7 @@
     <orderEntry type="library" name="Gradle: oauth.signpost:signpost-commonshttp4:1.2.1.2" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.httpcomponents:httpclient:4.5" level="project" />
     <orderEntry type="library" name="Gradle: org.json:json:20160810" level="project" />
+    <orderEntry type="library" name="Gradle: org.slf4j:slf4j-api:1.7.21" level="project" />
     <orderEntry type="library" name="Gradle: org.testng:testng:6.9.10" level="project" />
     <orderEntry type="library" name="Gradle: org.beanshell:bsh:2.0b4" level="project" />
     <orderEntry type="library" name="Gradle: com.beust:jcommander:1.48" level="project" />
@@ -102,7 +103,6 @@
     <orderEntry type="library" name="Gradle: org.languagetool:language-ta:3.5" level="project" />
     <orderEntry type="library" name="Gradle: org.languagetool:language-tl:3.5" level="project" />
     <orderEntry type="library" name="Gradle: org.languagetool:language-uk:3.5" level="project" />
-    <orderEntry type="library" name="Gradle: org.slf4j:slf4j-api:1.7.21" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.pdfbox:fontbox:2.0.0" level="project" />
     <orderEntry type="library" name="Gradle: net.loomchild:segment:2.0.0" level="project" />
     <orderEntry type="library" name="Gradle: net.java.dev.jna:jna:4.1.0" level="project" />
