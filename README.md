@@ -20,8 +20,25 @@ You need to agree NICT TexTra Service terms  and  get an account (username, api 
 to use this plugin with OmegaT. The terms show at
 https://mt-auto-minhon-mlt.ucri.jgn-x.jp/content/policy/
 
+## TexTra TLS certification
+
+NICT TexTra uses Starfield G2 certificate for their https communication.
+Some java version does not includes its root certificate as tructed one.
+You may need to import its certification as trusted one from Java application.
+
+To download certification, please go to;
+`https://certs.secureserver.net/repository/`
+and download `sfroot-g2.crt`
+
+then import a cert, for example on Ubuntu/Mint;
+
+```
+sudo keytool -importcert -trustcacerts -file sfroot-g2.crt -keystore /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/security/cacerts -alias starfield-g2 -storepass changeit
+```
+
+please check carefully with sha256 footprint on the site and keytool's notification.
+
 ## License
 
 This project is distributed under the GNU general public license version 3 or later.
-
 
