@@ -23,20 +23,29 @@ https://mt-auto-minhon-mlt.ucri.jgn-x.jp/content/policy/
 ## TexTra TLS certification
 
 NICT TexTra uses Starfield G2 certificate for their https communication.
-Some java version does not includes its root certificate as tructed one.
+Some java installation does not includes its root certificate as tructed one.
 You may need to import its certification as trusted one from Java application.
 
 To download certification, please go to;
 `https://certs.secureserver.net/repository/`
 and download `sfroot-g2.crt`
 
-then import a cert, for example on Ubuntu/Mint;
+then import a cert, for example on  Mac:
 
 ```
-sudo keytool -importcert -trustcacerts -file sfroot-g2.crt -keystore /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/security/cacerts -alias starfield-g2 -storepass changeit
+sudo keytool -importcert -trustcacerts -file sfroot-g2.crt -keystore /Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/security/cacerts -alias starfield-g2 -storepass changeit
 ```
 
 please check carefully with sha256 footprint on the site and keytool's notification.
+
+On Ubuntu/Mint, please check your certs directory where exists
+starfield G2 certificate as /etc/ssl/certs/Starfield_Root_Certificate_Authority_-_G2.crt
+then manually run
+
+```
+sudo update-ca-certificates
+```
+
 
 ## License
 
