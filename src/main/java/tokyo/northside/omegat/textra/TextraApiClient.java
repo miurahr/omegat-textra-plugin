@@ -122,7 +122,7 @@ public class TextraApiClient {
     }
 
     private static String getAccessUrl(final TextraOptions options) {
-        String apiEngine = options.getModeName().replace("_", "-").toLowerCase();
+        String apiEngine = options.getModeName().replace("_", "-");
         String apiUrl = API_URL + apiEngine + "_" + options.getSourceLang()
                 + "_" + options.getTargetLang() + "/";
         LOGGER.debug("Access URL:" + apiUrl);

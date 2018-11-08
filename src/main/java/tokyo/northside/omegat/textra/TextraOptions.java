@@ -19,54 +19,31 @@ public class TextraOptions {
     private Set<Combination> combination = new HashSet<>();
 
     {
-        combination.add(new Combination(Mode.GENERIC, "ja", "en"));
-        combination.add(new Combination(Mode.GENERIC, "en", "ja"));
-        combination.add(new Combination(Mode.GENERIC, "ka", "ja"));
-        combination.add(new Combination(Mode.GENERIC, "ja", "ka"));
-        combination.add(new Combination(Mode.GENERIC, "ka", "en"));
-        combination.add(new Combination(Mode.GENERIC, "en", "ka"));
-        combination.add(new Combination(Mode.GENERIC, "en", "zh-CN"));
-        combination.add(new Combination(Mode.GENERIC, "en", "zh-TW"));
-        combination.add(new Combination(Mode.GENERIC, "ja", "zh-CN"));
-        combination.add(new Combination(Mode.GENERIC, "ja", "zh-TW"));
-        combination.add(new Combination(Mode.GENERIC, "zh-CN", "en"));
-        combination.add(new Combination(Mode.GENERIC, "zh-TW", "en"));
-        combination.add(new Combination(Mode.GENERIC, "zh-CN", "ja"));
-        combination.add(new Combination(Mode.GENERIC, "zh-TW", "ja"));
-        combination.add(new Combination(Mode.ADDRESS, "ja", "en"));
-        combination.add(new Combination(Mode.ADDRESS, "en", "ja"));
+        combination.add(new Combination(Mode.genericN, "ja", "en"));
+        combination.add(new Combination(Mode.genericN, "en", "ja"));
+        combination.add(new Combination(Mode.genericN, "ka", "ja"));
+        combination.add(new Combination(Mode.genericN, "ja", "ka"));
+        combination.add(new Combination(Mode.genericN, "ka", "en"));
+        combination.add(new Combination(Mode.genericN, "en", "ka"));
+        combination.add(new Combination(Mode.genericN, "en", "zh-CN"));
+        combination.add(new Combination(Mode.genericN, "en", "zh-TW"));
+        combination.add(new Combination(Mode.genericN, "ja", "zh-CN"));
+        combination.add(new Combination(Mode.genericN, "ja", "zh-TW"));
+        combination.add(new Combination(Mode.genericN, "zh-CN", "en"));
+        combination.add(new Combination(Mode.genericN, "zh-TW", "en"));
+        combination.add(new Combination(Mode.genericN, "zh-CN", "ja"));
+        combination.add(new Combination(Mode.genericN, "zh-TW", "ja"));
 
-        combination.add(new Combination(Mode.JPO_CLAIM, "zh-CN", "ja"));
-        combination.add(new Combination(Mode.JPO_CLAIM, "zh-TW", "ja"));
-        combination.add(new Combination(Mode.JPO_CLAIM, "ja", "zh-CN"));
-        combination.add(new Combination(Mode.JPO_CLAIM, "ja", "zh-TW"));
+        combination.add(new Combination(Mode.patent_claimN, "zh-CN", "ja"));
+        combination.add(new Combination(Mode.patent_claimN, "zh-TW", "ja"));
+        combination.add(new Combination(Mode.patent_claimN, "ja", "zh-CN"));
+        combination.add(new Combination(Mode.patent_claimN, "ja", "zh-TW"));
 
-        combination.add(new Combination(Mode.JPO_NICT_CLAIM, "ja", "en"));
-        combination.add(new Combination(Mode.JPO_NICT_CLAIM, "en", "ja"));
-
-        combination.add(new Combination(Mode.JPO_NICT, "en", "ja"));
-        combination.add(new Combination(Mode.JPO_NICT, "ka", "ja"));
-        combination.add(new Combination(Mode.JPO_NICT, "ja", "en"));
-        combination.add(new Combination(Mode.JPO_NICT, "ja", "ka"));
-
-        combination.add(new Combination(Mode.JPO, "zh-CN", "ja"));
-        combination.add(new Combination(Mode.JPO, "zh-TW", "ja"));
-        combination.add(new Combination(Mode.JPO, "ja", "zh-CN"));
-        combination.add(new Combination(Mode.JPO, "ja", "zh-TW"));
-
-        combination.add(new Combination(Mode.MINNA, "ja", "en"));
-        combination.add(new Combination(Mode.MINNA, "en", "ja"));
-        combination.add(new Combination(Mode.MINNA, "ja", "ka"));
-        combination.add(new Combination(Mode.MINNA, "ka", "ja"));
-        combination.add(new Combination(Mode.MINNA, "ja", "zh-CN"));
-        combination.add(new Combination(Mode.MINNA, "ja", "zh-TW"));
-        combination.add(new Combination(Mode.MINNA, "zh-CN", "ja"));
-        combination.add(new Combination(Mode.MINNA, "zh-TW", "ja"));
-
-        combination.add(new Combination(Mode.PATENT, "zh-CN", "en"));
-        combination.add(new Combination(Mode.PATENT, "zh-TW", "en"));
-        combination.add(new Combination(Mode.PATENT, "en", "zh-CN"));
-        combination.add(new Combination(Mode.PATENT, "en", "zh-TW"));
+        combination.add(new Combination(Mode.patentN, "zh-CN", "en"));
+        combination.add(new Combination(Mode.patentN, "zh-TW", "en"));
+        combination.add(new Combination(Mode.patentN, "en", "zh-CN"));
+        combination.add(new Combination(Mode.patentN, "en", "zh-TW"));
+        combination.add(new Combination(Mode.patentN, "en", "ja"));
     }
 
     /**
@@ -133,35 +110,15 @@ public class TextraOptions {
         /** generic translation.
          * English/Japanese/Chinese/Korean
          */
-        GENERIC,
-        /** generic plus translation.
-         * English/Japanese/Chinese/Korean
-         */
-        MINNA,
+        genericN,
         /** address translation.
          * Japanese/English
          */
-        ADDRESS,
-        /** patent translation.
-         * Chinese/English
-         */
-        PATENT,
-        /** Japan patent office translation.
-         * Chinese/Japanese
-         */
-        JPO,
+        patentN,
         /** JPO claim translation.
          * Chinese/Japanese
          */
-        JPO_CLAIM,
-        /** JPO+NICT patent translation.
-         * Japanese/English/Korean
-         */
-        JPO_NICT,
-        /** JPO+NICT patent claim translation.
-         * Japanese/English
-         */
-        JPO_NICT_CLAIM
+        patent_claimN,
     }
 
     /**
@@ -291,7 +248,7 @@ public class TextraOptions {
         if (lang.contains("-")) {
             int index = lang.indexOf("-");
             result = lang.substring(0, index).toLowerCase() + lang
-                    .substring(index, lang.length() - index ).toUpperCase();
+                    .substring(index, lang.length() - index).toUpperCase();
         } else {
             result = lang.toLowerCase();
         }

@@ -81,28 +81,15 @@ public class TextraOptionDialog extends JDialog {
         apikeyTextField.setText(data.getApikey());
         secretTextField.setText(data.getSecret());
         switch (data.getMode()) {
-            case ADDRESS:
-                addressModeRadioButton.setSelected(true);
-                break;
-            case GENERIC:
+            case genericN:
                 generalModeRadioButton.setSelected(true);
                 break;
-            case PATENT:
+            case patentN:
                 patentModeRadioButton.setSelected(true);
                 break;
-            case JPO:
-                JPOModeRadioButton.setSelected(true);
-                break;
-            case JPO_CLAIM:
+            case patent_claimN:
                 JPOPatentOrderModeRadioButton.setSelected(true);
                 break;
-            case JPO_NICT:
-                JPONICTPatentModeRadioButton.setSelected(true);
-                break;
-            case JPO_NICT_CLAIM:
-                JPONICTPatentOrderRadioButton.setSelected(true);
-                break;
-            case MINNA:
             default:
                 generalPlusModeRadioButton.setSelected(true);
                 break;
