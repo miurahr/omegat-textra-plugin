@@ -9,9 +9,9 @@ class TextraOptionsTest {
 
     @Test
     void testIsCombinationValid() {
-        assertTrue(new TextraOptions().setMode("GENERIC").setLang("ja", "en").isCombinationValid())
-        assertFalse(new TextraOptions().setMode("GENERIC").setLang("fr", "en").isCombinationValid())
-        assertTrue(new TextraOptions().setMode("PATENT").setLang("en", "zh-CN").isCombinationValid())
+        assertTrue(new TextraOptions().setMode("genericN").setLang("ja", "en").isCombinationValid())
+        assertFalse(new TextraOptions().setMode("genericN").setLang("fr", "en").isCombinationValid())
+        assertTrue(new TextraOptions().setMode("patentN").setLang("en", "ja").isCombinationValid())
     }
 
     @Test
@@ -34,27 +34,27 @@ class TextraOptionsTest {
 
     @Test
     void testMode() {
-        TextraOptions options = new TextraOptions().setMode(TextraOptions.Mode.GENERIC)
-        assertEquals(options.getMode(), TextraOptions.Mode.GENERIC)
+        TextraOptions options = new TextraOptions().setMode(TextraOptions.Mode.genericN)
+        assertEquals(options.getMode(), TextraOptions.Mode.genericN)
     }
 
     @Test
     void testGetModeName() {
-        TextraOptions options = new TextraOptions().setMode(TextraOptions.Mode.GENERIC)
-        assertEquals(options.getModeName(), "GENERIC")
+        TextraOptions options = new TextraOptions().setMode(TextraOptions.Mode.genericN)
+        assertEquals(options.getModeName(), "genericN")
     }
 
     @Test
     void testSetMode() {
-        TextraOptions options = new TextraOptions().setMode("GENERIC")
-        assertEquals(options.getModeName(), "GENERIC")
+        TextraOptions options = new TextraOptions().setMode("genericN")
+        assertEquals(options.getModeName(), "genericN")
     }
 
     @Test
     void testIsMode() {
-        TextraOptions options = new TextraOptions().setMode(TextraOptions.Mode.GENERIC)
-        assertTrue(options.isMode("GENERIC"))
+        TextraOptions options = new TextraOptions().setMode(TextraOptions.Mode.genericN)
+        assertTrue(options.isMode("genericN"))
         assertFalse(options.isMode(null))
-        assertFalse(options.isMode("PATENT"))
+        assertFalse(options.isMode("patentN"))
     }
 }
