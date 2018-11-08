@@ -23,17 +23,6 @@ sourceSets {
         test.compileClasspath += configurations.provided
         test.runtimeClasspath += configurations.provided
     }
-    integrationTest {
-        compileClasspath += sourceSets.main.output + configurations.testRuntime  + configurations.provided
-        runtimeClasspath += main.output + test.output + configurations.provided
-        java {
-            srcDir file('src/integration-test/java')
-        }
-        groovy {
-            srcDir file('src/integration-test/groovy')
-        }
-        resources.srcDir file('src/integration-test/resources')
-    }
 }
 
 repositories {
@@ -86,13 +75,6 @@ task findbugsTest(overwrite: true) << {}
 findbugs {
     ignoreFailures = true
 }
-tasks.withType(FindBugs) {
-    reports {
-      xml.enabled = false
-      html.enabled = true
-    }
-    setGroup('Verification')
-}
 
 jacocoTestReport {
     group 'Documentation'
@@ -103,39 +85,17 @@ jacocoTestReport {
     }
 }
 
-task integrationTest(type: Test) {
-    description = "Runs integration and acceptance tests."
-    group = 'Verification'
-    testClassesDir = sourceSets.integrationTest.output.classesDir
-    classpath = sourceSets.integrationTest.runtimeClasspath
-    reports.html.destination = file("$buildDir/reports/integrationTests")
-    useTestNG()
-}
-
 task jacocoIntegrationTestReport(type: JacocoReport) {
     group 'Documentation'
     sourceSets sourceSets.main
-    executionData integrationTest
-    reports.html.destination "${buildDir}/reports/jacoco/integrationTestReport"
 }
 
-check.dependsOn integrationTest
 check.finalizedBy jacocoTestReport
-integrationTest.mustRunAfter test
 
 task jacocoCombinedTestReport(type: JacocoReport) {
     group 'Documentation'
     sourceSets sourceSets.main
-    executionData test, integrationTest
     reports.html.destination "${buildDir}/reports/jacoco/combinedTestReport"
-}
-integrationTest.finalizedBy (jacocoIntegrationTestReport, jacocoCombinedTestReport)
-
-idea {
-    module {
-        testSourceDirs += file('src/integration-test/java')
-        testSourceDirs += file('src/integration-test/groovy')
-    }
 }
 
 task sourceJar(type: Jar) {
