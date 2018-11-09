@@ -19,7 +19,7 @@ class OmegatTextraMachineTranslationTest  {
         }
 
         protected void initOptions() {
-            options = new TextraOptions().setMode("genericN")
+            options = new TextraOptions().setMode("generalN")
         }
 
         @Override

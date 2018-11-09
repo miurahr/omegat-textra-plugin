@@ -28,7 +28,6 @@ public class TextraOptionDialog extends JDialog {
     private JTextField apikeyTextField;
     private JTextField secretTextField;
     private JRadioButton generalModeRadioButton;
-    private JRadioButton generalPlusModeRadioButton;
     private JRadioButton patentModeRadioButton;
     private JRadioButton patentOrderModeRadioButton;
     private JButton registerNewTexTraUserButton;
@@ -77,7 +76,7 @@ public class TextraOptionDialog extends JDialog {
         apikeyTextField.setText(data.getApikey());
         secretTextField.setText(data.getSecret());
         switch (data.getMode()) {
-            case genericN:
+            case generalN:
                 generalModeRadioButton.setSelected(true);
                 break;
             case patentN:
@@ -87,7 +86,7 @@ public class TextraOptionDialog extends JDialog {
                 patentOrderModeRadioButton.setSelected(true);
                 break;
             default:
-                generalPlusModeRadioButton.setSelected(true);
+                generalModeRadioButton.setSelected(true);
                 break;
         }
     }
@@ -217,8 +216,8 @@ public class TextraOptionDialog extends JDialog {
         panel7.setLayout(new GridLayoutManager(4, 1, new Insets(0, 0, 0, 0), -1, -1));
         panel5.add(panel7, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         patentOrderModeRadioButton = new JRadioButton();
-        patentOrderModeRadioButton.setActionCommand("JPO_CLAIM");
-        this.$$$loadButtonText$$$(patentOrderModeRadioButton, ResourceBundle.getBundle("tokyo/northside/omegat/textra/TextraMachineTranslation").getString("JpoOrderMode"));
+        patentOrderModeRadioButton.setActionCommand("PATENT_CLAIM");
+        this.$$$loadButtonText$$$(patentOrderModeRadioButton, ResourceBundle.getBundle("tokyo/northside/omegat/textra/TextraMachineTranslation").getString("PatentOrderMode"));
         panel7.add(patentOrderModeRadioButton, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         registerNewTexTraUserButton = new JButton();
         this.$$$loadButtonText$$$(registerNewTexTraUserButton, ResourceBundle.getBundle("tokyo/northside/omegat/textra/TextraMachineTranslation").getString("RegisterTexTraService"));

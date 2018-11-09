@@ -40,7 +40,7 @@ import org.omegat.util.Language;
 import org.omegat.util.Preferences;
 import org.openide.awt.Mnemonics;
 
-import static tokyo.northside.omegat.textra.TextraOptions.Mode.genericN;
+import static tokyo.northside.omegat.textra.TextraOptions.Mode.generalN;
 
 
 /**
@@ -105,7 +105,7 @@ public class OmegatTextraMachineTranslation implements IMachineTranslation, Acti
                 .setApikey(Preferences.getPreference(OPTION_TEXTRA_APIKEY))
                 .setSecret(Preferences.getPreference(OPTION_TEXTRA_SECRET))
                 .setMode(Preferences.getPreferenceEnumDefault(OPTION_TEXTRA_TRANSLATE_MODE,
-                        genericN));
+                        generalN));
     }
 
     protected void initMenus() {

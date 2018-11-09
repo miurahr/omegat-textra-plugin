@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Changed
+- There are general, patent and patent claim mode in option dialog
+- Update Gradle version 4.8 to support OpenJDK10
+
+### Fixed
+- Catch up Web API change on TexTra.
+- Fix checkstyle warnings.
 
 ## [0.4] - 2016-11-03
 ### Add

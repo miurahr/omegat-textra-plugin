@@ -9,8 +9,8 @@ class TextraOptionsTest {
 
     @Test
     void testIsCombinationValid() {
-        assertTrue(new TextraOptions().setMode("genericN").setLang("ja", "en").isCombinationValid())
-        assertFalse(new TextraOptions().setMode("genericN").setLang("fr", "en").isCombinationValid())
+        assertTrue(new TextraOptions().setMode("generalN").setLang("ja", "en").isCombinationValid())
+        assertFalse(new TextraOptions().setMode("generalN").setLang("fr", "en").isCombinationValid())
         assertTrue(new TextraOptions().setMode("patentN").setLang("en", "ja").isCombinationValid())
     }
 
@@ -34,26 +34,26 @@ class TextraOptionsTest {
 
     @Test
     void testMode() {
-        TextraOptions options = new TextraOptions().setMode(TextraOptions.Mode.genericN)
-        assertEquals(options.getMode(), TextraOptions.Mode.genericN)
+        TextraOptions options = new TextraOptions().setMode(TextraOptions.Mode.generalN)
+        assertEquals(options.getMode(), TextraOptions.Mode.generalN)
     }
 
     @Test
     void testGetModeName() {
-        TextraOptions options = new TextraOptions().setMode(TextraOptions.Mode.genericN)
-        assertEquals(options.getModeName(), "genericN")
+        TextraOptions options = new TextraOptions().setMode(TextraOptions.Mode.generalN)
+        assertEquals(options.getModeName(), "generalN")
     }
 
     @Test
     void testSetMode() {
-        TextraOptions options = new TextraOptions().setMode("genericN")
-        assertEquals(options.getModeName(), "genericN")
+        TextraOptions options = new TextraOptions().setMode("generalN")
+        assertEquals(options.getModeName(), "generalN")
     }
 
     @Test
     void testIsMode() {
-        TextraOptions options = new TextraOptions().setMode(TextraOptions.Mode.genericN)
-        assertTrue(options.isMode("genericN"))
+        TextraOptions options = new TextraOptions().setMode(TextraOptions.Mode.generalN)
+        assertTrue(options.isMode("generalN"))
         assertFalse(options.isMode(null))
         assertFalse(options.isMode("patentN"))
     }

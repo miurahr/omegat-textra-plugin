@@ -19,20 +19,20 @@ public class TextraOptions {
     private Set<Combination> combination = new HashSet<>();
 
     {
-        combination.add(new Combination(Mode.genericN, "ja", "en"));
-        combination.add(new Combination(Mode.genericN, "en", "ja"));
-        combination.add(new Combination(Mode.genericN, "ka", "ja"));
-        combination.add(new Combination(Mode.genericN, "ja", "ka"));
-        combination.add(new Combination(Mode.genericN, "ka", "en"));
-        combination.add(new Combination(Mode.genericN, "en", "ka"));
-        combination.add(new Combination(Mode.genericN, "en", "zh-CN"));
-        combination.add(new Combination(Mode.genericN, "en", "zh-TW"));
-        combination.add(new Combination(Mode.genericN, "ja", "zh-CN"));
-        combination.add(new Combination(Mode.genericN, "ja", "zh-TW"));
-        combination.add(new Combination(Mode.genericN, "zh-CN", "en"));
-        combination.add(new Combination(Mode.genericN, "zh-TW", "en"));
-        combination.add(new Combination(Mode.genericN, "zh-CN", "ja"));
-        combination.add(new Combination(Mode.genericN, "zh-TW", "ja"));
+        combination.add(new Combination(Mode.generalN, "ja", "en"));
+        combination.add(new Combination(Mode.generalN, "en", "ja"));
+        combination.add(new Combination(Mode.generalN, "ka", "ja"));
+        combination.add(new Combination(Mode.generalN, "ja", "ka"));
+        combination.add(new Combination(Mode.generalN, "ka", "en"));
+        combination.add(new Combination(Mode.generalN, "en", "ka"));
+        combination.add(new Combination(Mode.generalN, "en", "zh-CN"));
+        combination.add(new Combination(Mode.generalN, "en", "zh-TW"));
+        combination.add(new Combination(Mode.generalN, "ja", "zh-CN"));
+        combination.add(new Combination(Mode.generalN, "ja", "zh-TW"));
+        combination.add(new Combination(Mode.generalN, "zh-CN", "en"));
+        combination.add(new Combination(Mode.generalN, "zh-TW", "en"));
+        combination.add(new Combination(Mode.generalN, "zh-CN", "ja"));
+        combination.add(new Combination(Mode.generalN, "zh-TW", "ja"));
 
         combination.add(new Combination(Mode.patent_claimN, "zh-CN", "ja"));
         combination.add(new Combination(Mode.patent_claimN, "zh-TW", "ja"));
@@ -110,7 +110,7 @@ public class TextraOptions {
         /** generic translation.
          * English/Japanese/Chinese/Korean
          */
-        genericN,
+        generalN,
         /** address translation.
          * Japanese/English
          */
