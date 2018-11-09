@@ -206,7 +206,7 @@ public class TextraOptionDialog extends JDialog {
         generalModeRadioButton.setActionCommand("GENERIC");
         generalModeRadioButton.setSelected(true);
         this.$$$loadButtonText$$$(generalModeRadioButton, ResourceBundle.getBundle("tokyo/northside/omegat/textra/TextraMachineTranslation").getString("GeneralMode"));
-        generalModeRadioButton.setToolTipText(ResourceBundle.getBundle("tokyo/northside/omegat/textra/TextraMachineTranslation").getString("GenericModeToolTip"));
+        generalModeRadioButton.setToolTipText(ResourceBundle.getBundle("tokyo/northside/omegat/textra/TextraMachineTranslation").getString("GeneralModeToolTip"));
         panel6.add(generalModeRadioButton, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         patentModeRadioButton = new JRadioButton();
         patentModeRadioButton.setActionCommand("PATENT");
