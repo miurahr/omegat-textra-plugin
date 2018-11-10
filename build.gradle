@@ -6,7 +6,7 @@ apply plugin: 'checkstyle'
 apply plugin: 'distribution'
 apply plugin: 'idea'
 
-version = '0.4'
+version = '0.5'
 
 configurations {
     provided

@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+## [0.5] - 2018-11-10
 ### Changed
 - There are general, patent and patent claim mode in option dialog
 - Update Gradle version 4.8 to support OpenJDK10
@@ -53,7 +55,8 @@ All notable changes to this project will be documented in this file.
 ### Added
 - Start project.
 
-[Unreleased]: https://github.com/miurahr/omegat-markdown-plugin/compare/v0.4...HEAD
+[Unreleased]: https://github.com/miurahr/omegat-markdown-plugin/compare/v0.5...HEAD
+[0.5]: https://github.com/miurahr/omegat-markdown-plugin/compare/v0.4...v0.5
 [0.4]: https://github.com/miurahr/omegat-markdown-plugin/compare/v0.3...v0.4
 [0.3]: https://github.com/miurahr/omegat-markdown-plugin/compare/v0.2...v0.3
 [0.2]: https://github.com/miurahr/omegat-markdown-plugin/compare/v0.1...v0.2
