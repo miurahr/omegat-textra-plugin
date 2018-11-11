@@ -1,6 +1,8 @@
 package tokyo.northside.omegat.textra;
 
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -19,31 +21,48 @@ public class TextraOptions {
     private Set<Combination> combination = new HashSet<>();
 
     {
-        combination.add(new Combination(Mode.generalN, "ja", "en"));
-        combination.add(new Combination(Mode.generalN, "en", "ja"));
-        combination.add(new Combination(Mode.generalN, "ka", "ja"));
-        combination.add(new Combination(Mode.generalN, "ja", "ka"));
-        combination.add(new Combination(Mode.generalN, "ka", "en"));
-        combination.add(new Combination(Mode.generalN, "en", "ka"));
-        combination.add(new Combination(Mode.generalN, "en", "zh-CN"));
-        combination.add(new Combination(Mode.generalN, "en", "zh-TW"));
-        combination.add(new Combination(Mode.generalN, "ja", "zh-CN"));
-        combination.add(new Combination(Mode.generalN, "ja", "zh-TW"));
-        combination.add(new Combination(Mode.generalN, "zh-CN", "en"));
-        combination.add(new Combination(Mode.generalN, "zh-TW", "en"));
-        combination.add(new Combination(Mode.generalN, "zh-CN", "ja"));
-        combination.add(new Combination(Mode.generalN, "zh-TW", "ja"));
+        combination.addAll(createCombinations(
+                Arrays.asList(Mode.generalN, Mode.patentN, Mode.patent_claimN),
+                Arrays.asList("ja", "en", "zh-CN", "zh-TW")));
+        combination.addAll(createCombinations(
+                Arrays.asList(Mode.generalN, Mode.patentN, Mode.patent_claimN),
+                Arrays.asList("ko", "ja")));
+        combination.addAll(createCombinations(Mode.generalN, "en",
+                Arrays.asList("fr", "pt", "fr", "id", "my", "th", "vi", "es")));
+    }
 
-        combination.add(new Combination(Mode.patent_claimN, "zh-CN", "ja"));
-        combination.add(new Combination(Mode.patent_claimN, "zh-TW", "ja"));
-        combination.add(new Combination(Mode.patent_claimN, "ja", "zh-CN"));
-        combination.add(new Combination(Mode.patent_claimN, "ja", "zh-TW"));
-
-        combination.add(new Combination(Mode.patentN, "zh-CN", "en"));
-        combination.add(new Combination(Mode.patentN, "zh-TW", "en"));
-        combination.add(new Combination(Mode.patentN, "en", "zh-CN"));
-        combination.add(new Combination(Mode.patentN, "en", "zh-TW"));
-        combination.add(new Combination(Mode.patentN, "en", "ja"));
+    /**
+     * utility function to create Set of combination from set of String.
+     */
+    private Set<Combination> createCombinations(final List<Mode> modes,
+                                             final List<String> languages) {
+        Set<Combination> outSet = new HashSet<>();
+        for (String source: languages) {
+            for (String target: languages) {
+                if (source.startsWith("zh") && target.startsWith("zh")) {
+                    continue;
+                } else if (source.equals(target)) {
+                    continue;
+                }
+                for (Mode m: modes) {
+                    outSet.add(new Combination(m, source, target));
+                }
+            }
+        }
+        return outSet;
+    }
+    private Set<Combination> createCombinations(final Mode m,
+                                             final String source,
+                                             final List<String> languages) {
+        Set<Combination> outSet = new HashSet<>();
+        for (String target: languages) {
+            if (source.equals(target)) {
+                continue;
+            }
+            outSet.add(new Combination(m, source, target));
+            outSet.add(new Combination(m, target, source));
+        }
+        return outSet;
     }
 
     /**
@@ -245,10 +264,10 @@ public class TextraOptions {
 
     private String formatLang(final String lang) {
         String result;
-        if (lang.contains("-")) {
-            int index = lang.indexOf("-");
-            result = lang.substring(0, index).toLowerCase() + lang
-                    .substring(index, lang.length() - index).toUpperCase();
+        int index = lang.indexOf("-");
+        if (index != -1) {
+            result = lang.substring(0, index).toLowerCase()
+                    + lang.substring(index).toUpperCase();
         } else {
             result = lang.toLowerCase();
         }

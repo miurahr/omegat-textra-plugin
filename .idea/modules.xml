@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/omegat-textra-plugin.iml" filepath="$PROJECT_DIR$/.idea/modules/omegat-textra-plugin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/omegat-textra-plugin.iml" filepath="$PROJECT_DIR$/omegat-textra-plugin.iml" />
     </modules>
   </component>
 </project>

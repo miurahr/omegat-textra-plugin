@@ -2,6 +2,15 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Add
+- Unit test of options for Chinese languages.
+
+### Changed
+- Updated a supported language combination list
+- Update build.gradle for gradle 4.8 and 5.0
+
+### Fixed
+- Fix formatLang() internal function handle chinese not to break;
 
 ## [0.5] - 2018-11-10
 ### Changed
