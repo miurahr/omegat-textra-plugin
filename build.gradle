@@ -14,8 +14,10 @@ configurations {
 
 sourceCompatibility = jdkVersion
 targetCompatibility = jdkVersion
-[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
-[compileJava, compileTestJava]*.options*.bootClasspath = "$JDK_HOME/jre/lib/rt.jar"
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+    options.bootstrapClasspath = files("$JDK_HOME/jre/lib/rt.jar")
+}
 
 sourceSets {
     main {
@@ -47,7 +49,9 @@ dependencies {
 test.useTestNG()
 
 jar {
-    from files(sourceSets.main.output.classesDir)
+    from(sourceSets.main.output) {
+        include '**/*.class'
+    }
     from {configurations.compile.collect {zipTree(it)}} {
         exclude "META-INF/MANIFEST.MF"
     }
@@ -69,8 +73,12 @@ checkstyle {
 checkstyleMain.exclude '**/dialog/TextraOptionDialog.java'
 
 // Force prevent checkstyle/findbugs on Test.
-task checkstyleTest(overwrite: true) << {}
-task findbugsTest(overwrite: true) << {}
+task checkstyleTest(overwrite: true) {
+    doLast{}
+}
+task findbugsTest(overwrite: true) {
+    doLast{}
+}
 
 findbugs {
     ignoreFailures = true
@@ -81,26 +89,19 @@ jacocoTestReport {
     reports {
         xml.enabled false
         csv.enabled false
-        html.destination "${buildDir}/reports/jacoco/testReport"
+        html.destination file("${buildDir}/reports/jacoco/testReport")
     }
 }
-
-task jacocoIntegrationTestReport(type: JacocoReport) {
-    group 'Documentation'
-    sourceSets sourceSets.main
-}
-
 check.finalizedBy jacocoTestReport
 
-task jacocoCombinedTestReport(type: JacocoReport) {
-    group 'Documentation'
-    sourceSets sourceSets.main
-    reports.html.destination "${buildDir}/reports/jacoco/combinedTestReport"
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
 }
 
-task sourceJar(type: Jar) {
-    from sourceSets.main.allSource
-    classifier = 'sources'
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
 }
 
 javadoc {
@@ -110,7 +111,8 @@ javadoc {
 
 artifacts {
     archives jar
-    archives sourceJar
+    archives sourcesJar
+    archives javadocJar
 }
 
 distTar {
@@ -120,12 +122,13 @@ distTar {
 distributions {
     main {
         contents {
+            from(jar)
             from('README.md', 'CHANGELOG.md', 'COPYING', 'DEVELOP.md')
-            from(sourceJar) {
+            from(sourcesJar) {
                 into 'source'
             }
-            from(jar) {
-                into 'plugin'
+            from(javadocJar) {
+                into 'docs'
             }
         }
     }
