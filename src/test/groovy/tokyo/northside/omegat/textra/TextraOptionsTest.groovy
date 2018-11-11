@@ -4,14 +4,17 @@ import org.testng.annotations.Test;
 
 import static org.testng.Assert.*;
 
-
 class TextraOptionsTest {
 
     @Test
     void testIsCombinationValid() {
         assertTrue(new TextraOptions().setMode("generalN").setLang("ja", "en").isCombinationValid())
-        assertFalse(new TextraOptions().setMode("generalN").setLang("fr", "en").isCombinationValid())
+        assertFalse(new TextraOptions().setMode("generalN").setLang("fr", "es").isCombinationValid())
+        assertFalse(new TextraOptions().setMode("generalN").setLang("zh-CN", "zh-TW").isCombinationValid())
+        assertTrue(new TextraOptions().setMode("generalN").setLang("ja", "zh-CN").isCombinationValid())
+        assertTrue(new TextraOptions().setMode("generalN").setLang("JA", "EN").isCombinationValid())
         assertTrue(new TextraOptions().setMode("patentN").setLang("en", "ja").isCombinationValid())
+        assertTrue(new TextraOptions().setMode("patent_claimN").setLang("ja", "en").isCombinationValid())
     }
 
     @Test
@@ -45,9 +48,21 @@ class TextraOptionsTest {
     }
 
     @Test
-    void testSetMode() {
+    void testSetModeGeneralN() {
         TextraOptions options = new TextraOptions().setMode("generalN")
         assertEquals(options.getModeName(), "generalN")
+    }
+
+    @Test
+    void testSetModePatentN() {
+        TextraOptions options = new TextraOptions().setMode("patentN")
+        assertEquals(options.getModeName(), "patentN")
+    }
+
+    @Test
+    void testSetModePatentClaimN() {
+        TextraOptions options = new TextraOptions().setMode("patent_claimN")
+        assertEquals(options.getModeName(), "patent_claimN")
     }
 
     @Test
