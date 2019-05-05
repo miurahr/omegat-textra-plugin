@@ -42,7 +42,7 @@ public class TextraOptionDialog extends JDialog {
     /**
      * Dialog constructor.
      */
-    public TextraOptionDialog() {
+    public TextraOptionDialog(Window parent) {
         updated = false;
         setContentPane(contentPane);
         setModal(true);
@@ -127,18 +127,6 @@ public class TextraOptionDialog extends JDialog {
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
-    }
-
-    /**
-     * Only for test purpose.
-     *
-     * @param args command line arguments.
-     */
-    public static void main(String[] args) {
-        TextraOptionDialog dialog = new TextraOptionDialog();
-        dialog.pack();
-        dialog.setVisible(true);
-        System.exit(0);
     }
 
     {

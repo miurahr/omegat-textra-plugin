@@ -22,9 +22,9 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-
 
 /**
  * TexTra access API client.
@@ -109,7 +109,7 @@ public class TextraApiClient {
         String result;
         try (BufferedInputStream bis = new BufferedInputStream(respBodyStream)) {
             LOGGER.debug("Http response status: " + respStatus);
-            String rsp = IOUtils.toString(bis);
+            String rsp = IOUtils.toString(bis, StandardCharsets.UTF_8);
             LOGGER.info("response body: " + rsp);
             JSONObject jobj = new JSONObject(rsp);
             JSONObject resultset = jobj.getJSONObject("resultset");
