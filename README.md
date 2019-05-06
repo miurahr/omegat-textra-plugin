@@ -10,11 +10,13 @@ depending on your operating system.
 
 ## Configuration
 
-You can configure the plugin using **Options > Machine Translate > TexTra > Options**.
-After setting configurations, you may enable plugin at **Options > Machine Translate > TexTra > Enable**
-When enabled, machine translations suggestions will apear in the Machine Translation pane automatically.
+You can enable the plugin using **Options > Preferences... > Machine Translation** to check `Textra by NICT` on.
+After enables configurations, it is nessesary to configure TexTra username, API key and secret
+on a dialog shown when pushing **Configure** button. These information can be obtained from
+a link shown on the dialog.
+After configured, suggestions will apear in the Machine Translation pane automatically.
 
-## TexTra Terms
+## TexTra Terms and API key
 
 You need to agree NICT TexTra Service terms  and  get an account (username, api key and api secret)
 to use this plugin with OmegaT. The terms show at
@@ -23,7 +25,7 @@ https://mt-auto-minhon-mlt.ucri.jgn-x.jp/content/policy/
 ## TexTra TLS certification
 
 NICT TexTra uses Starfield G2 certificate for their https communication.
-Some java installation does not includes its root certificate as tructed one.
+Some java installation does not includes its root certificate as trusted one.
 You may need to import its certification as trusted one from Java application.
 
 To download certification, please go to;
@@ -36,7 +38,7 @@ then import a cert, for example on  Mac:
 sudo keytool -importcert -trustcacerts -file sfroot-g2.crt -keystore /Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/security/cacerts -alias starfield-g2 -storepass changeit
 ```
 
-please check carefully with sha256 footprint on the site and keytool's notification.
+Please check it carefully with sha256 footprint on the site and keytool's notification.
 
 On Ubuntu/Mint, please check your certs directory where exists
 starfield G2 certificate as /etc/ssl/certs/Starfield_Root_Certificate_Authority_-_G2.crt
