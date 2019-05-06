@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.apache.pdfbox:pdfbox:2.0.8">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.pdfbox/pdfbox/2.0.8/17bdf273d66f3afe41eedb9d3ab6a7b819c44a0c/pdfbox-2.0.8.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.pdfbox/pdfbox/2.0.8/ae22cfb61035ff494f99dec00144286c20e5c1f2/pdfbox-2.0.8-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.languagetool:language-zh:3.5">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.languagetool/language-zh/3.5/f2af943cf9758b1b32343e08425259f9b154b436/language-zh-3.5.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.languagetool/language-zh/3.5/b15e786a8b0d0c073902cc471f91c48bf16579e/language-zh-3.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.carrot2:morfologik-stemming:2.1.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.carrot2/morfologik-stemming/2.1.0/94167b64752138a246cc33cbf1a3b0bfe5274b7c/morfologik-stemming-2.1.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.carrot2/morfologik-stemming/2.1.0/b7048aed953321ffde5670a581269c3f46f67639/morfologik-stemming-2.1.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

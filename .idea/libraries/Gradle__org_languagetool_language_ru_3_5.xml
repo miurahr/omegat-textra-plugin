@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.languagetool:language-ru:3.5">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.languagetool/language-ru/3.5/2780b3174318411167932c850a52de880d8779a0/language-ru-3.5.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.languagetool/language-ru/3.5/88316dc5169f5747802b0b11c3d7184e3ceabc61/language-ru-3.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
