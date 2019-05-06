@@ -73,6 +73,10 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
      */
     public OmegatTextraMachineTranslation() {
         super();
+        initOptions();
+    }
+
+    protected void initOptions() {
         options = new TextraOptions()
                 .setUsername(Preferences.getPreference(OPTION_TEXTRA_USERNAME))
                 .setApikey(Preferences.getPreference(OPTION_TEXTRA_APIKEY))
