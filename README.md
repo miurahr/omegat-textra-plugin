@@ -25,8 +25,15 @@ https://mt-auto-minhon-mlt.ucri.jgn-x.jp/content/policy/
 ## TexTra TLS certification
 
 NICT TexTra uses Starfield G2 certificate for their https communication.
-Some java installation does not includes its root certificate as trusted one.
+Java8 does not includes its root certificate as trusted one.
 You may need to import its certification as trusted one from Java application.
+
+- Java 11.0.3 (Apr. 16, 2019) include the certification.
+https://www.oracle.com/technetwork/java/javase/11-0-3-oracle-relnotes-5290048.html
+
+- Java bug tracking
+https://bugs.java.com/bugdatabase/view_bug.do?bug_id=8207191
+
 
 To download certification, please go to;
 `https://certs.secureserver.net/repository/`
