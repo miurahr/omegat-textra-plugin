@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: com.jcraft:jsch.agentproxy.pageant:0.0.9">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jcraft/jsch.agentproxy.pageant/0.0.9/7651361429af009ff18a6ea5c4e5d38ecff7f959/jsch.agentproxy.pageant-0.0.9.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jcraft/jsch.agentproxy.pageant/0.0.9/a3865d329183d51cbd6e21023d19d3eebd5df70e/jsch.agentproxy.pageant-0.0.9-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

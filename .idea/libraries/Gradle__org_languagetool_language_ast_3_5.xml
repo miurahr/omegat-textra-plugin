@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.languagetool:language-ast:3.5">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.languagetool/language-ast/3.5/d24c16cdc8224d2c191d2f6c58c36ec46a2b6197/language-ast-3.5.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.languagetool/language-ast/3.5/c9b3c7fc1853180f13a72c2af25c0b624a28a468/language-ast-3.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

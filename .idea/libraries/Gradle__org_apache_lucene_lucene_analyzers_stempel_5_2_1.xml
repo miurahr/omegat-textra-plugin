@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.apache.lucene:lucene-analyzers-stempel:5.2.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.lucene/lucene-analyzers-stempel/5.2.1/bf939976dc70ccab9a9ba40bde58c247afb72d99/lucene-analyzers-stempel-5.2.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.lucene/lucene-analyzers-stempel/5.2.1/d53847bd9a5e5ee822d24967f613c7cda5b11821/lucene-analyzers-stempel-5.2.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

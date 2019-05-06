@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: edu.washington.cs.knowitall:opennlp-tokenize-models:1.5">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/edu.washington.cs.knowitall/opennlp-tokenize-models/1.5/6dad86c15c48ea7e6588bbb00fcf34199574b0a3/opennlp-tokenize-models-1.5.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/edu.washington.cs.knowitall/opennlp-tokenize-models/1.5/8fbcd2db7d849941533049a1025d0bf33ad23d1b/opennlp-tokenize-models-1.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

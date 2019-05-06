@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.omegat.lucene:lucene-gosen:ipadic:5.0.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.omegat.lucene/lucene-gosen/5.0.0/fb5fa262e9a844c1cb27ce13a2c217fc4bb87325/lucene-gosen-5.0.0-ipadic.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.omegat.lucene/lucene-gosen/5.0.0/c9f80e842d974ded08cc01a408d62857fe706c74/lucene-gosen-5.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

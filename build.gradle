@@ -1,31 +1,18 @@
-apply plugin: 'java'
-apply plugin: 'groovy'
-apply plugin: 'jacoco'
-apply plugin: 'findbugs'
-apply plugin: 'checkstyle'
-apply plugin: 'distribution'
-apply plugin: 'idea'
+plugins {
+    id 'java'
+    id 'groovy'
+    id "com.github.spotbugs" version "1.7.1"
+    id 'checkstyle'
+    id 'distribution'
+}
+version = '0.6'
 
-version = '0.5'
-
-configurations {
-    provided
+ext {
+    javaVersion = '1.8'
 }
 
-sourceCompatibility = jdkVersion
-targetCompatibility = jdkVersion
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
-    options.bootstrapClasspath = files("$JDK_HOME/jre/lib/rt.jar")
-}
-
-sourceSets {
-    main {
-        compileClasspath += configurations.provided
-        test.compileClasspath += configurations.provided
-        test.runtimeClasspath += configurations.provided
-    }
-}
+sourceCompatibility = javaVersion
+targetCompatibility = javaVersion
 
 repositories {
     maven {
@@ -41,19 +28,21 @@ dependencies {
     compile 'org.json:json:20160810'
     compile fileTree(dir: 'lib', include: '*.jar')
     compile 'org.slf4j:slf4j-api:1.7.21'
-    provided 'org.omegat:omegat:4.0.1'
-    provided 'commons-io:commons-io:2.4'
-    provided 'commons-lang:commons-lang:2.6'
-    testCompile 'org.testng:testng:6.9.10'
+    compileOnly 'org.omegat:omegat:4.1.3-02'
+    compileOnly 'commons-io:commons-io:2.4'
+    compileOnly 'commons-lang:commons-lang:2.6'
+    testImplementation 'org.omegat:omegat:4.1.3-02'
+    testImplementation 'commons-io:commons-io:2.4'
+    testImplementation 'commons-lang:commons-lang:2.6'
+    testImplementation "org.codehaus.groovy:groovy-all:2.5.6"
+    testImplementation 'org.testng:testng:6.9.10'
+    spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.7.1'
 }
 test.useTestNG()
 
 jar {
-    from(sourceSets.main.output) {
-        include '**/*.class'
-    }
-    from {configurations.compile.collect {zipTree(it)}} {
-        exclude "META-INF/MANIFEST.MF"
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
     }
     manifest {
         attributes("OmegaT-Plugins": "tokyo.northside.omegat.textra.OmegatTextraMachineTranslation")
@@ -64,55 +53,24 @@ tasks.withType(JavaCompile) {
     options.compilerArgs << "-Xlint:deprecation" << "-Xlint:unchecked"
 }
 
-checkstyle {
+tasks.withType(Checkstyle) {
     config = resources.text.fromFile("${rootProject.projectDir}/config/checkstyle/checkstyle.xml")
     ignoreFailures = true
-    toolVersion = '7.1'
-}
-// Exclude generated source.
-checkstyleMain.exclude '**/dialog/TextraOptionDialog.java'
-
-// Force prevent checkstyle/findbugs on Test.
-task checkstyleTest(overwrite: true) {
-    doLast{}
-}
-task findbugsTest(overwrite: true) {
-    doLast{}
+    exclude('**/dialog/TextraOptionDialog.java')
 }
 
-findbugs {
+tasks.withType(com.github.spotbugs.SpotBugsTask) {
     ignoreFailures = true
 }
 
-jacocoTestReport {
-    group 'Documentation'
-    reports {
-        xml.enabled false
-        csv.enabled false
-        html.destination file("${buildDir}/reports/jacoco/testReport")
-    }
-}
-check.finalizedBy jacocoTestReport
-
 task sourcesJar(type: Jar, dependsOn: classes) {
-    classifier = 'sources'
     from sourceSets.main.allSource
-}
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-
-javadoc {
-    classpath += configurations.provided
-    options.locale = 'en_US'
+    classifier = 'sources'
 }
 
 artifacts {
     archives jar
     archives sourcesJar
-    archives javadocJar
 }
 
 distTar {
@@ -126,9 +84,6 @@ distributions {
             from('README.md', 'CHANGELOG.md', 'COPYING', 'DEVELOP.md')
             from(sourcesJar) {
                 into 'source'
-            }
-            from(javadocJar) {
-                into 'docs'
             }
         }
     }

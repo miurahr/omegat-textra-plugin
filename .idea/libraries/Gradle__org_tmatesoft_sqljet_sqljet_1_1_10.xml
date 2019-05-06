@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.tmatesoft.sqljet:sqljet:1.1.10">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.tmatesoft.sqljet/sqljet/1.1.10/ede7fbabd4c96d34e48fda0e8feced24c98cedca/sqljet-1.1.10.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.tmatesoft.sqljet/sqljet/1.1.10/5d9b195660fa3beb4bb54a102af747f4aad25b7/sqljet-1.1.10-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

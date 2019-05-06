@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.languagetool:hunspell-native-libs:2.9">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.languagetool/hunspell-native-libs/2.9/ea33d65db044214437b416d2017334d70642a1ee/hunspell-native-libs-2.9.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.languagetool/hunspell-native-libs/2.9/3e3ed70096be430d23cdfb6c7fb80cddf79fdc82/hunspell-native-libs-2.9-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

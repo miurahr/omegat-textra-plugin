@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: edu.berkeley.nlp:berkeleylm:1.1.2">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/edu.berkeley.nlp/berkeleylm/1.1.2/ab91b4e9e4157dd8b2e064bb2807e705b0ce7933/berkeleylm-1.1.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/edu.berkeley.nlp/berkeleylm/1.1.2/8bf669aaf93674f65189f77c23228cb87e00db0b/berkeleylm-1.1.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
