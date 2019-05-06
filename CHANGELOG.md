@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+
+## [0.6] - 2019-05-06
 ### Add
 - Unit test of options for Chinese languages.
 
