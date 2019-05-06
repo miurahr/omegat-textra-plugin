@@ -7,7 +7,10 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 - Updated a supported language combination list
-- Update build.gradle for gradle 4.8 and 5.0
+- Update build.gradle for gradle 4.8 and 5.4
+- Update a referenced OmegaT version to 4.1
+- Use Spotbugs instead of FindBugs for QA
+- OmegatTextraMachineTranslation class now inherited from BaseTranslate
 
 ### Fixed
 - Fix formatLang() internal function handle chinese not to break;
