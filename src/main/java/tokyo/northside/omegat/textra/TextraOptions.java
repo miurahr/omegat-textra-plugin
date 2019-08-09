@@ -242,7 +242,7 @@ public class TextraOptions {
      * @return true if mode name equals.
      */
     public boolean isMode(final String name) {
-        return name != null && mode == Enum.valueOf(Mode.class, name);
+        return mode.name().equals(name);
     }
 
     /**
