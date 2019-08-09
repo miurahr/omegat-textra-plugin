@@ -140,7 +140,7 @@
                       <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
-                      <actionCommand value="GENERAL" noi18n="true"/>
+                      <actionCommand value="generalN" noi18n="true"/>
                       <selected value="true"/>
                       <text resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="GeneralMode"/>
                       <toolTipText resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="GeneralModeToolTip"/>
@@ -151,7 +151,7 @@
                       <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
-                      <actionCommand value="PATENT" noi18n="true"/>
+                      <actionCommand value="patentN" noi18n="true"/>
                       <text resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="PatentMode"/>
                       <toolTipText resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="PatentModeToolTip"/>
                     </properties>
@@ -161,7 +161,7 @@
                       <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
-                      <actionCommand value="PATENT_CLAIM"/>
+                      <actionCommand value="patent_claimN"/>
                       <selected value="false"/>
                       <text resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="PatentOrderMode"/>
                       <toolTipText resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="PatentOrderModeToolTip"/>
