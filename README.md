@@ -4,16 +4,16 @@ This is an implementation of OmegaT plugin which support NICT TexTra Machine Tra
 
 ## Install
 
-Please download zip file from Github release. You can get jar file from zip distribution.
-OmegaT plugin should be placed in `$HOME/.omegat/plugin` or `C:\Program Files\OmegaT\plugin`
+Please download latest omegat-textra-plugin-x.x.zip file from [releases](https://github.com/miurahr/omegat-textra-plugin/releases) in this Github repository. You can get a plugin file (omegat-textra-plugin-x.x.jar) from downloaded zip distribution.
+The OmegaT plugin should be placed in `$HOME/.omegat/plugins` or `C:\Program Files\OmegaT\plugins`
 depending on your operating system.
 
 ## Configuration
 
 You can enable the plugin using **Options > Preferences... > Machine Translation** to check `Textra by NICT` on.
 After enables configurations, it is nessesary to configure TexTra username, API key and secret
-on a dialog shown when pushing **Configure** button. These information can be obtained from
-a link shown on the dialog.
+on a dialog shown when pushing **Configure** button (Note: <u>Currently you need to configure everytime you launch OmegaT</u>). These information can be obtained from
+a link shown on the dialog. 
 After configured, suggestions will apear in the Machine Translation pane automatically.
 
 ## TexTra Terms and API key
