@@ -27,16 +27,18 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import tokyo.northside.omegat.textra.dialog.TextraOptionDialog;
 
 import org.omegat.core.Core;
+import org.omegat.core.events.IApplicationEventListener;
 import org.omegat.core.machinetranslators.BaseTranslate;
 import org.omegat.gui.exttrans.IMachineTranslation;
+import org.omegat.gui.preferences.PreferencesControllers;
+import org.omegat.gui.preferences.PreferencesWindowController;
 import org.omegat.util.Language;
-
 import org.omegat.util.Preferences;
 
-import static tokyo.northside.omegat.textra.TextraOptions.Mode.generalN;
+import tokyo.northside.omegat.textra.TextraPreferenceController;
+import static tokyo.northside.omegat.textra.TextraPreferenceController.Mode.generalN;
 
 
 /**
@@ -49,7 +51,7 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
     private static final Logger LOGGER = LoggerFactory
             .getLogger(OmegatTextraMachineTranslation.class);
     protected boolean enabled;
-    protected TextraOptions options;
+    protected TextraPreferenceController options;
 
     /**
      * Machine translation implementation can use this cache for skip requests twice.
@@ -73,16 +75,6 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
      */
     public OmegatTextraMachineTranslation() {
         super();
-        initOptions();
-    }
-
-    protected void initOptions() {
-        options = new TextraOptions()
-                .setUsername(Preferences.getPreference(OPTION_TEXTRA_USERNAME))
-                .setApikey(Preferences.getPreference(OPTION_TEXTRA_APIKEY))
-                .setSecret(Preferences.getPreference(OPTION_TEXTRA_SECRET))
-                .setMode(Preferences.getPreferenceEnumDefault(OPTION_TEXTRA_TRANSLATE_MODE,
-                        generalN));
     }
 
     @Override
@@ -102,20 +94,7 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
     }
 
     @Override
-    public void showConfigurationUI(final Window parent) {
-        TextraOptionDialog dialog = new TextraOptionDialog(parent);
-        dialog.pack();
-        dialog.setData(options);
-        dialog.setVisible(true);
-        if (dialog.isModified(options)) {
-            dialog.getData(options);
-        }
-        Preferences.setPreference(OPTION_TEXTRA_USERNAME, options.getUsername());
-        Preferences.setPreference(OPTION_TEXTRA_APIKEY, options.getApikey());
-        Preferences.setPreference(OPTION_TEXTRA_SECRET, options.getSecret());
-        Preferences.setPreference(OPTION_TEXTRA_TRANSLATE_MODE, options.getMode());
-        Preferences.save();
-    }
+    public void showConfigurationUI(final Window parent) {}
 
     /**
      * Return MT name.
@@ -134,6 +113,7 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
      */
     public static void loadPlugins() {
         Core.registerMachineTranslationClass(OmegatTextraMachineTranslation.class);
+        PreferencesControllers.addSupplier(TextraPreferenceController::new);
     }
 
     /**

@@ -1,5 +1,10 @@
 package tokyo.northside.omegat.textra;
 
+import org.omegat.util.OStrings;
+
+import javax.swing.JComponent;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
@@ -14,7 +19,7 @@ public final class WebBrowser {
      * Start default web browser with URL.
      * @param url open page of url.
      */
-    public static void launch(final String url) {
+    public static void launch(final JPanel panel, final String url) {
         try {
             if (Desktop.isDesktopSupported()) {
                 Desktop desktop = Desktop.getDesktop();
@@ -24,7 +29,8 @@ public final class WebBrowser {
                 runtime.exec("xdg-open " + url);
             }
         } catch (IOException | URISyntaxException ex) {
-            // ignore me.
+            JOptionPane.showConfirmDialog(panel, ex.getLocalizedMessage(),
+                    OStrings.getString("ERROR_TITLE"), JOptionPane.ERROR_MESSAGE);
         }
     }
 

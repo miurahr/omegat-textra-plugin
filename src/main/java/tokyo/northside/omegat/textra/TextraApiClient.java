@@ -41,12 +41,13 @@ public class TextraApiClient {
     private HttpPost httpPost;
     private RequestConfig requestConfig;
 
+
     /**
      * Try authenticate OAuth with given key/secret.
      * @param options connectivity options.
      * @param text source text for translation.
      */
-    public void authenticate(final TextraOptions options, final String text) {
+    public void authenticate(final TextraPreferenceController options, final String text) {
         authenticate(getAccessUrl(options), options.getUsername(), options.getApikey(),
                 options.getSecret(), text);
     }
@@ -121,7 +122,7 @@ public class TextraApiClient {
         return result;
     }
 
-    private static String getAccessUrl(final TextraOptions options) {
+    private static String getAccessUrl(final TextraPreferenceController options) {
         String apiEngine = options.getModeName().replace("_", "-");
         String apiUrl = API_URL + apiEngine + "_" + options.getSourceLang()
                 + "_" + options.getTargetLang() + "/";
