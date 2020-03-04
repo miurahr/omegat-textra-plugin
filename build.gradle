@@ -56,8 +56,6 @@ tasks.withType(JavaCompile) {
 }
 
 tasks.withType(Checkstyle) {
-    config = resources.text.fromFile("${rootProject.projectDir}/config/checkstyle/checkstyle.xml")
-    ignoreFailures = true
     exclude('**/dialog/TextraOptionDialog.java')
 }
 
