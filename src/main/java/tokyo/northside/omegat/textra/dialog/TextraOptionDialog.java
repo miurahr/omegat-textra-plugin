@@ -53,7 +53,7 @@ public class TextraOptionDialog extends JDialog {
         // call onCancel() on ESCAPE
         contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
                 JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-        registerNewTexTraUserButton.addActionListener(actionEvent ->  WebBrowser.launch(REGISTRATION_URL));
+        registerNewTexTraUserButton.addActionListener(actionEvent -> WebBrowser.launch(REGISTRATION_URL));
         checkTexTraAPIKeyButton.addActionListener(actionEvent -> WebBrowser.launch(API_KEY_URL));
     }
 
@@ -184,11 +184,11 @@ public class TextraOptionDialog extends JDialog {
         secretTextField = new JTextField();
         panel4.add(secretTextField, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         final JPanel panel5 = new JPanel();
-        panel5.setLayout(new GridLayoutManager(1, 2, new Insets(0, 0, 0, 0), -1, -1));
+        panel5.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
         panel3.add(panel5, new GridConstraints(2, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         panel5.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(-16579837)), ResourceBundle.getBundle("tokyo/northside/omegat/textra/TextraMachineTranslation").getString("SelectMode")));
         final JPanel panel6 = new JPanel();
-        panel6.setLayout(new GridLayoutManager(4, 1, new Insets(0, 0, 0, 0), -1, -1));
+        panel6.setLayout(new GridLayoutManager(3, 1, new Insets(0, 0, 0, 0), -1, -1));
         panel5.add(panel6, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         generalModeRadioButton = new JRadioButton();
         generalModeRadioButton.setActionCommand("generalN");
@@ -199,14 +199,14 @@ public class TextraOptionDialog extends JDialog {
         patentModeRadioButton = new JRadioButton();
         patentModeRadioButton.setActionCommand("patentN");
         this.$$$loadButtonText$$$(patentModeRadioButton, ResourceBundle.getBundle("tokyo/northside/omegat/textra/TextraMachineTranslation").getString("PatentMode"));
-        panel6.add(patentModeRadioButton, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        final JPanel panel7 = new JPanel();
-        panel7.setLayout(new GridLayoutManager(4, 1, new Insets(0, 0, 0, 0), -1, -1));
-        panel5.add(panel7, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        patentModeRadioButton.setToolTipText(ResourceBundle.getBundle("tokyo/northside/omegat/textra/TextraMachineTranslation").getString("PatentModeToolTip"));
+        panel6.add(patentModeRadioButton, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         patentOrderModeRadioButton = new JRadioButton();
         patentOrderModeRadioButton.setActionCommand("patent_claimN");
+        patentOrderModeRadioButton.setSelected(false);
         this.$$$loadButtonText$$$(patentOrderModeRadioButton, ResourceBundle.getBundle("tokyo/northside/omegat/textra/TextraMachineTranslation").getString("PatentOrderMode"));
-        panel7.add(patentOrderModeRadioButton, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        patentOrderModeRadioButton.setToolTipText(ResourceBundle.getBundle("tokyo/northside/omegat/textra/TextraMachineTranslation").getString("PatentOrderModeToolTip"));
+        panel6.add(patentOrderModeRadioButton, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         registerNewTexTraUserButton = new JButton();
         this.$$$loadButtonText$$$(registerNewTexTraUserButton, ResourceBundle.getBundle("tokyo/northside/omegat/textra/TextraMachineTranslation").getString("RegisterTexTraService"));
         registerNewTexTraUserButton.setToolTipText(ResourceBundle.getBundle("tokyo/northside/omegat/textra/TextraMachineTranslation").getString("RegisterTexTraServiceToolTip"));
@@ -284,4 +284,5 @@ public class TextraOptionDialog extends JDialog {
     public JComponent $$$getRootComponent$$$() {
         return contentPane;
     }
+
 }
