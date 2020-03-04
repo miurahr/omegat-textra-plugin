@@ -62,8 +62,6 @@ tasks.withType(Checkstyle) {
 spotless {
     enforceCheck false
     java {
-        targetExclude 'src/gen/**'
-        eclipse().configFile 'docs_devel/eclipse-formatting.xml'
         removeUnusedImports()
     }
 }
