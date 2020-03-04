@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'groovy'
+    id "com.jfrog.bintray" version "1.8.4"
     id "com.github.spotbugs" version "3.0.0"
     id 'checkstyle'
     id 'com.diffplug.gradle.spotless' version '3.27.1'
@@ -115,6 +116,24 @@ distributions {
                 into 'source'
             }
         }
+    }
+}
+
+bintray {
+    user = System.getenv('BINTRAY_USER')
+    key = System.getenv('BINTRAY_KEY')
+    configurations = ['archives']
+    pkg {
+        repo = 'omegat-plugins'
+        name = 'omegat-textra-plugin'
+        userOrg = 'miurahr'
+        licenses = ['GPL-3.0']
+        vcsUrl = 'https://github.com/miurahr/omegat-textra-plugin.git'
+        version {
+			name = '0.8'
+			desc = 'Omegat Textra Machine Translation plugin'
+			vcsTag = 'v0.8'
+		}
     }
 }
 
