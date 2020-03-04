@@ -41,6 +41,8 @@ public class TextraOptionDialog extends JDialog {
 
     /**
      * Dialog constructor.
+     *
+     * @param parent parent windows instance.
      */
     public TextraOptionDialog(Window parent) {
         updated = false;
