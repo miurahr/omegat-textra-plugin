@@ -33,7 +33,6 @@ import org.omegat.core.Core;
 import org.omegat.core.machinetranslators.BaseTranslate;
 import org.omegat.gui.exttrans.IMachineTranslation;
 import org.omegat.util.Language;
-
 import org.omegat.util.Preferences;
 
 import static tokyo.northside.omegat.textra.TextraOptions.Mode.generalN;
@@ -78,11 +77,12 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
 
     protected void initOptions() {
         options = new TextraOptions()
-                .setUsername(Preferences.getPreference(OPTION_TEXTRA_USERNAME))
-                .setApikey(Preferences.getPreference(OPTION_TEXTRA_APIKEY))
-                .setSecret(Preferences.getPreference(OPTION_TEXTRA_SECRET))
+                .setUsername(getCredential(OPTION_TEXTRA_USERNAME))
+                .setApikey(getCredential(OPTION_TEXTRA_APIKEY))
+                .setSecret(getCredential(OPTION_TEXTRA_SECRET))
                 .setMode(Preferences.getPreferenceEnumDefault(OPTION_TEXTRA_TRANSLATE_MODE,
                         generalN));
+
     }
 
     @Override
@@ -110,9 +110,9 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
         if (dialog.isModified(options)) {
             dialog.getData(options);
         }
-        Preferences.setPreference(OPTION_TEXTRA_USERNAME, options.getUsername());
-        Preferences.setPreference(OPTION_TEXTRA_APIKEY, options.getApikey());
-        Preferences.setPreference(OPTION_TEXTRA_SECRET, options.getSecret());
+        setCredential(OPTION_TEXTRA_USERNAME, options.getUsername(), false);
+        setCredential(OPTION_TEXTRA_APIKEY, options.getApikey(), false);
+        setCredential(OPTION_TEXTRA_SECRET, options.getSecret(), false);
         Preferences.setPreference(OPTION_TEXTRA_TRANSLATE_MODE, options.getMode());
         Preferences.save();
     }
