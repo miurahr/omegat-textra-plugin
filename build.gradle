@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'groovy'
+    id "com.jfrog.bintray" version "1.8.4"
     id "com.github.spotbugs" version "3.0.0"
     id 'checkstyle'
     id 'com.diffplug.gradle.spotless' version '3.27.1'
@@ -35,7 +36,7 @@ dependencies {
     testImplementation 'org.omegat:omegat:4.3.0'
     testImplementation 'commons-io:commons-io:2.4'
     testImplementation 'commons-lang:commons-lang:2.6'
-    testImplementation "org.codehaus.groovy:groovy-all:2.5.6"
+    testImplementation "org.codehaus.groovy:groovy-all:3.0.1"
     testImplementation 'org.testng:testng:6.9.10'
     spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.7.1'
 }
@@ -55,16 +56,12 @@ tasks.withType(JavaCompile) {
 }
 
 tasks.withType(Checkstyle) {
-    config = resources.text.fromFile("${rootProject.projectDir}/config/checkstyle/checkstyle.xml")
-    ignoreFailures = true
     exclude('**/dialog/TextraOptionDialog.java')
 }
 
 spotless {
     enforceCheck false
     java {
-        targetExclude 'src/gen/**'
-        eclipse().configFile 'docs_devel/eclipse-formatting.xml'
         removeUnusedImports()
     }
 }
@@ -115,6 +112,24 @@ distributions {
                 into 'source'
             }
         }
+    }
+}
+
+bintray {
+    user = System.getenv('BINTRAY_USER')
+    key = System.getenv('BINTRAY_KEY')
+    configurations = ['archives']
+    pkg {
+        repo = 'omegat-plugins'
+        name = 'omegat-textra-plugin'
+        userOrg = 'miurahr'
+        licenses = ['GPL-3.0']
+        vcsUrl = 'https://github.com/miurahr/omegat-textra-plugin.git'
+        version {
+			name = '0.8'
+			desc = 'Omegat Textra Machine Translation plugin'
+			vcsTag = 'v0.8'
+		}
     }
 }
 
