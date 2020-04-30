@@ -7,7 +7,7 @@ plugins {
     id 'com.diffplug.gradle.spotless' version '3.27.1'
     id 'distribution'
 }
-version = '0.8'
+version = '0.9.0'
 
 ext {
     javaVersion = '1.8'
@@ -30,11 +30,11 @@ dependencies {
     compile 'org.json:json:20160810'
     compile fileTree(dir: 'lib', include: '*.jar')
     compile 'org.slf4j:slf4j-api:1.7.25'
-    compileOnly 'org.omegat:omegat:4.3.0'
+    compileOnly 'org.omegat:omegat:5.2.0'
     compileOnly 'commons-io:commons-io:2.5'
     compileOnly 'commons-lang:commons-lang:2.6'
-    testImplementation 'org.omegat:omegat:4.3.0'
-    testImplementation 'commons-io:commons-io:2.4'
+    testImplementation 'org.omegat:omegat:5.2.0'
+    testImplementation 'commons-io:commons-io:2.5'
     testImplementation 'commons-lang:commons-lang:2.6'
     testImplementation "org.codehaus.groovy:groovy-all:3.0.1"
     testImplementation 'org.testng:testng:6.9.10'

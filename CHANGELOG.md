@@ -3,20 +3,38 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.9.0] - 2020-04-30
+
+### Fixed
+- Changelog commit comparison links
+- Use semantic versioning.
+
 ### Added
-- Add support for General NT mode.
+- Add support for new translation modes.(#24)
+  * General NT
+  * Patent NT
+  * Voicetra NMT
+  * Voicetra NT
+  * Finance NMT
+  * Finance NT
 
 ### Changed
 - Rename dialog for GeneralN to name 'General NMT Mode'
+- Build against OmegaT 5.2.0
+- Bamp groovy version to 3.0.1
 
 ## [0.8] - 2020-03-04
 
 ### Fixed
 - Persistence of login credentials. (#21)
 
+### Changed
+- Bamp gradle version to 6.0.1.
+- Build against OmegaT 4.3.0.
+
 ## [0.7] - 2019-08-09
 ### Fixed
-- Fix configuration doesn't refrect and cause exception.(#13)
+- Fix configuration doesn't reflect and cause exception.(#13)
 
 ## [0.6] - 2019-05-06
 ### Add
@@ -84,10 +102,12 @@ All notable changes to this project will be documented in this file.
 ### Added
 - Start project.
 
-[Unreleased]: https://github.com/miurahr/omegat-markdown-plugin/compare/v0.7...HEAD
-[0.7]: https://github.com/miurahr/omegat-markdown-plugin/compare/v0.6...v0.7
-[0.6]: https://github.com/miurahr/omegat-markdown-plugin/compare/v0.5...v0.6
-[0.5]: https://github.com/miurahr/omegat-markdown-plugin/compare/v0.4...v0.5
-[0.4]: https://github.com/miurahr/omegat-markdown-plugin/compare/v0.3...v0.4
-[0.3]: https://github.com/miurahr/omegat-markdown-plugin/compare/v0.2...v0.3
-[0.2]: https://github.com/miurahr/omegat-markdown-plugin/compare/v0.1...v0.2
+[Unreleased]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.9.0...HEAD
+[0.9.0]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.8...v0.9.0
+[0.8]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.7...v0.8
+[0.7]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.6...v0.7
+[0.6]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.5...v0.6
+[0.5]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.4...v0.5
+[0.4]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.3...v0.4
+[0.3]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.2...v0.3
+[0.2]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.1...v0.2
