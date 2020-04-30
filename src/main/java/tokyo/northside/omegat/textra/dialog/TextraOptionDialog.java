@@ -7,8 +7,10 @@ import tokyo.northside.omegat.textra.TextraOptions;
 import tokyo.northside.omegat.textra.WebBrowser;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.lang.reflect.Method;
 import java.util.ResourceBundle;
 
 
@@ -27,11 +29,17 @@ public class TextraOptionDialog extends JDialog {
     private JTextField userNameTextField;
     private JTextField apikeyTextField;
     private JTextField secretTextField;
-    private JRadioButton generalModeRadioButton;
+    private JRadioButton generalNMTModeRadioButton;
     private JRadioButton patentModeRadioButton;
     private JRadioButton patentOrderModeRadioButton;
     private JButton registerNewTexTraUserButton;
     private JButton checkTexTraAPIKeyButton;
+    private JRadioButton generalNTModeRadioButton;
+    private JRadioButton patentNTModeRadioButton;
+    private JRadioButton voicetraNMTModeRadioButton;
+    private JRadioButton voicetraNTModeRadioButton;
+    private JRadioButton fsaNMTModeRadioButton;
+    private JRadioButton fsaNTModeRadioButton;
     private ButtonGroup modeButtonGroup;
 
     private static final String REGISTRATION_URL = "https://mt-auto-minhon-mlt.ucri.jgn-x.jp/content/register/";
@@ -79,7 +87,7 @@ public class TextraOptionDialog extends JDialog {
         secretTextField.setText(data.getSecret());
         switch (data.getMode()) {
             case generalN:
-                generalModeRadioButton.setSelected(true);
+                generalNMTModeRadioButton.setSelected(true);
                 break;
             case patentN:
                 patentModeRadioButton.setSelected(true);
@@ -87,8 +95,26 @@ public class TextraOptionDialog extends JDialog {
             case patent_claimN:
                 patentOrderModeRadioButton.setSelected(true);
                 break;
+            case generalNT:
+                generalNTModeRadioButton.setSelected(true);
+                break;
+            case patentNT:
+                patentNTModeRadioButton.setSelected(true);
+                break;
+            case voicetraN:
+                voicetraNMTModeRadioButton.setSelected(true);
+                break;
+            case voicetraNT:
+                voicetraNTModeRadioButton.setSelected(true);
+                break;
+            case fsa:
+                fsaNMTModeRadioButton.setSelected(true);
+                break;
+            case fsaNT:
+                fsaNTModeRadioButton.setSelected(true);
+                break;
             default:
-                generalModeRadioButton.setSelected(true);
+                generalNMTModeRadioButton.setSelected(true);
                 break;
         }
     }
@@ -169,61 +195,115 @@ public class TextraOptionDialog extends JDialog {
         panel4.setLayout(new GridLayoutManager(3, 2, new Insets(0, 0, 0, 0), -1, -1));
         panel3.add(panel4, new GridConstraints(0, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         userNameLabel = new JLabel();
-        this.$$$loadLabelText$$$(userNameLabel, ResourceBundle.getBundle("tokyo/northside/omegat/textra/TextraMachineTranslation").getString("Username"));
+        this.$$$loadLabelText$$$(userNameLabel, this.$$$getMessageFromBundle$$$("tokyo/northside/omegat/textra/TextraMachineTranslation", "Username"));
         panel4.add(userNameLabel, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         userNameTextField = new JTextField();
         panel4.add(userNameTextField, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         apiKeyLabel = new JLabel();
-        this.$$$loadLabelText$$$(apiKeyLabel, ResourceBundle.getBundle("tokyo/northside/omegat/textra/TextraMachineTranslation").getString("ApiKey"));
-        apiKeyLabel.setToolTipText(ResourceBundle.getBundle("tokyo/northside/omegat/textra/TextraMachineTranslation").getString("APIKeyToolTipText"));
+        this.$$$loadLabelText$$$(apiKeyLabel, this.$$$getMessageFromBundle$$$("tokyo/northside/omegat/textra/TextraMachineTranslation", "ApiKey"));
+        apiKeyLabel.setToolTipText(this.$$$getMessageFromBundle$$$("tokyo/northside/omegat/textra/TextraMachineTranslation", "APIKeyToolTipText"));
         panel4.add(apiKeyLabel, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         apikeyTextField = new JTextField();
         panel4.add(apikeyTextField, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         secretLabel = new JLabel();
-        this.$$$loadLabelText$$$(secretLabel, ResourceBundle.getBundle("tokyo/northside/omegat/textra/TextraMachineTranslation").getString("ApiSecret"));
-        secretLabel.setToolTipText(ResourceBundle.getBundle("tokyo/northside/omegat/textra/TextraMachineTranslation").getString("SecretToolTipText"));
+        this.$$$loadLabelText$$$(secretLabel, this.$$$getMessageFromBundle$$$("tokyo/northside/omegat/textra/TextraMachineTranslation", "ApiSecret"));
+        secretLabel.setToolTipText(this.$$$getMessageFromBundle$$$("tokyo/northside/omegat/textra/TextraMachineTranslation", "SecretToolTipText"));
         panel4.add(secretLabel, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         secretTextField = new JTextField();
         panel4.add(secretTextField, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         final JPanel panel5 = new JPanel();
         panel5.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
         panel3.add(panel5, new GridConstraints(2, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
-        panel5.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(-16579837)), ResourceBundle.getBundle("tokyo/northside/omegat/textra/TextraMachineTranslation").getString("SelectMode")));
+        panel5.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(-16579837)), this.$$$getMessageFromBundle$$$("tokyo/northside/omegat/textra/TextraMachineTranslation", "SelectMode"), TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
         final JPanel panel6 = new JPanel();
-        panel6.setLayout(new GridLayoutManager(3, 1, new Insets(0, 0, 0, 0), -1, -1));
+        panel6.setLayout(new GridLayoutManager(9, 1, new Insets(0, 0, 0, 0), -1, -1));
         panel5.add(panel6, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
-        generalModeRadioButton = new JRadioButton();
-        generalModeRadioButton.setActionCommand("generalN");
-        generalModeRadioButton.setSelected(true);
-        this.$$$loadButtonText$$$(generalModeRadioButton, ResourceBundle.getBundle("tokyo/northside/omegat/textra/TextraMachineTranslation").getString("GeneralMode"));
-        generalModeRadioButton.setToolTipText(ResourceBundle.getBundle("tokyo/northside/omegat/textra/TextraMachineTranslation").getString("GeneralModeToolTip"));
-        panel6.add(generalModeRadioButton, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        generalNMTModeRadioButton = new JRadioButton();
+        generalNMTModeRadioButton.setActionCommand("generalN");
+        generalNMTModeRadioButton.setSelected(true);
+        this.$$$loadButtonText$$$(generalNMTModeRadioButton, this.$$$getMessageFromBundle$$$("tokyo/northside/omegat/textra/TextraMachineTranslation", "GeneralNMTMode"));
+        generalNMTModeRadioButton.setToolTipText(this.$$$getMessageFromBundle$$$("tokyo/northside/omegat/textra/TextraMachineTranslation", "GeneralNMTModeToolTip"));
+        panel6.add(generalNMTModeRadioButton, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         patentModeRadioButton = new JRadioButton();
         patentModeRadioButton.setActionCommand("patentN");
-        this.$$$loadButtonText$$$(patentModeRadioButton, ResourceBundle.getBundle("tokyo/northside/omegat/textra/TextraMachineTranslation").getString("PatentMode"));
-        patentModeRadioButton.setToolTipText(ResourceBundle.getBundle("tokyo/northside/omegat/textra/TextraMachineTranslation").getString("PatentModeToolTip"));
-        panel6.add(patentModeRadioButton, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        this.$$$loadButtonText$$$(patentModeRadioButton, this.$$$getMessageFromBundle$$$("tokyo/northside/omegat/textra/TextraMachineTranslation", "PatentMode"));
+        patentModeRadioButton.setToolTipText(this.$$$getMessageFromBundle$$$("tokyo/northside/omegat/textra/TextraMachineTranslation", "PatentModeToolTip"));
+        panel6.add(patentModeRadioButton, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         patentOrderModeRadioButton = new JRadioButton();
         patentOrderModeRadioButton.setActionCommand("patent_claimN");
         patentOrderModeRadioButton.setSelected(false);
-        this.$$$loadButtonText$$$(patentOrderModeRadioButton, ResourceBundle.getBundle("tokyo/northside/omegat/textra/TextraMachineTranslation").getString("PatentOrderMode"));
-        patentOrderModeRadioButton.setToolTipText(ResourceBundle.getBundle("tokyo/northside/omegat/textra/TextraMachineTranslation").getString("PatentOrderModeToolTip"));
-        panel6.add(patentOrderModeRadioButton, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        this.$$$loadButtonText$$$(patentOrderModeRadioButton, this.$$$getMessageFromBundle$$$("tokyo/northside/omegat/textra/TextraMachineTranslation", "PatentOrderMode"));
+        patentOrderModeRadioButton.setToolTipText(this.$$$getMessageFromBundle$$$("tokyo/northside/omegat/textra/TextraMachineTranslation", "PatentOrderModeToolTip"));
+        panel6.add(patentOrderModeRadioButton, new GridConstraints(4, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        generalNTModeRadioButton = new JRadioButton();
+        generalNTModeRadioButton.setActionCommand("generalNT");
+        this.$$$loadButtonText$$$(generalNTModeRadioButton, this.$$$getMessageFromBundle$$$("tokyo/northside/omegat/textra/TextraMachineTranslation", "GeneralNTMode"));
+        generalNTModeRadioButton.setToolTipText(this.$$$getMessageFromBundle$$$("tokyo/northside/omegat/textra/TextraMachineTranslation", "GeneralNTModeToolTip"));
+        panel6.add(generalNTModeRadioButton, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        patentNTModeRadioButton = new JRadioButton();
+        patentNTModeRadioButton.setActionCommand("patentNT");
+        this.$$$loadButtonText$$$(patentNTModeRadioButton, this.$$$getMessageFromBundle$$$("tokyo/northside/omegat/textra/TextraMachineTranslation", "PatentNTMode"));
+        patentNTModeRadioButton.setToolTipText(this.$$$getMessageFromBundle$$$("tokyo/northside/omegat/textra/TextraMachineTranslation", "PatentNTModeToolTip"));
+        panel6.add(patentNTModeRadioButton, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        voicetraNMTModeRadioButton = new JRadioButton();
+        voicetraNMTModeRadioButton.setActionCommand("voicetraN");
+        this.$$$loadButtonText$$$(voicetraNMTModeRadioButton, this.$$$getMessageFromBundle$$$("tokyo/northside/omegat/textra/TextraMachineTranslation", "VoiceTraNMTMode"));
+        voicetraNMTModeRadioButton.setToolTipText(this.$$$getMessageFromBundle$$$("tokyo/northside/omegat/textra/TextraMachineTranslation", "VoiceTraNMTModeToolTip"));
+        panel6.add(voicetraNMTModeRadioButton, new GridConstraints(5, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        voicetraNTModeRadioButton = new JRadioButton();
+        voicetraNTModeRadioButton.setActionCommand("voicetraNT");
+        voicetraNTModeRadioButton.setSelected(false);
+        this.$$$loadButtonText$$$(voicetraNTModeRadioButton, this.$$$getMessageFromBundle$$$("tokyo/northside/omegat/textra/TextraMachineTranslation", "VoiceTraNTMode"));
+        voicetraNTModeRadioButton.setToolTipText(this.$$$getMessageFromBundle$$$("tokyo/northside/omegat/textra/TextraMachineTranslation", "VoiceTraNMTModeToolTip"));
+        panel6.add(voicetraNTModeRadioButton, new GridConstraints(6, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        fsaNMTModeRadioButton = new JRadioButton();
+        fsaNMTModeRadioButton.setActionCommand("fsa");
+        this.$$$loadButtonText$$$(fsaNMTModeRadioButton, this.$$$getMessageFromBundle$$$("tokyo/northside/omegat/textra/TextraMachineTranslation", "FsaNMTMode"));
+        fsaNMTModeRadioButton.setToolTipText(this.$$$getMessageFromBundle$$$("tokyo/northside/omegat/textra/TextraMachineTranslation", "FsaNMTModeToolTip"));
+        panel6.add(fsaNMTModeRadioButton, new GridConstraints(7, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        fsaNTModeRadioButton = new JRadioButton();
+        fsaNTModeRadioButton.setActionCommand("fsaNT");
+        this.$$$loadButtonText$$$(fsaNTModeRadioButton, this.$$$getMessageFromBundle$$$("tokyo/northside/omegat/textra/TextraMachineTranslation", "FsaNTMode"));
+        fsaNTModeRadioButton.setToolTipText(this.$$$getMessageFromBundle$$$("tokyo/northside/omegat/textra/TextraMachineTranslation", "FsaNTModeToolTip"));
+        panel6.add(fsaNTModeRadioButton, new GridConstraints(8, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         registerNewTexTraUserButton = new JButton();
-        this.$$$loadButtonText$$$(registerNewTexTraUserButton, ResourceBundle.getBundle("tokyo/northside/omegat/textra/TextraMachineTranslation").getString("RegisterTexTraService"));
-        registerNewTexTraUserButton.setToolTipText(ResourceBundle.getBundle("tokyo/northside/omegat/textra/TextraMachineTranslation").getString("RegisterTexTraServiceToolTip"));
+        this.$$$loadButtonText$$$(registerNewTexTraUserButton, this.$$$getMessageFromBundle$$$("tokyo/northside/omegat/textra/TextraMachineTranslation", "RegisterTexTraService"));
+        registerNewTexTraUserButton.setToolTipText(this.$$$getMessageFromBundle$$$("tokyo/northside/omegat/textra/TextraMachineTranslation", "RegisterTexTraServiceToolTip"));
         panel3.add(registerNewTexTraUserButton, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         checkTexTraAPIKeyButton = new JButton();
-        this.$$$loadButtonText$$$(checkTexTraAPIKeyButton, ResourceBundle.getBundle("tokyo/northside/omegat/textra/TextraMachineTranslation").getString("ShowAPIKeySecretOnBrowser"));
-        checkTexTraAPIKeyButton.setToolTipText(ResourceBundle.getBundle("tokyo/northside/omegat/textra/TextraMachineTranslation").getString("ShowAPIKeySecretOnBrowserToolTip"));
+        this.$$$loadButtonText$$$(checkTexTraAPIKeyButton, this.$$$getMessageFromBundle$$$("tokyo/northside/omegat/textra/TextraMachineTranslation", "ShowAPIKeySecretOnBrowser"));
+        checkTexTraAPIKeyButton.setToolTipText(this.$$$getMessageFromBundle$$$("tokyo/northside/omegat/textra/TextraMachineTranslation", "ShowAPIKeySecretOnBrowserToolTip"));
         panel3.add(checkTexTraAPIKeyButton, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JLabel label1 = new JLabel();
-        this.$$$loadLabelText$$$(label1, ResourceBundle.getBundle("tokyo/northside/omegat/textra/TextraMachineTranslation").getString("TexTraOptionDialogTitle"));
+        this.$$$loadLabelText$$$(label1, this.$$$getMessageFromBundle$$$("tokyo/northside/omegat/textra/TextraMachineTranslation", "TexTraOptionDialogTitle"));
         contentPane.add(label1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         modeButtonGroup = new ButtonGroup();
-        modeButtonGroup.add(generalModeRadioButton);
+        modeButtonGroup.add(generalNMTModeRadioButton);
         modeButtonGroup.add(patentModeRadioButton);
         modeButtonGroup.add(patentOrderModeRadioButton);
+        modeButtonGroup.add(generalNTModeRadioButton);
+        modeButtonGroup.add(patentNTModeRadioButton);
+        modeButtonGroup.add(voicetraNMTModeRadioButton);
+        modeButtonGroup.add(voicetraNTModeRadioButton);
+        modeButtonGroup.add(fsaNMTModeRadioButton);
+        modeButtonGroup.add(fsaNTModeRadioButton);
+    }
+
+    private static Method $$$cachedGetBundleMethod$$$ = null;
+
+    private String $$$getMessageFromBundle$$$(String path, String key) {
+        ResourceBundle bundle;
+        try {
+            Class<?> thisClass = this.getClass();
+            if ($$$cachedGetBundleMethod$$$ == null) {
+                Class<?> dynamicBundleClass = thisClass.getClassLoader().loadClass("com.intellij.DynamicBundle");
+                $$$cachedGetBundleMethod$$$ = dynamicBundleClass.getMethod("getBundle", String.class, Class.class);
+            }
+            bundle = (ResourceBundle) $$$cachedGetBundleMethod$$$.invoke(null, path, thisClass);
+        } catch (Exception e) {
+            bundle = ResourceBundle.getBundle(path);
+        }
+        return bundle.getString(key);
     }
 
     /**

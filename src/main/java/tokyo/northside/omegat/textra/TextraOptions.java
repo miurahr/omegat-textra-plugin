@@ -22,12 +22,20 @@ public class TextraOptions {
 
     {
         combination.addAll(createCombinations(
-                Arrays.asList(Mode.generalN, Mode.patentN, Mode.patent_claimN),
+                Arrays.asList(Mode.generalN, Mode.patentN, Mode.patent_claimN, Mode.voicetraN),
                 Arrays.asList("ja", "en", "zh-CN", "zh-TW")));
         combination.addAll(createCombinations(
                 Arrays.asList(Mode.generalN, Mode.patentN, Mode.patent_claimN),
                 Arrays.asList("ko", "ja")));
         combination.addAll(createCombinations(Mode.generalN, "en",
+                Arrays.asList("fr", "pt", "fr", "id", "my", "th", "vi", "es")));
+        combination.addAll(createCombinations(
+                Arrays.asList(Mode.generalNT, Mode.patentNT),
+                Arrays.asList("ja", "en", "zh-CN", "zh-TW")));
+        combination.addAll(createCombinations(
+                Arrays.asList(Mode.voicetraNT, Mode.fsa, Mode.fsaNT),
+                Arrays.asList("en", "ja")));
+        combination.addAll(createCombinations(Mode.voicetraN, "en",
                 Arrays.asList("fr", "pt", "fr", "id", "my", "th", "vi", "es")));
     }
 
@@ -126,18 +134,45 @@ public class TextraOptions {
      * These name is as same as an part of API URL.
      */
     public enum Mode {
-        /** generic translation.
+        /** general NMT more.
          * English/Japanese/Chinese/Korean
          */
         generalN,
-        /** address translation.
+        /** general NT mode.
+         */
+        generalNT,
+        /** Patent NMT mode.
          * Japanese/English
          */
         patentN,
+        /** Patent NT mode,
+         * Next generation of Patent NMT
+         */
+        patentNT,
         /** JPO claim translation.
          * Chinese/Japanese
          */
         patent_claimN,
+        /** Taiwa NMT mode,
+         * Same as VoiceTra engine.
+         */
+        voicetraN,
+        /** Taiwa NT mode,
+         * Next generation of Taiwa NMT
+         */
+        voicetraNT,
+        /** Minnna NT mode,
+         * experimental mode
+         */
+        minnaN,
+        /** Financial mode,
+         *
+         */
+        fsa,
+        /** Financial NT mode,
+         *
+         */
+        fsaNT,
     }
 
     /**

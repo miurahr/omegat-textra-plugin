@@ -3,8 +3,19 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- Add support for General NT mode.
+
+### Changed
+- Rename dialog for GeneralN to name 'General NMT Mode'
+
+## [0.8] - 2020-03-04
+
+### Fixed
+- Persistence of login credentials. (#21)
+
 ## [0.7] - 2019-08-09
-#**## Fixed
+### Fixed
 - Fix configuration doesn't refrect and cause exception.(#13)
 
 ## [0.6] - 2019-05-06

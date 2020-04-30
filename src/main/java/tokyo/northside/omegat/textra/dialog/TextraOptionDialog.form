@@ -3,7 +3,7 @@
   <grid id="cbd77" binding="contentPane" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="10" left="10" bottom="10" right="10"/>
     <constraints>
-      <xy x="48" y="54" width="611" height="417"/>
+      <xy x="48" y="54" width="631" height="568"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -127,7 +127,7 @@
               <color color="-16579837"/>
             </border>
             <children>
-              <grid id="11511" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+              <grid id="11511" layout-manager="GridLayoutManager" row-count="9" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="0" left="0" bottom="0" right="0"/>
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -135,20 +135,20 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="4ee1a" class="javax.swing.JRadioButton" binding="generalModeRadioButton">
+                  <component id="4ee1a" class="javax.swing.JRadioButton" binding="generalNMTModeRadioButton">
                     <constraints>
                       <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
                       <actionCommand value="generalN" noi18n="true"/>
                       <selected value="true"/>
-                      <text resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="GeneralMode"/>
-                      <toolTipText resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="GeneralModeToolTip"/>
+                      <text resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="GeneralNMTMode"/>
+                      <toolTipText resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="GeneralNMTModeToolTip"/>
                     </properties>
                   </component>
                   <component id="38a9" class="javax.swing.JRadioButton" binding="patentModeRadioButton">
                     <constraints>
-                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                      <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
                       <actionCommand value="patentN" noi18n="true"/>
@@ -158,13 +158,74 @@
                   </component>
                   <component id="e57f1" class="javax.swing.JRadioButton" binding="patentOrderModeRadioButton">
                     <constraints>
-                      <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                      <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
                       <actionCommand value="patent_claimN"/>
                       <selected value="false"/>
                       <text resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="PatentOrderMode"/>
                       <toolTipText resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="PatentOrderModeToolTip"/>
+                    </properties>
+                  </component>
+                  <component id="31cc7" class="javax.swing.JRadioButton" binding="generalNTModeRadioButton">
+                    <constraints>
+                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <actionCommand value="generalNT"/>
+                      <text resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="GeneralNTMode"/>
+                      <toolTipText resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="GeneralNTModeToolTip"/>
+                    </properties>
+                  </component>
+                  <component id="7218b" class="javax.swing.JRadioButton" binding="patentNTModeRadioButton">
+                    <constraints>
+                      <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <actionCommand value="patentNT"/>
+                      <text resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="PatentNTMode"/>
+                      <toolTipText resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="PatentNTModeToolTip"/>
+                    </properties>
+                  </component>
+                  <component id="e737f" class="javax.swing.JRadioButton" binding="voicetraNMTModeRadioButton">
+                    <constraints>
+                      <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <actionCommand value="voicetraN"/>
+                      <text resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="VoiceTraNMTMode"/>
+                      <toolTipText resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="VoiceTraNMTModeToolTip"/>
+                    </properties>
+                  </component>
+                  <component id="fe912" class="javax.swing.JRadioButton" binding="voicetraNTModeRadioButton">
+                    <constraints>
+                      <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <actionCommand value="voicetraNT"/>
+                      <selected value="false"/>
+                      <text resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="VoiceTraNTMode"/>
+                      <toolTipText resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="VoiceTraNMTModeToolTip"/>
+                    </properties>
+                  </component>
+                  <component id="2bae9" class="javax.swing.JRadioButton" binding="fsaNMTModeRadioButton">
+                    <constraints>
+                      <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <actionCommand value="fsa"/>
+                      <text resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="FsaNMTMode"/>
+                      <toolTipText resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="FsaNMTModeToolTip"/>
+                    </properties>
+                  </component>
+                  <component id="c5491" class="javax.swing.JRadioButton" binding="fsaNTModeRadioButton">
+                    <constraints>
+                      <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <actionCommand value="fsaNT"/>
+                      <text resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="FsaNTMode"/>
+                      <toolTipText resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="FsaNTModeToolTip"/>
                     </properties>
                   </component>
                 </children>
@@ -211,6 +272,12 @@
       <member id="e2a39"/>
       <member id="e8911"/>
       <member id="e57f1"/>
+      <member id="31cc7"/>
+      <member id="7218b"/>
+      <member id="e737f"/>
+      <member id="fe912"/>
+      <member id="2bae9"/>
+      <member id="c5491"/>
     </group>
   </buttonGroups>
 </form>
