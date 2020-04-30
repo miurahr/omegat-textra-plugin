@@ -15,6 +15,8 @@ class TextraOptionsTest {
         assertTrue(new TextraOptions().setMode("generalN").setLang("JA", "EN").isCombinationValid())
         assertTrue(new TextraOptions().setMode("patentN").setLang("en", "ja").isCombinationValid())
         assertTrue(new TextraOptions().setMode("patent_claimN").setLang("ja", "en").isCombinationValid())
+        assertTrue(new TextraOptions().setMode("generalNT").setLang("ja", "en").isCombinationValid())
+        assertTrue(new TextraOptions().setMode("voicetraNT").setLang("ja", "en").isCombinationValid())
     }
 
     @Test
@@ -63,6 +65,12 @@ class TextraOptionsTest {
     void testSetModePatentClaimN() {
         TextraOptions options = new TextraOptions().setMode("patent_claimN")
         assertEquals(options.getModeName(), "patent_claimN")
+    }
+
+    @Test
+    void testSetModeGeneralNT() {
+        TextraOptions options = new TextraOptions().setMode("generalNT")
+        assertEquals(options.getModeName(), "generalNT")
     }
 
     @Test
