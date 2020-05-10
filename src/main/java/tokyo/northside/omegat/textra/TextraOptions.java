@@ -145,7 +145,7 @@ public class TextraOptions {
          * Japanese/English
          */
         patentN,
-        /** Patent NT mode,
+        /** Patent NT mode.
          * Next generation of Patent NMT
          */
         patentNT,
@@ -157,19 +157,19 @@ public class TextraOptions {
          * Same as VoiceTra engine.
          */
         voicetraN,
-        /** Taiwa NT mode,
+        /** Taiwa NT mode.
          * Next generation of Taiwa NMT
          */
         voicetraNT,
-        /** Minnna NT mode,
+        /** Minnna NT mode.
          * experimental mode
          */
         minnaN,
-        /** Financial mode,
+        /** Financial mode.
          *
          */
         fsa,
-        /** Financial NT mode,
+        /** Financial NT mode.
          *
          */
         fsaNT,
