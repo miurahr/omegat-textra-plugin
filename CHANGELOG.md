@@ -3,6 +3,15 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.9.1] - 2020-05-10
+
+### Fixed
+- make Japanese UI working.
+- Update CI configurations.
+
+### Added
+- Chinese and Germany translations.
+
 ## [0.9.0] - 2020-04-30
 
 ### Fixed
