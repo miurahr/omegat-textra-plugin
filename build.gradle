@@ -126,9 +126,9 @@ bintray {
         licenses = ['GPL-3.0']
         vcsUrl = 'https://github.com/miurahr/omegat-textra-plugin.git'
         version {
-			name = '0.8'
+			name = '${version}'
 			desc = 'Omegat Textra Machine Translation plugin'
-			vcsTag = 'v0.8'
+			vcsTag = 'v${version}'
 		}
     }
 }
