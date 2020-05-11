@@ -6,8 +6,13 @@ plugins {
     id 'checkstyle'
     id 'com.diffplug.gradle.spotless' version '3.27.1'
     id 'distribution'
+    id 'de.ploing.scmversion' version '0.6.6'
 }
-version = '0.9.1'
+
+scmversion {
+  propertyFilename = 'scmversion.properties'
+  releaseTagPattern = 'v([0-9.]*)'
+}
 
 ext {
     javaVersion = '1.8'
@@ -126,10 +131,10 @@ bintray {
         licenses = ['GPL-3.0']
         vcsUrl = 'https://github.com/miurahr/omegat-textra-plugin.git'
         version {
-			name = '${version}'
-			desc = 'Omegat Textra Machine Translation plugin'
-			vcsTag = 'v${version}'
-		}
+          name = '${project.version}'
+          desc = 'Omegat Textra Machine Translation plugin'
+          vcsTag = 'v${project.version}'
+		    }
     }
 }
 
