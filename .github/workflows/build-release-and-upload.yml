@@ -31,8 +31,14 @@ jobs:
         release_name: Release v${{ steps.get_version.outputs.VERSION }}
         draft: false
         prerelease: false
+    - uses: eskatos/gradle-command-action@v1
+      env:
+        BINTRAY_USER: ${{ secrets.bintrayUsername }}
+        BINTRAY_KEY: ${{ secrets.bintrayApiKey }}
+      with:
+        arguments: bintrayUpload
     - name: Upload Release Asset(zip)
-      id: upload-release-asset
+      id: upload-release-asset-zip
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -42,7 +48,7 @@ jobs:
         asset_name: omegat-textra-plugin-${{ steps.get_version.outputs.VERSION }}.zip
         asset_content_type: application/zip
     - name: Upload Release Asset(tgz)
-      id: upload-release-asset
+      id: upload-release-asset-tgz
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -51,9 +57,4 @@ jobs:
         asset_path: build/distributions/omegat-textra-plugin-${{ steps.get_version.outputs.VERSION }}.tgz
         asset_name: omegat-textra-plugin-${{ steps.get_version.outputs.VERSION }}.tgz
         asset_content_type: application/gzip
-    - uses: eskatos/gradle-command-action@v1
-      env:
-        BINTRAY_USER: ${{ secrets.bintrayUsername }}
-        BINTRAY_KEY: ${{ secrets.bintrayApiKey }}
-      with:
-        arguments: bintrayUpload
+
