@@ -1,5 +1,7 @@
 package tokyo.northside.omegat.textra;
 
+import org.omegat.util.Language;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -291,18 +293,16 @@ public class TextraOptions {
      * @param tLang target language.
      * @return this object.
      */
-    public TextraOptions setLang(final String sLang, final String tLang) {
-        this.sourceLang = formatLang(sLang);
-        this.targetLang = formatLang(tLang);
+    public TextraOptions setLang(final Language sLang, final Language tLang) {
+        this.sourceLang = formatLang(sLang.getLanguageCode(), sLang.getCountryCode());
+        this.targetLang = formatLang(tLang.getLanguageCode(), tLang.getCountryCode());
         return this;
     }
 
-    private String formatLang(final String lang) {
+    private String formatLang(final String lang, final String country) {
         String result;
-        int index = lang.indexOf("-");
-        if (index != -1) {
-            result = lang.substring(0, index).toLowerCase()
-                    + lang.substring(index).toUpperCase();
+        if (country.equals("CN")) {
+            result = lang.toLowerCase() + "-" + country.toUpperCase();
         } else {
             result = lang.toLowerCase();
         }

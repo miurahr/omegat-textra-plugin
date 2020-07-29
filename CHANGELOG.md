@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.9.2] - 2020-07-30
+
+### Fixed
+- Fix language code of Chinese (zh-CN, zh-TW) for API
+  that fix machine translation against Chinese.
+
 ## [0.9.1] - 2020-05-10
 
 ### Fixed
