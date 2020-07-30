@@ -31,12 +31,6 @@ jobs:
         release_name: Release v${{ steps.get_version.outputs.VERSION }}
         draft: false
         prerelease: false
-    - uses: eskatos/gradle-command-action@v1
-      env:
-        BINTRAY_USER: ${{ secrets.bintrayUsername }}
-        BINTRAY_KEY: ${{ secrets.bintrayApiKey }}
-      with:
-        arguments: bintrayUpload
     - name: Upload Release Asset(zip)
       id: upload-release-asset-zip
       uses: actions/upload-release-asset@v1
