@@ -31,7 +31,7 @@ repositories {
 dependencies {
     compile 'oauth.signpost:signpost-core:1.2.1.2'
     compile 'oauth.signpost:signpost-commonshttp4:1.2.1.2'
-    compile 'org.apache.httpcomponents:httpclient:4.5'
+    compile 'org.apache.httpcomponents:httpclient:4.5.12'
     compile 'org.json:json:20160810'
     compile fileTree(dir: 'lib', include: '*.jar')
     compile 'org.slf4j:slf4j-api:1.7.25'
