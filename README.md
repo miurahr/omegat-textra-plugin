@@ -2,7 +2,9 @@
 
 This is an implementation of OmegaT plugin which support NICT TexTra Machine Translation API.
 
-[日本語の利用方法の説明はこちら](https://github.com/miurahr/omegat-textra-plugin/wiki/%E5%88%A9%E7%94%A8%E6%96%B9%E6%B3%95)
+* [日本語の利用方法の説明](https://github.com/miurahr/omegat-textra-plugin/wiki/%E5%88%A9%E7%94%A8%E6%96%B9%E6%B3%95)
+
+* [Usage description in English](https://github.com/miurahr/omegat-textra-plugin/wiki/Usage)
 
 ## Install
 
