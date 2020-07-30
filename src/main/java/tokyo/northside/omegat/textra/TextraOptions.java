@@ -293,6 +293,12 @@ public class TextraOptions {
      * @param tLang target language.
      * @return this object.
      */
+    public TextraOptions setLang(final String sLang, final String tLang) {
+        this.sourceLang = formatLang(sLang, "");
+        this.targetLang = formatLang(tLang, "");
+        return this;
+    }
+
     public TextraOptions setLang(final Language sLang, final Language tLang) {
         this.sourceLang = formatLang(sLang.getLanguageCode(), sLang.getCountryCode());
         this.targetLang = formatLang(tLang.getLanguageCode(), tLang.getCountryCode());

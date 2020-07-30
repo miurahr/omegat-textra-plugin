@@ -1,17 +1,20 @@
 package tokyo.northside.omegat.textra
 
-import org.testng.annotations.Test;
+import org.testng.annotations.Test
 
-import static org.testng.Assert.*;
+import org.omegat.util.Language
+
+import static org.testng.Assert.*
+
 
 class TextraOptionsTest {
 
     @Test
     void testIsCombinationValid() {
-        assertTrue(new TextraOptions().setMode("generalN").setLang("ja", "en").isCombinationValid())
-        assertFalse(new TextraOptions().setMode("generalN").setLang("fr", "es").isCombinationValid())
-        assertFalse(new TextraOptions().setMode("generalN").setLang("zh-CN", "zh-TW").isCombinationValid())
-        assertTrue(new TextraOptions().setMode("generalN").setLang("ja", "zh-CN").isCombinationValid())
+        assertTrue(new TextraOptions().setMode("generalN").setLang(new Language("ja-JP"), new Language("en-US")).isCombinationValid())
+        assertFalse(new TextraOptions().setMode("generalN").setLang(new Language("fr"), new Language("es")).isCombinationValid())
+        assertFalse(new TextraOptions().setMode("generalN").setLang(new Language("zh-CN"), new Language("zh-TW")).isCombinationValid())
+        assertTrue(new TextraOptions().setMode("generalN").setLang(new Language("ja"), new Language("zh-CN")).isCombinationValid())
         assertTrue(new TextraOptions().setMode("generalN").setLang("JA", "EN").isCombinationValid())
         assertTrue(new TextraOptions().setMode("patentN").setLang("en", "ja").isCombinationValid())
         assertTrue(new TextraOptions().setMode("patent_claimN").setLang("ja", "en").isCombinationValid())
