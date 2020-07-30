@@ -89,14 +89,8 @@ tasks.withType(com.github.spotbugs.SpotBugsTask) {
     ignoreFailures = true
 }
 
-task sourcesJar(type: Jar, dependsOn: classes) {
-    from sourceSets.main.allSource
-    classifier = 'sources'
-}
-
 artifacts {
     archives jar
-    archives sourcesJar
 }
 
 distTar {
@@ -108,9 +102,6 @@ distributions {
         contents {
             from(jar)
             from('README.md', 'CHANGELOG.md', 'COPYING', 'DEVELOP.md')
-            from(sourcesJar) {
-                into 'source'
-            }
         }
     }
 }
