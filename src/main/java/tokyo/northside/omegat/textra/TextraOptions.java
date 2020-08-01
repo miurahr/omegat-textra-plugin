@@ -29,8 +29,11 @@ public class TextraOptions {
         combination.addAll(createCombinations(
                 Arrays.asList(Mode.generalN, Mode.patentN, Mode.patent_claimN),
                 Arrays.asList("ko", "ja")));
+        combination.addAll(createCombinations(
+                Arrays.asList(Mode.generalN, Mode.patentN, Mode.patent_claimN),
+                Arrays.asList("de", "ja")));
         combination.addAll(createCombinations(Mode.generalN, "en",
-                Arrays.asList("fr", "pt", "fr", "id", "my", "th", "vi", "es")));
+                Arrays.asList("de", "fr", "pt", "fr", "id", "my", "th", "vi", "es")));
         combination.addAll(createCombinations(
                 Arrays.asList(Mode.generalNT, Mode.patentNT),
                 Arrays.asList("ja", "en", "zh-CN", "zh-TW")));
