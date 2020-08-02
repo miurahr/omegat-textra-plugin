@@ -110,7 +110,7 @@ public class TextraApiClient {
         try (BufferedInputStream bis = new BufferedInputStream(respBodyStream)) {
             LOGGER.debug("Http response status: " + respStatus);
             String rsp = IOUtils.toString(bis, StandardCharsets.UTF_8);
-            LOGGER.info("response body: " + rsp);
+            LOGGER.debug("response body: " + rsp);
             JSONObject jobj = new JSONObject(rsp);
             JSONObject resultset = jobj.getJSONObject("resultset");
             result = resultset.getJSONObject("result").getString("text");

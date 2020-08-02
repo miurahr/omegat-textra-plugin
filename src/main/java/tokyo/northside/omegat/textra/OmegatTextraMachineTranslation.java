@@ -175,8 +175,8 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
             // Set TexTra access options
             options.setLang(sLang, tLang);
             if (!options.isCombinationValid()) {
-                LOGGER.info(String.format("Textra:Invalid language combination for %s with source %s, "
-                                + " and target %s.",
+                LOGGER.info(String.format("Textra:Invalid language combination"
+                                + " for %s with source %s, and target %s.",
                         options.getModeName(), options.getSourceLang(), options.getTargetLang()));
                 return null;
             }
