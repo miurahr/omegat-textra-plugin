@@ -65,24 +65,25 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
     private static final String OPTION_TEXTRA_APIKEY = "mt_textra_apikey";
     private static final String OPTION_TEXTRA_SECRET = "mt_textra_secret";
     private static final String OPTION_TEXTRA_TRANSLATE_MODE = "mt_textra_translate_mode";
-    private static final String MENU_TEXTRA = "TexTra";
+    private static final String MENU_TEXTRA = "TexTra Powered by NICT";
 
     /**
      * Construct options.
      */
     public OmegatTextraMachineTranslation() {
         super();
-        initOptions();
-    }
-
-    protected void initOptions() {
         options = new TextraOptions()
                 .setUsername(getCredential(OPTION_TEXTRA_USERNAME))
                 .setApikey(getCredential(OPTION_TEXTRA_APIKEY))
                 .setSecret(getCredential(OPTION_TEXTRA_SECRET))
                 .setMode(Preferences.getPreferenceEnumDefault(OPTION_TEXTRA_TRANSLATE_MODE,
                         generalN));
-
+        enabled = Preferences.isPreferenceDefault(OPTION_ALLOW_TEXTRA_TRANSLATE, true);
+        if (enabled) {
+            LOGGER.info("Textra Machine Translation plugin enabled.");
+        } else {
+            LOGGER.info("Textra Machine Translation plugin disabled.");
+        }
     }
 
     @Override
@@ -126,7 +127,7 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
         // TexTra service terms demand to show "Powered by NICT" on every application screen.
         // You may keep it to be compliant with TexTra terms.
         // Because it is showed on MT pane.
-        return "TexTra Powered by NICT";
+        return MENU_TEXTRA;
     }
 
     /**
