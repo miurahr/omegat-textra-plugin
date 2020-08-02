@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.9.3] - 2020-08-02
+
+### Fixed
+- Enable MT plugin when start, past versions need to open configuration.
+- Change loglevel for Debug messages.
+
 ## [0.9.2] - 2020-07-30
 
 ### Fixed
@@ -117,7 +123,10 @@ All notable changes to this project will be documented in this file.
 ### Added
 - Start project.
 
-[Unreleased]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.9.0...HEAD
+[Unreleased]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.9.3...HEAD
+[0.9.3]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.9.2...v0.9.3
+[0.9.2]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.9.1...v0.9.2
+[0.9.1]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.9.0...v0.9.1
 [0.9.0]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.8...v0.9.0
 [0.8]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.7...v0.8
 [0.7]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.6...v0.7
