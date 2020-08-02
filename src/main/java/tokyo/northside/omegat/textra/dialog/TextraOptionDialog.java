@@ -3,6 +3,7 @@ package tokyo.northside.omegat.textra.dialog;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
+import org.omegat.util.CredentialsManager;
 import tokyo.northside.omegat.textra.TextraOptions;
 import tokyo.northside.omegat.textra.WebBrowser;
 
@@ -46,6 +47,7 @@ public class TextraOptionDialog extends JDialog {
     private static final String API_KEY_URL = "https://mt-auto-minhon-mlt.ucri.jgn-x.jp/content/mt/";
 
     private boolean updated;
+    private TextraOptions options;
 
     /**
      * Dialog constructor.
@@ -64,7 +66,15 @@ public class TextraOptionDialog extends JDialog {
         contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
                 JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
         registerNewTexTraUserButton.addActionListener(actionEvent -> WebBrowser.launch(REGISTRATION_URL));
-        checkTexTraAPIKeyButton.addActionListener(actionEvent -> WebBrowser.launch(API_KEY_URL));
+        checkTexTraAPIKeyButton.addActionListener(actionEvent -> onApiKey());
+    }
+
+    private void onApiKey() {
+        String username = userNameTextField.getText();
+        UserCredential dialog = new UserCredential(username);
+        dialog.pack();
+        dialog.setVisible(true);
+        dispose();
     }
 
     private void onOK() {
@@ -74,6 +84,18 @@ public class TextraOptionDialog extends JDialog {
 
     private void onCancel() {
         dispose();
+    }
+
+    protected String getCredential(String id) {
+        String property = System.getProperty(id);
+        if (property != null) {
+            return property;
+        }
+        return CredentialsManager.getInstance().retrieve(id).orElse("");
+    }
+
+    private void setCredentialData(final String username, final String key, final String secret) {
+
     }
 
     /**

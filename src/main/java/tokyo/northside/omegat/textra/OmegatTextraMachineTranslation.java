@@ -61,9 +61,9 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
      * Preparation for OmegaT Menu.
      */
     private static final String OPTION_ALLOW_TEXTRA_TRANSLATE = "allow_textra_translate";
-    private static final String OPTION_TEXTRA_USERNAME = "mt_textra_username";
-    private static final String OPTION_TEXTRA_APIKEY = "mt_textra_apikey";
-    private static final String OPTION_TEXTRA_SECRET = "mt_textra_secret";
+    protected static final String OPTION_TEXTRA_USERNAME = "mt_textra_username";
+    protected static final String OPTION_TEXTRA_APIKEY = "mt_textra_apikey";
+    protected static final String OPTION_TEXTRA_SECRET = "mt_textra_secret";
     private static final String OPTION_TEXTRA_TRANSLATE_MODE = "mt_textra_translate_mode";
     private static final String MENU_TEXTRA = "TexTra Powered by NICT";
 
