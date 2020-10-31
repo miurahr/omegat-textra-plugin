@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.10.0] - 2020-10-31
+
+### Changed
+- Convert translations bundles to ascii from native
+
 ## [0.9.3] - 2020-08-02
 
 ### Fixed
