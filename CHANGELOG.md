@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+- Bump gradle version up to 6.6.1
+- make language/method combination class to static 
 
 ## [0.10.0] - 2020-10-31
 
