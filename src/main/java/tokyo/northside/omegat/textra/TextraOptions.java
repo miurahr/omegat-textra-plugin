@@ -81,7 +81,7 @@ public class TextraOptions {
     /**
      * Class for check mode, language combination.
      */
-    private class Combination {
+    private static class Combination {
         private Mode mode;
         private String sLang;
         private String tLang;
@@ -271,7 +271,7 @@ public class TextraOptions {
      */
     public TextraOptions setMode(final String name) {
         if (name != null) {
-            mode = Enum.valueOf(Mode.class, name);
+            mode = Mode.valueOf(name);
         }
         return this;
     }

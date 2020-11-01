@@ -47,7 +47,6 @@ import static tokyo.northside.omegat.textra.TextraOptions.Mode.generalN;
 public class OmegatTextraMachineTranslation extends BaseTranslate implements IMachineTranslation {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(OmegatTextraMachineTranslation.class);
-    protected boolean enabled;
     protected TextraOptions options;
 
     /**
