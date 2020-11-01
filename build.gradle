@@ -1,13 +1,13 @@
 plugins {
     id 'java'
     id 'groovy'
-    id "com.github.spotbugs" version "3.0.0"
+    id "com.github.spotbugs" version "4.5.1"
     id 'checkstyle'
     id 'com.diffplug.gradle.spotless' version '3.27.1'
     id 'distribution'
 }
 
-version = '0.10.0'
+version = '0.10.1-SNAPSHOT'
 
 ext {
     javaVersion = '1.8'
@@ -85,8 +85,8 @@ task spotlessChangedApply {
     }
 }
 
-tasks.withType(com.github.spotbugs.SpotBugsTask) {
-    ignoreFailures = true
+spotbugs {
+  toolVersion = '4.1.4'
 }
 
 artifacts {
