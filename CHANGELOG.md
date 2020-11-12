@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.11.1] - 2020-11-12
+
+- Support minnaNT mode/汎用NT+ mode (#30)
+
 ## [0.11.0] - 2020-11-12
 
 - Add new language combinations for NT mode (#29)
