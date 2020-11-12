@@ -41,6 +41,8 @@ public class TextraOptions {
                 Arrays.asList("fr", "pt", "id", "my", "th", "vi", "es")));
         combination.addAll(createCombinations(Mode.voicetraNT, "en",
                 Arrays.asList("fr", "pt", "id", "my", "th", "vi", "es")));
+        combination.addAll(createCombinations(Arrays.asList(Mode.minnaNT),
+                Arrays.asList("ja", "en", "zh-CN", "zh-TW")));
     }
 
     /**
@@ -153,6 +155,10 @@ public class TextraOptions {
          *
          */
         fsaNT,
+        /** Minna NT mode.
+         * Aka. Generic NT+
+         */
+        minnaNT,
     }
 
     /**
