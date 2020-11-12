@@ -35,7 +35,7 @@ import org.omegat.gui.exttrans.IMachineTranslation;
 import org.omegat.util.Language;
 import org.omegat.util.Preferences;
 
-import static tokyo.northside.omegat.textra.TextraOptions.Mode.generalN;
+import static tokyo.northside.omegat.textra.TextraOptions.Mode.generalNT;
 
 
 /**
@@ -76,7 +76,7 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
                 .setApikey(getCredential(OPTION_TEXTRA_APIKEY))
                 .setSecret(getCredential(OPTION_TEXTRA_SECRET))
                 .setMode(Preferences.getPreferenceEnumDefault(OPTION_TEXTRA_TRANSLATE_MODE,
-                        generalN));
+                        generalNT));
         enabled = Preferences.isPreferenceDefault(OPTION_ALLOW_TEXTRA_TRANSLATE, true);
         if (enabled) {
             LOGGER.info("Textra Machine Translation plugin enabled.");
