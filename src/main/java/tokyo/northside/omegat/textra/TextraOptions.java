@@ -26,11 +26,21 @@ public class TextraOptions {
         combination.addAll(createCombinations(
                 Arrays.asList(Mode.generalNT, Mode.patentNT),
                 Arrays.asList("ja", "en", "zh-CN", "zh-TW")));
+        combination.addAll(createCombinations(Mode.generalNT, "ja",
+                Arrays.asList("it", "fr", "pt", "id", "my", "th", "vi", "es")));
+        combination.addAll(createCombinations(Mode.generalNT, "en",
+                Arrays.asList("ar", "ru", "fr", "pt", "id", "my", "th", "vi", "es")));
+        combination.addAll(createCombinations(Mode.generalNT, "de",
+                Arrays.asList("en", "ja")));
+        combination.addAll(createCombinations(Mode.generalNT, "kr",
+                Arrays.asList("en", "ja")));
         combination.addAll(createCombinations(
                 Arrays.asList(Mode.voicetraNT, Mode.fsaNT),
                 Arrays.asList("en", "ja")));
+        combination.addAll(createCombinations(Mode.voicetraNT, "ja",
+                Arrays.asList("fr", "pt", "id", "my", "th", "vi", "es")));
         combination.addAll(createCombinations(Mode.voicetraNT, "en",
-                Arrays.asList("fr", "pt", "fr", "id", "my", "th", "vi", "es")));
+                Arrays.asList("fr", "pt", "id", "my", "th", "vi", "es")));
     }
 
     /**
