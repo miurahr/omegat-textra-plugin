@@ -11,7 +11,7 @@ This is an implementation of OmegaT plugin which support NICT TexTra Machine Tra
 Please download latest omegat-textra-plugin-x.x.zip file from [releases](https://github.com/miurahr/omegat-textra-plugin/releases) page 
 in this Github repository. You can get a plugin file (omegat-textra-plugin-x.x.jar) from downloaded zip distribution.
 The OmegaT plugin should be placed in `$HOME/.omegat/plugins` or `C:\Program Files\OmegaT\plugins`
-depending on your operating system.
+depending on your operating systemc.
 
 ## Configuration
 

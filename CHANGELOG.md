@@ -2,7 +2,13 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+## [0.11.0] - 2020-11-12
+
+- Add new language combinations for NT mode (#29)
+- Drop NMT mode(no support from 11, Nov. 2020) (#28, #29)
 - Bump gradle version up to 6.6.1
+- Drop spotbugs and lessbugs check.
 - make language/method combination class to static 
 
 ## [0.10.0] - 2020-10-31
@@ -130,7 +136,9 @@ All notable changes to this project will be documented in this file.
 ### Added
 - Start project.
 
-[Unreleased]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.9.3...HEAD
+[Unreleased]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.11.0...HEAD
+[0.11.0]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.10.0...v0.11.0
+[0.10.0]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.9.3...v0.10.0
 [0.9.3]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.9.2...v0.9.3
 [0.9.2]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.9.1...v0.9.2
 [0.9.1]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.9.0...v0.9.1
