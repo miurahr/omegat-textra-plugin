@@ -1,9 +1,7 @@
 plugins {
     id 'java'
     id 'groovy'
-    id "com.github.spotbugs" version "4.5.1"
     id 'checkstyle'
-    id 'com.diffplug.gradle.spotless' version '3.27.1'
     id 'distribution'
 }
 
@@ -38,7 +36,6 @@ dependencies {
     testImplementation 'commons-lang:commons-lang:2.6'
     testImplementation "org.codehaus.groovy:groovy-all:3.0.1"
     testImplementation 'org.testng:testng:6.9.10'
-    spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.7.1'
 }
 test.useTestNG()
 
@@ -59,13 +56,6 @@ tasks.withType(Checkstyle) {
     exclude('**/dialog/TextraOptionDialog.java')
 }
 
-spotless {
-    enforceCheck false
-    java {
-        removeUnusedImports()
-    }
-}
-
 task changedOnBranch {
     description = 'List files that have been modified on this git branch.'
     doLast {
@@ -83,10 +73,6 @@ task spotlessChangedApply {
             it.path.endsWith('.java')
         }
     }
-}
-
-spotbugs {
-  toolVersion = '4.1.4'
 }
 
 artifacts {

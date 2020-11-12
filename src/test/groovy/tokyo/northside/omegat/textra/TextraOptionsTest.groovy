@@ -11,14 +11,12 @@ class TextraOptionsTest {
 
     @Test
     void testIsCombinationValid() {
-        assertTrue(new TextraOptions().setMode("generalN").setLang(new Language("ja-JP"), new Language("en-US")).isCombinationValid())
-        assertFalse(new TextraOptions().setMode("generalN").setLang(new Language("fr"), new Language("es")).isCombinationValid())
-        assertFalse(new TextraOptions().setMode("generalN").setLang(new Language("zh-CN"), new Language("zh-TW")).isCombinationValid())
-        assertTrue(new TextraOptions().setMode("generalN").setLang(new Language("ja"), new Language("zh-CN")).isCombinationValid())
-        assertTrue(new TextraOptions().setMode("generalN").setLang("JA", "EN").isCombinationValid())
-        assertTrue(new TextraOptions().setMode("patentN").setLang("en", "ja").isCombinationValid())
-        assertTrue(new TextraOptions().setMode("patent_claimN").setLang("ja", "en").isCombinationValid())
-        assertTrue(new TextraOptions().setMode("generalNT").setLang("ja", "en").isCombinationValid())
+        assertTrue(new TextraOptions().setMode("generalNT").setLang(new Language("ja-JP"), new Language("en-US")).isCombinationValid())
+        assertFalse(new TextraOptions().setMode("generalNT").setLang(new Language("fr"), new Language("es")).isCombinationValid())
+        assertFalse(new TextraOptions().setMode("generalNT").setLang(new Language("zh-CN"), new Language("zh-TW")).isCombinationValid())
+        assertTrue(new TextraOptions().setMode("generalNT").setLang(new Language("ja"), new Language("zh-CN")).isCombinationValid())
+        assertTrue(new TextraOptions().setMode("generalNT").setLang("JA", "EN").isCombinationValid())
+        assertTrue(new TextraOptions().setMode("patentNT").setLang("en", "ja").isCombinationValid())
         assertTrue(new TextraOptions().setMode("voicetraNT").setLang("ja", "en").isCombinationValid())
     }
 
@@ -41,33 +39,9 @@ class TextraOptionsTest {
     }
 
     @Test
-    void testMode() {
-        TextraOptions options = new TextraOptions().setMode(TextraOptions.Mode.generalN)
-        assertEquals(options.getMode(), TextraOptions.Mode.generalN)
-    }
-
-    @Test
-    void testGetModeName() {
-        TextraOptions options = new TextraOptions().setMode(TextraOptions.Mode.generalN)
-        assertEquals(options.getModeName(), "generalN")
-    }
-
-    @Test
-    void testSetModeGeneralN() {
-        TextraOptions options = new TextraOptions().setMode("generalN")
-        assertEquals(options.getModeName(), "generalN")
-    }
-
-    @Test
     void testSetModePatentN() {
-        TextraOptions options = new TextraOptions().setMode("patentN")
-        assertEquals(options.getModeName(), "patentN")
-    }
-
-    @Test
-    void testSetModePatentClaimN() {
-        TextraOptions options = new TextraOptions().setMode("patent_claimN")
-        assertEquals(options.getModeName(), "patent_claimN")
+        TextraOptions options = new TextraOptions().setMode("patentNT")
+        assertEquals(options.getModeName(), "patentNT")
     }
 
     @Test
@@ -78,9 +52,9 @@ class TextraOptionsTest {
 
     @Test
     void testIsMode() {
-        TextraOptions options = new TextraOptions().setMode(TextraOptions.Mode.generalN)
-        assertTrue(options.isMode("generalN"))
+        TextraOptions options = new TextraOptions().setMode(TextraOptions.Mode.generalNT)
+        assertTrue(options.isMode("generalNT"))
         assertFalse(options.isMode(null))
-        assertFalse(options.isMode("patentN"))
+        assertFalse(options.isMode("patentNT"))
     }
 }
