@@ -3,12 +3,12 @@
   <grid id="cbd77" binding="contentPane" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="10" left="10" bottom="10" right="10"/>
     <constraints>
-      <xy x="48" y="54" width="1356" height="568"/>
+      <xy x="48" y="54" width="436" height="432"/>
     </constraints>
     <properties/>
     <border type="none"/>
     <children>
-      <grid id="94766" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="94766" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
           <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -24,7 +24,7 @@
           <grid id="9538f" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="true" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
-              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties/>
             <border type="none"/>
@@ -49,7 +49,7 @@
           </grid>
         </children>
       </grid>
-      <grid id="e3588" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="e3588" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
           <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -57,15 +57,15 @@
         <properties/>
         <border type="none"/>
         <children>
-          <grid id="7e8f5" layout-manager="GridLayoutManager" row-count="3" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="ae8e4" layout-manager="GridLayoutManager" row-count="3" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
-              <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties/>
             <border type="none"/>
             <children>
-              <component id="2fff7" class="javax.swing.JLabel" binding="userNameLabel">
+              <component id="2d8b8" class="javax.swing.JLabel">
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -73,7 +73,7 @@
                   <text resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="Username"/>
                 </properties>
               </component>
-              <component id="afe76" class="javax.swing.JTextField" binding="userNameTextField">
+              <component id="a267a" class="javax.swing.JTextField" binding="usernameField">
                 <constraints>
                   <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
@@ -81,143 +81,138 @@
                 </constraints>
                 <properties/>
               </component>
-              <component id="95a1d" class="javax.swing.JLabel" binding="apiKeyLabel">
+              <component id="fab10" class="javax.swing.JLabel">
                 <constraints>
                   <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <text resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="ApiKey"/>
-                  <toolTipText resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="APIKeyToolTipText"/>
                 </properties>
               </component>
-              <component id="2c182" class="javax.swing.JTextField" binding="apikeyTextField">
+              <component id="53e97" class="javax.swing.JTextField" binding="apikeyField">
                 <constraints>
                   <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
                   </grid>
                 </constraints>
-                <properties/>
+                <properties>
+                  <toolTipText resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="APIKeyToolTipText"/>
+                </properties>
               </component>
-              <component id="5a330" class="javax.swing.JLabel" binding="secretLabel">
+              <component id="5f3ed" class="javax.swing.JLabel">
                 <constraints>
                   <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <text resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="ApiSecret"/>
-                  <toolTipText resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="SecretToolTipText"/>
                 </properties>
               </component>
-              <component id="b6354" class="javax.swing.JTextField" binding="secretTextField">
+              <component id="4f64b" class="javax.swing.JTextField" binding="secretField">
                 <constraints>
                   <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
                   </grid>
                 </constraints>
-                <properties/>
+                <properties>
+                  <toolTipText resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="SecretToolTipText"/>
+                </properties>
               </component>
             </children>
           </grid>
-          <grid id="352c4" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="eb8ec" layout-manager="GridLayoutManager" row-count="6" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
-              <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties/>
-            <border type="line" title-resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" title-key="SelectMode">
-              <color color="-16579837"/>
-            </border>
+            <border type="line"/>
             <children>
-              <grid id="11511" layout-manager="GridLayoutManager" row-count="5" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                <margin top="0" left="0" bottom="0" right="0"/>
+              <component id="8e161" class="javax.swing.JRadioButton" binding="generalNTModeRadioButton" default-binding="true">
                 <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
-                <properties/>
-                <border type="none"/>
-                <children>
-                  <component id="38a9" class="javax.swing.JRadioButton" binding="minnaNTModeRadioButton">
-                    <constraints>
-                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <actionCommand value="minnaN" noi18n="true"/>
-                      <text resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="minnaNTMode"/>
-                      <toolTipText resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="minnaNTModeToolTip"/>
-                    </properties>
-                  </component>
-                  <component id="31cc7" class="javax.swing.JRadioButton" binding="generalNTModeRadioButton">
-                    <constraints>
-                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <actionCommand value="generalNT"/>
-                      <text resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="GeneralNTMode"/>
-                      <toolTipText resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="GeneralNTModeToolTip"/>
-                    </properties>
-                  </component>
-                  <component id="7218b" class="javax.swing.JRadioButton" binding="patentNTModeRadioButton">
-                    <constraints>
-                      <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <actionCommand value="patentNT"/>
-                      <text resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="PatentNTMode"/>
-                      <toolTipText resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="PatentNTModeToolTip"/>
-                    </properties>
-                  </component>
-                  <component id="fe912" class="javax.swing.JRadioButton" binding="voicetraNTModeRadioButton">
-                    <constraints>
-                      <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <actionCommand value="voicetraNT"/>
-                      <selected value="false"/>
-                      <text resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="VoiceTraNTMode"/>
-                      <toolTipText resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="VoiceTraNMTModeToolTip"/>
-                    </properties>
-                  </component>
-                  <component id="c5491" class="javax.swing.JRadioButton" binding="fsaNTModeRadioButton">
-                    <constraints>
-                      <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <actionCommand value="fsaNT"/>
-                      <text resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="FsaNTMode"/>
-                      <toolTipText resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="FsaNTModeToolTip"/>
-                    </properties>
-                  </component>
-                </children>
-              </grid>
+                <properties>
+                  <selected value="true"/>
+                  <text resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="GeneralNTMode"/>
+                  <toolTipText resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="GeneralNTModeToolTip"/>
+                </properties>
+              </component>
+              <component id="988f5" class="javax.swing.JRadioButton" binding="patentNTModeRadioButton" default-binding="true">
+                <constraints>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="PatentNTMode"/>
+                  <toolTipText resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="PatentNTModeToolTip"/>
+                </properties>
+              </component>
+              <component id="13af4" class="javax.swing.JRadioButton" binding="voiceTraTaiwaNTModeRadioButton" default-binding="true">
+                <constraints>
+                  <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="VoiceTraNTMode"/>
+                  <toolTipText resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="VoiceTraNTModeToolTip"/>
+                </properties>
+              </component>
+              <component id="e677e" class="javax.swing.JRadioButton" binding="financeNTModeRadioButton" default-binding="true">
+                <constraints>
+                  <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="FsaNTMode"/>
+                  <toolTipText resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="FsaNTModeToolTip"/>
+                </properties>
+              </component>
+              <component id="ba846" class="javax.swing.JRadioButton" binding="minnaNTModeRadioButton" default-binding="true">
+                <constraints>
+                  <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="minnaNTMode"/>
+                  <toolTipText resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="minnaNTModeToolTip"/>
+                </properties>
+              </component>
+              <component id="eafee" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="SelectMode"/>
+                </properties>
+              </component>
             </children>
           </grid>
         </children>
       </grid>
-      <component id="f2268" class="javax.swing.JLabel">
+      <grid id="93ef9" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
-          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties>
-          <text resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="TexTraOptionDialogTitle"/>
-        </properties>
-      </component>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="41ff2" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text resource-bundle="tokyo/northside/omegat/textra/TextraMachineTranslation" key="TexTraOptionDialogTitle"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
     </children>
   </grid>
   <buttonGroups>
-    <group name="modeButtonGroup" bound="true">
-      <member id="4ee1a"/>
-      <member id="7c5fd"/>
-      <member id="acf2c"/>
-      <member id="52066"/>
-      <member id="38a9"/>
-      <member id="e2a39"/>
-      <member id="e8911"/>
-      <member id="e57f1"/>
-      <member id="31cc7"/>
-      <member id="7218b"/>
-      <member id="e737f"/>
-      <member id="fe912"/>
-      <member id="2bae9"/>
-      <member id="c5491"/>
+    <group name="buttonGroup1">
+      <member id="8e161"/>
+      <member id="8e161"/>
+      <member id="988f5"/>
+      <member id="13af4"/>
+      <member id="e677e"/>
+      <member id="ba846"/>
     </group>
   </buttonGroups>
 </form>

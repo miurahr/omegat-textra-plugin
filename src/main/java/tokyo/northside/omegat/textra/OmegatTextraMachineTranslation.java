@@ -103,13 +103,12 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
 
     @Override
     public void showConfigurationUI(final Window parent) {
-        TextraOptionDialog dialog = new TextraOptionDialog(parent);
+        TextraOptionDialog dialog = new TextraOptionDialog();
         dialog.pack();
         dialog.setData(options);
         dialog.setVisible(true);
-        if (dialog.isModified(options)) {
-            dialog.getData(options);
-        }
+
+        dialog.getData(options);
         setCredential(OPTION_TEXTRA_USERNAME, options.getUsername(), false);
         setCredential(OPTION_TEXTRA_APIKEY, options.getApikey(), false);
         setCredential(OPTION_TEXTRA_SECRET, options.getSecret(), false);
