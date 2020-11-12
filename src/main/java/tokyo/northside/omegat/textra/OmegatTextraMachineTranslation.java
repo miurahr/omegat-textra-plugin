@@ -27,6 +27,7 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import tokyo.northside.omegat.textra.dialog.TextraOptionDialog;
 
 import org.omegat.core.Core;
@@ -54,8 +55,7 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
      * Cache will not be cleared during OmegaT work.
      * FIXME: add timeout and flush functionality.
      */
-    private final Map<String, String> cache = Collections.synchronizedMap(new HashMap<String,
-            String>());
+    private final Map<String, String> cache = Collections.synchronizedMap(new HashMap<>());
     /**
      * Preparation for OmegaT Menu.
      */
@@ -71,18 +71,26 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
      */
     public OmegatTextraMachineTranslation() {
         super();
-        options = new TextraOptions()
-                .setUsername(getCredential(OPTION_TEXTRA_USERNAME))
-                .setApikey(getCredential(OPTION_TEXTRA_APIKEY))
-                .setSecret(getCredential(OPTION_TEXTRA_SECRET))
-                .setMode(Preferences.getPreferenceEnumDefault(OPTION_TEXTRA_TRANSLATE_MODE,
-                        generalNT));
+        options = new TextraOptions(
+            getCredential(OPTION_TEXTRA_USERNAME),
+            getCredential(OPTION_TEXTRA_APIKEY),
+            getCredential(OPTION_TEXTRA_SECRET),
+            Preferences.getPreferenceEnumDefault(OPTION_TEXTRA_TRANSLATE_MODE, generalNT),
+                this);
         enabled = Preferences.isPreferenceDefault(OPTION_ALLOW_TEXTRA_TRANSLATE, true);
         if (enabled) {
             LOGGER.info("Textra Machine Translation plugin enabled.");
         } else {
             LOGGER.info("Textra Machine Translation plugin disabled.");
         }
+    }
+
+    public void saveCredential(final TextraOptions options) {
+        setCredential(OPTION_TEXTRA_USERNAME, options.getUsername(), false);
+        setCredential(OPTION_TEXTRA_APIKEY, options.getApikey(), false);
+        setCredential(OPTION_TEXTRA_SECRET, options.getSecret(), false);
+        Preferences.setPreference(OPTION_TEXTRA_TRANSLATE_MODE, options.getMode());
+        Preferences.save();
     }
 
     @Override
@@ -103,18 +111,10 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
 
     @Override
     public void showConfigurationUI(final Window parent) {
-        TextraOptionDialog dialog = new TextraOptionDialog(parent);
+        TextraOptionDialog dialog = new TextraOptionDialog(options);
         dialog.pack();
-        dialog.setData(options);
+        dialog.setOptions(options);
         dialog.setVisible(true);
-        if (dialog.isModified(options)) {
-            dialog.getData(options);
-        }
-        setCredential(OPTION_TEXTRA_USERNAME, options.getUsername(), false);
-        setCredential(OPTION_TEXTRA_APIKEY, options.getApikey(), false);
-        setCredential(OPTION_TEXTRA_SECRET, options.getSecret(), false);
-        Preferences.setPreference(OPTION_TEXTRA_TRANSLATE_MODE, options.getMode());
-        Preferences.save();
     }
 
     /**
@@ -147,11 +147,9 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
      * Call Web API to translate.
      * @param text source text.
      * @return translated test.
-     * @throws Exception when error happened.
      */
     @Override
-    protected String translate(final Language sLang, final Language tLang, final String text)
-            throws Exception {
+    protected String translate(final Language sLang, final Language tLang, final String text) {
        // Access to TexTra Web API
         TextraApiClient client = new TextraApiClient();
         client.authenticate(options, text);
@@ -166,10 +164,8 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
      * @param tLang target language.
      * @param text source text.
      * @return translated text.
-     * @throws Exception when error happened.
      */
-    public String getTranslation(final Language sLang, final Language tLang, final String text)
-            throws Exception {
+    public String getTranslation(final Language sLang, final Language tLang, final String text) {
         if (enabled) {
             // Set TexTra access options
             options.setLang(sLang, tLang);

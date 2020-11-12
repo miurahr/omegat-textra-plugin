@@ -17,8 +17,12 @@ public class TextraOptions {
     private String apikey;
     private String secret;
     private Mode mode;
+
+    private OmegatTextraMachineTranslation plugin;
+
     private String sourceLang;
     private String targetLang;
+
 
     private Set<Combination> combination = new HashSet<>();
 
@@ -41,6 +45,28 @@ public class TextraOptions {
                 Arrays.asList("fr", "pt", "id", "my", "th", "vi", "es")));
         combination.addAll(createCombinations(Mode.voicetraNT, "en",
                 Arrays.asList("fr", "pt", "id", "my", "th", "vi", "es")));
+        combination.addAll(createCombinations(Arrays.asList(Mode.minnaNT),
+                Arrays.asList("ja", "en", "zh-CN", "zh-TW")));
+    }
+
+    public TextraOptions(String username, String apikey, String secret, Mode mode,
+                         OmegatTextraMachineTranslation plugin) {
+        this.username = username;
+        this.apikey = apikey;
+        this.secret = secret;
+        this.mode = mode;
+        this.plugin = plugin;
+    }
+
+    /**
+     * Dummy constructor for test.
+     */
+    public TextraOptions() {
+        this("", "", "", Mode.generalNT, null);
+    }
+
+    public void saveCredentials() {
+        this.plugin.saveCredential(this);
     }
 
     /**
@@ -153,6 +179,10 @@ public class TextraOptions {
          *
          */
         fsaNT,
+        /** Minna NT mode.
+         * Aka. Generic NT+
+         */
+        minnaNT,
     }
 
     /**
