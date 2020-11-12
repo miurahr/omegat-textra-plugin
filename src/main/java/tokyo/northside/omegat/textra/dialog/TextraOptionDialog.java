@@ -9,8 +9,6 @@ import tokyo.northside.omegat.textra.TextraOptions.Mode;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -31,45 +29,36 @@ public class TextraOptionDialog extends JDialog {
     private JRadioButton minnaNTModeRadioButton;
 
 
-    public TextraOptionDialog() {
+    public TextraOptionDialog(final TextraOptions data) {
         setContentPane(contentPane);
         setModal(true);
+        setOptions(data);
         getRootPane().setDefaultButton(buttonOK);
 
-        buttonOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onOK();
-            }
-        });
+        buttonOK.addActionListener(e -> onOK(data));
 
-        buttonCancel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        });
+        buttonCancel.addActionListener(e -> onCancel(data));
 
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-                onCancel();
+                onCancel(data);
             }
         });
 
         // call onCancel() on ESCAPE
-        contentPane.registerKeyboardAction(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        contentPane.registerKeyboardAction(e -> onCancel(data),
+                KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
+                JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
 
     /**
-     * Setter for Dialog data.
+     * Set Dialog options.
      *
-     * @param data dialog data.
+     * @param data option data.
      */
-    public void setData(final TextraOptions data) {
+    public void setOptions(final TextraOptions data) {
         usernameField.setText(data.getUsername());
         apikeyField.setText(data.getApikey());
         secretField.setText(data.getSecret());
@@ -95,42 +84,35 @@ public class TextraOptionDialog extends JDialog {
         }
     }
 
-    /**
-     * Getter for dialog data.
-     *
-     * @param data dialog data.
-     */
-    public void getData(final TextraOptions data) {
-        data.setUsername(usernameField.getText());
-        data.setApikey(apikeyField.getText());
-        data.setSecret(secretField.getText());
+    private void onOK(final TextraOptions options) {
+        options.setUsername(usernameField.getText());
+        options.setApikey(apikeyField.getText());
+        options.setSecret(secretField.getText());
         if (generalNTModeRadioButton.isSelected()) {
-            data.setMode(Mode.generalNT);
+            options.setMode(Mode.generalNT);
         } else if (minnaNTModeRadioButton.isSelected()) {
-            data.setMode(Mode.minnaNT);
+            options.setMode(Mode.minnaNT);
         } else if (patentNTModeRadioButton.isSelected()) {
-            data.setMode(Mode.patentNT);
+            options.setMode(Mode.patentNT);
         } else if (financeNTModeRadioButton.isSelected()) {
-            data.setMode(Mode.fsaNT);
+            options.setMode(Mode.fsaNT);
         } else if (voiceTraTaiwaNTModeRadioButton.isSelected()) {
-            data.setMode(Mode.voicetraNT);
+            options.setMode(Mode.voicetraNT);
         } else {
-            data.setMode(Mode.generalNT);
+            options.setMode(Mode.generalNT);
         }
-    }
-
-    private void onOK() {
-        // add your code here
+        options.saveCredentials();
         dispose();
     }
 
-    private void onCancel() {
-        // add your code here if necessary
+    private void onCancel(final TextraOptions data) {
+        setOptions(data);
         dispose();
     }
 
     public static void main(String[] args) {
-        TextraOptionDialog dialog = new TextraOptionDialog();
+        TextraOptions options = new TextraOptions();
+        TextraOptionDialog dialog = new TextraOptionDialog(options);
         dialog.pack();
         dialog.setVisible(true);
         System.exit(0);
