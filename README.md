@@ -6,6 +6,11 @@ This is an implementation of OmegaT plugin which support NICT TexTra Machine Tra
 
 * [Usage description in English](https://github.com/miurahr/omegat-textra-plugin/wiki/Usage)
 
+
+## NEWS
+
+- **Version 0.11.0** Supports TexTra API which NICT changed web API on 11, Novmember, 2020. Versions before v0.11.0 is not working now.
+
 ## Install
 
 Please download latest omegat-textra-plugin-x.x.zip file from [releases](https://github.com/miurahr/omegat-textra-plugin/releases) page 
