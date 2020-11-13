@@ -64,6 +64,7 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
     private static final String OPTION_TEXTRA_APIKEY = "mt_textra_apikey";
     private static final String OPTION_TEXTRA_SECRET = "mt_textra_secret";
     private static final String OPTION_TEXTRA_TRANSLATE_MODE = "mt_textra_translate_mode";
+    private static final String OPTION_TEXTRA_SERVER = "mt_textra_server";
     private static final String MENU_TEXTRA = "TexTra Powered by NICT";
 
     /**
@@ -72,6 +73,7 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
     public OmegatTextraMachineTranslation() {
         super();
         options = new TextraOptions(
+            Preferences.getPreferenceEnumDefault(OPTION_TEXTRA_SERVER, TextraOptions.Server.nict),
             getCredential(OPTION_TEXTRA_USERNAME),
             getCredential(OPTION_TEXTRA_APIKEY),
             getCredential(OPTION_TEXTRA_SECRET),
@@ -89,6 +91,7 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
         setCredential(OPTION_TEXTRA_USERNAME, options.getUsername(), false);
         setCredential(OPTION_TEXTRA_APIKEY, options.getApikey(), false);
         setCredential(OPTION_TEXTRA_SECRET, options.getSecret(), false);
+        Preferences.setPreference(OPTION_TEXTRA_SERVER, options.getServer());
         Preferences.setPreference(OPTION_TEXTRA_TRANSLATE_MODE, options.getMode());
         Preferences.save();
     }
@@ -171,8 +174,9 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
             options.setLang(sLang, tLang);
             if (!options.isCombinationValid()) {
                 LOGGER.info(String.format("Textra:Invalid language combination"
-                                + " for %s with source %s, and target %s.",
-                        options.getModeName(), options.getSourceLang(), options.getTargetLang()));
+                                + " for %s with source %s, and target %s on %s.",
+                        options.getModeName(), options.getSourceLang(), options.getTargetLang(),
+                        options.getServer().name()));
                 return null;
             }
 

@@ -1,0 +1,81 @@
+{
+  "nict": [
+    ["generalNT", "ja", "en"], ["generalNT", "en", "ja"],
+    ["voicetraNT", "ja", "en"], ["voicetraNT", "en", "ja"],
+    ["fsaNT", "ja", "en"], ["fsaNT", "en", "ja"],
+    ["patentNT", "ja", "en"], ["patentNT", "en", "ja"],
+
+    ["generalNT", "en", "zh-CN"], ["generalNT", "zh-CN", "en"],
+    ["generalNT", "ja", "zh-CN"], ["generalNT", "zh-CN", "ja"],
+    ["generalNT", "en", "zh-TW"], ["generalNT", "zh-TW", "en"],
+    ["generalNT", "ja", "zh-TW"], ["generalNT", "zh-TW", "ja"],
+
+    ["generalNT", "ja", "it"], ["generalNT", "it", "ja"],
+    ["generalNT", "ja", "id"], ["generalNT", "id", "ja"],
+    ["generalNT", "ja", "fr"], ["generalNT", "fr", "ja"],
+    ["generalNT", "ja", "pt"], ["generalNT", "pt", "ja"],
+    ["generalNT", "ja", "my"], ["generalNT", "my", "ja"],
+    ["generalNT", "ja", "th"], ["generalNT", "th", "ja"],
+    ["generalNT", "ja", "vi"], ["generalNT", "vi", "ja"],
+    ["generalNT", "ja", "es"], ["generalNT", "es", "ja"],
+
+    ["generalNT", "en", "it"], ["generalNT", "it", "en"],
+    ["generalNT", "en", "id"], ["generalNT", "id", "en"],
+    ["generalNT", "en", "fr"], ["generalNT", "fr", "en"],
+    ["generalNT", "en", "pt"], ["generalNT", "pt", "en"],
+    ["generalNT", "en", "my"], ["generalNT", "my", "en"],
+    ["generalNT", "en", "th"], ["generalNT", "th", "en"],
+    ["generalNT", "en", "vi"], ["generalNT", "vi", "en"],
+    ["generalNT", "en", "es"], ["generalNT", "es", "en"],
+
+    ["generalNT", "en", "ar"], ["generalNT", "ar", "en"],
+    ["generalNT", "en", "ru"], ["generalNT", "ru", "en"],
+
+    ["generalNT", "en", "de"], ["generalNT", "de", "en"],
+    ["generalNT", "ja", "de"], ["generalNT", "de", "ja"],
+
+    ["generalNT", "en", "kr"], ["generalNT", "kr", "en"],
+    ["generalNT", "ja", "kr"], ["generalNT", "kr", "ja"],
+
+    ["voicetraNT", "ja", "it"], ["voicetraNT", "it", "ja"],
+    ["voicetraNT", "ja", "id"], ["voicetraNT", "id", "ja"],
+    ["voicetraNT", "ja", "fr"], ["voicetraNT", "fr", "ja"],
+    ["voicetraNT", "ja", "pt"], ["voicetraNT", "pt", "ja"],
+    ["voicetraNT", "ja", "my"], ["voicetraNT", "my", "ja"],
+    ["voicetraNT", "ja", "th"], ["voicetraNT", "th", "ja"],
+    ["voicetraNT", "ja", "vi"], ["voicetraNT", "vi", "ja"],
+    ["voicetraNT", "ja", "es"], ["voicetraNT", "es", "ja"],
+
+    ["voicetraNT", "en", "it"], ["voicetraNT", "it", "en"],
+    ["voicetraNT", "en", "pt"], ["voicetraNT", "pt", "en"],
+    ["voicetraNT", "en", "my"], ["voicetraNT", "my", "en"],
+    ["voicetraNT", "en", "th"], ["voicetraNT", "th", "en"],
+    ["voicetraNT", "en", "vi"], ["voicetraNT", "vi", "en"],
+    ["voicetraNT", "en", "es"], ["voicetraNT", "es", "en"],
+
+    ["voicetraNT", "ja", "fp"], ["voicetraNT", "fp", "ja"],
+    ["voicetraNT", "fr", "my"], ["voicetraNT", "my", "fr"],
+    ["voicetraNT", "zh-CN", "kr"], ["voicetraNT", "kr", "zh-CN"],
+
+    ["patentNT", "ja", "fr"], ["patentNT", "fr", "ja"],
+    ["patentNT", "ja", "zh-CN"], ["patentNT", "zh-CN", "ja"],
+    ["patentNT", "en", "zh-CN"], ["patentNT", "zh-CN", "en"],
+    ["patentNT", "ja", "zh-TW"], ["patentNT", "zh-TW", "ja"],
+    ["patentNT", "en", "zh-TW"], ["patentNT", "zh-TW", "en"],
+
+    ["minnaNT", "ja", "en"], ["minnaNT", "en", "ja"],
+    ["minnaNT", "ja", "zh-CN"], ["minnaNT", "zh-CN", "ja"],
+    ["minnaNT", "ja", "zh-TW"], ["minnaNT", "zh-TW", "ja"]
+  ],
+  "minna_personal": [
+    ["generalNT", "ja", "en"], ["generalNT", "en", "ja"],
+    ["voicetraNT", "ja", "en"], ["voicetraNT", "en", "ja"],
+    ["fsaNT", "ja", "en"], ["fsaNT", "en", "ja"],
+    ["patentNT", "ja", "en"], ["patentNT", "en", "ja"],
+    ["science", "ja", "en"], ["science", "en", "ja"],
+    ["generalNT", "ja", "zh-CN"], ["generalNT", "zh-CN", "ja"],
+    ["generalNT", "ja", "zh-TW"], ["generalNT", "zh-TW", "ja"],
+    ["patentNT", "ja", "zh-CN"], ["patentNT", "zh-CN", "ja"],
+    ["patentNT", "ja", "zh-TW"], ["patentNT", "zh-TW", "ja"]
+  ]
+}

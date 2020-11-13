@@ -4,6 +4,7 @@ import org.testng.annotations.Test
 
 import org.omegat.util.Language
 
+
 import static org.testng.Assert.*
 
 
@@ -18,7 +19,14 @@ class TextraOptionsTest {
         assertTrue(new TextraOptions().setMode("generalNT").setLang("JA", "EN").isCombinationValid())
         assertTrue(new TextraOptions().setMode("patentNT").setLang("en", "ja").isCombinationValid())
         assertTrue(new TextraOptions().setMode("voicetraNT").setLang("ja", "en").isCombinationValid())
+        assertTrue(new TextraOptions().setServer(TextraOptions.Server.minna_personal).setMode("generalNT").setLang(new Language("en"), new Language("ja")).isCombinationValid(), "test KI personal")
+        TextraOptions options = new TextraOptions()
+        options.setServer(TextraOptions.Server.minna_personal)
+        options.setMode("generalNT")
+        options.setLang("en", "ja")
+        assertTrue(options.isCombinationValid())
     }
+
 
     @Test
     void testUsername() {
