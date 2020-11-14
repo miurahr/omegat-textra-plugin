@@ -22,20 +22,18 @@ public class TextraOptionCombinations {
 
     public TextraOptionCombinations() {
         combination = new HashSet<>();
-        InputStream is = getClass().getClassLoader().getResourceAsStream("combinations.json");
-        if (is != null) {
-            JSONObject jsonObj = new JSONObject(new BufferedReader(new InputStreamReader(is))
-                    .lines().collect(Collectors.joining(" ")));
-            for (Server server : Arrays.asList(Server.nict, Server.minna_personal)) {
-                JSONArray jsonArray = jsonObj.getJSONArray(server.name());
-                int bound = jsonArray.length();
-                IntStream.range(0, bound).mapToObj(jsonArray::getJSONArray).forEach(record -> {
-                    Mode mode = Mode.valueOf(record.getString(0));
-                    String sourceLang = record.getString(1);
-                    String targetLang = record.getString(2);
-                    this.combination.add(new Combination(server, mode, sourceLang, targetLang));
-                });
-            }
+        InputStream is = TextraOptionCombinations.class.getResourceAsStream("combinations.json");
+        JSONObject jsonObj = new JSONObject(new BufferedReader(new InputStreamReader(is))
+                .lines().collect(Collectors.joining(" ")));
+        for (Server server : Arrays.asList(Server.nict, Server.minna_personal)) {
+            JSONArray jsonArray = jsonObj.getJSONArray(server.name());
+            int bound = jsonArray.length();
+            IntStream.range(0, bound).mapToObj(jsonArray::getJSONArray).forEach(record -> {
+                Mode mode = Mode.valueOf(record.getString(0));
+                String sourceLang = record.getString(1);
+                String targetLang = record.getString(2);
+                this.combination.add(new Combination(server, mode, sourceLang, targetLang));
+            });
         }
     }
 
