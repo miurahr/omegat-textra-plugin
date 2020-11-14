@@ -1,6 +1,7 @@
 # NICT TexTra Machine Translation API plugin for OmegaT
 
-This is an implementation of OmegaT plugin which support NICT TexTra Machine Translation API.
+This is an implementation of OmegaT plugin which support NICT TexTra Machine Translation API which are
+provided by NiCT for non-profit and OSS translations and Kawamura-International for Business translations.
 
 * [日本語の利用方法の説明](https://github.com/miurahr/omegat-textra-plugin/wiki/%E5%88%A9%E7%94%A8%E6%96%B9%E6%B3%95)
 
@@ -84,8 +85,49 @@ then manually run
 sudo update-ca-certificates
 ```
 
+## Supported language combinations
+
+### NICT non-profit and OSS translations account
+
+* languages
+    * English
+    * Japanese
+    * Chinese(Mandarin, Taiwanese)
+    * Italian
+    * Indonesian
+    * French
+    * Polish
+    * Myanmar
+    * Thai
+    * Vietnamese
+    * Espania
+    * Arabic
+    * Ruciaan
+    * Germany
+    * Korean
+    * fp
+
+* Engines
+    * General NT
+    * Finaance NT
+    * Patent NT
+    * General NT+ (minnaNT)
+    * VoiceTra NT
+
+### Kawamura-Internaltional Personal Business account
+
+* Languages
+    * Japanese
+    * Chinese(Mandarin, Taiwan)
+    * English
+* Engines
+    * Genral NT
+    * VoiceTra NT
+    * Patent NT
+    * Science
+    * Finance
 
 ## License
 
-This project is distributed under the GNU general public license version 3 or later.
+The plugin is distributed under the GNU general public license version 3 or later.
 
