@@ -229,12 +229,12 @@ public class TextraOptions {
     }
 
     public TextraOptions setLang(final Language sLang, final Language tLang) {
-        this.sourceLang = formatLang(sLang.getLanguageCode(), sLang.getCountryCode());
-        this.targetLang = formatLang(tLang.getLanguageCode(), tLang.getCountryCode());
+        this.sourceLang = formatLang(sLang);
+        this.targetLang = formatLang(tLang);
         return this;
     }
 
-    private String formatLang(final String lang, final String country) {
+    private static String formatLang(final String lang, final String country) {
         String result;
         if (country.equals("CN")) {
             result = lang.toLowerCase() + "-" + country.toUpperCase();
@@ -242,6 +242,10 @@ public class TextraOptions {
             result = lang.toLowerCase();
         }
         return result;
+    }
+
+    static String formatLang(final Language lang) {
+        return formatLang(lang.getLanguageCode(), lang.getCountryCode());
     }
 
     /**

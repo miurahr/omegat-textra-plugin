@@ -2,18 +2,13 @@ package tokyo.northside.omegat.textra;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.omegat.util.Language;
 import tokyo.northside.omegat.textra.TextraOptions.Mode;
 import tokyo.northside.omegat.textra.TextraOptions.Server;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URL;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -23,8 +18,6 @@ import java.util.stream.IntStream;
 
 public class TextraOptionCombinations {
 
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(TextraOptionCombinations.class);
     private Set<Combination> combination;
 
     public TextraOptionCombinations() {
@@ -46,6 +39,7 @@ public class TextraOptionCombinations {
         }
     }
 
+
     /**
      * Check if parameter combination is valid or not.
      * @return true is combination is valid, otherwise false.
@@ -61,8 +55,8 @@ public class TextraOptionCombinations {
     private static class Combination {
         private Server service;
         private TextraOptions.Mode mode;
-        private String sLang;
-        private String tLang;
+        private Language sLang;
+        private Language tLang;
 
         /**
          * Constructor.
@@ -74,8 +68,8 @@ public class TextraOptionCombinations {
                     final String sLang, final String tLang) {
             this.service = service;
             this.mode = mode;
-            this.sLang = sLang;
-            this.tLang = tLang;
+            this.sLang = new Language(sLang);
+            this.tLang = new Language(tLang);
         }
 
         /**
@@ -92,9 +86,14 @@ public class TextraOptionCombinations {
                 return false;
             }
             Combination other = (Combination) o;
-            return other.service.equals(this.service) &&
-                    other.mode.equals(this.mode) && other.sLang.toLowerCase().equals(this.sLang
-                    .toLowerCase()) && other.tLang.toLowerCase().equals(this.tLang.toLowerCase());
+            return other.service.equals(this.service) && other.mode.equals(this.mode) &&
+                   leq(other.sLang, this.sLang) && leq(other.tLang, this.tLang);
+        }
+
+        private static boolean leq(Language langA, Language langB) {
+            String a = TextraOptions.formatLang(langA);
+            String b = TextraOptions.formatLang(langB);
+            return a.equals(b);
         }
 
         /**
@@ -104,7 +103,7 @@ public class TextraOptionCombinations {
         @Override
         public int hashCode() {
             return (service.name() + mode.name()
-                    + sLang.toLowerCase() + tLang.toLowerCase()).hashCode();
+                    + sLang.getDisplayName() + tLang.getDisplayName()).hashCode();
         }
     }
 }
