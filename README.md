@@ -97,20 +97,20 @@ sudo update-ca-certificates
     * Italian
     * Indonesian
     * French
-    * Polish
+    * Portuguese
     * Myanmar
     * Thai
     * Vietnamese
-    * Espania
+    * Spanish
     * Arabic
-    * Ruciaan
+    * Russian
     * Germany
     * Korean
-    * fp
+    * Philippian
 
 * Engines
     * General NT
-    * Finaance NT
+    * Finance NT
     * Patent NT
     * General NT+ (minnaNT)
     * VoiceTra NT
@@ -122,7 +122,7 @@ sudo update-ca-certificates
     * Chinese(Mandarin, Taiwan)
     * English
 * Engines
-    * Genral NT
+    * General NT
     * VoiceTra NT
     * Patent NT
     * Science
