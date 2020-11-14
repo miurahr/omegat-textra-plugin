@@ -10,6 +10,7 @@ provided by NiCT for non-profit and OSS translations and Kawamura-International 
 
 ## NEWS
 
+- **14, Nov. 2020** - **Version 2020.1.0** - Support business account and change version schema with **YEAR**.
 - **Version 0.11.0** Supports TexTra API which NICT changed web API on 11, Novmember, 2020. Versions before v0.11.0 is not working now.
 
 ## Install
