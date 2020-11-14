@@ -2,11 +2,6 @@ package tokyo.northside.omegat.textra;
 
 import org.omegat.util.Language;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 /**
  * Data class for TexTra configuration Options.
  * Also have combination limitation knowledge.
@@ -18,145 +13,53 @@ public class TextraOptions {
     private String secret;
     private Mode mode;
 
-    private OmegatTextraMachineTranslation plugin;
+    private Server server;
+
+    private OmegatTextraMachineTranslation omegatTextraMachineTranslation;
+    private TextraOptionCombinations textraOptionCombinations;
 
     private String sourceLang;
     private String targetLang;
 
 
-    private Set<Combination> combination = new HashSet<>();
-
-    {
-        combination.addAll(createCombinations(
-                Arrays.asList(Mode.generalNT, Mode.patentNT),
-                Arrays.asList("ja", "en", "zh-CN", "zh-TW")));
-        combination.addAll(createCombinations(Mode.generalNT, "ja",
-                Arrays.asList("it", "fr", "pt", "id", "my", "th", "vi", "es")));
-        combination.addAll(createCombinations(Mode.generalNT, "en",
-                Arrays.asList("ar", "ru", "fr", "pt", "id", "my", "th", "vi", "es")));
-        combination.addAll(createCombinations(Mode.generalNT, "de",
-                Arrays.asList("en", "ja")));
-        combination.addAll(createCombinations(Mode.generalNT, "kr",
-                Arrays.asList("en", "ja")));
-        combination.addAll(createCombinations(
-                Arrays.asList(Mode.voicetraNT, Mode.fsaNT),
-                Arrays.asList("en", "ja")));
-        combination.addAll(createCombinations(Mode.voicetraNT, "ja",
-                Arrays.asList("fr", "pt", "id", "my", "th", "vi", "es")));
-        combination.addAll(createCombinations(Mode.voicetraNT, "en",
-                Arrays.asList("fr", "pt", "id", "my", "th", "vi", "es")));
-        combination.addAll(createCombinations(Arrays.asList(Mode.minnaNT),
-                Arrays.asList("ja", "en", "zh-CN", "zh-TW")));
-    }
-
-    public TextraOptions(String username, String apikey, String secret, Mode mode,
-                         OmegatTextraMachineTranslation plugin) {
+    public TextraOptions(Server server, String username, String apikey, String secret, Mode mode,
+                         OmegatTextraMachineTranslation omegatTextraMachineTranslation) {
         this.username = username;
         this.apikey = apikey;
         this.secret = secret;
         this.mode = mode;
-        this.plugin = plugin;
+        this.omegatTextraMachineTranslation = omegatTextraMachineTranslation;
+        this.server = server;
+
+        this.textraOptionCombinations = new TextraOptionCombinations();
     }
 
     /**
      * Dummy constructor for test.
      */
     public TextraOptions() {
-        this("", "", "", Mode.generalNT, null);
+        this(Server.nict, "", "", "", Mode.generalNT, null);
     }
 
     public void saveCredentials() {
-        this.plugin.saveCredential(this);
+        this.omegatTextraMachineTranslation.saveCredential(this);
     }
 
-    /**
-     * utility function to create Set of combination from set of String.
-     */
-    private Set<Combination> createCombinations(final List<Mode> modes,
-                                             final List<String> languages) {
-        Set<Combination> outSet = new HashSet<>();
-        for (String source: languages) {
-            for (String target: languages) {
-                if (source.startsWith("zh") && target.startsWith("zh")) {
-                    continue;
-                } else if (source.equals(target)) {
-                    continue;
-                }
-                for (Mode m: modes) {
-                    outSet.add(new Combination(m, source, target));
-                }
-            }
-        }
-        return outSet;
-    }
-    private Set<Combination> createCombinations(final Mode m,
-                                             final String source,
-                                             final List<String> languages) {
-        Set<Combination> outSet = new HashSet<>();
-        for (String target: languages) {
-            if (source.equals(target)) {
-                continue;
-            }
-            outSet.add(new Combination(m, source, target));
-            outSet.add(new Combination(m, target, source));
-        }
-        return outSet;
-    }
-
-    /**
-     * Class for check mode, language combination.
-     */
-    private static class Combination {
-        private Mode mode;
-        private String sLang;
-        private String tLang;
-
-        /**
-         * Constructor.
-         * @param mode mode.
-         * @param sLang source language.
-         * @param tLang target language.
-         */
-        Combination(final Mode mode, final String sLang, final String tLang) {
-            this.mode = mode;
-            this.sLang = sLang;
-            this.tLang = tLang;
-        }
-
-        /**
-         * Override equals.
-         * @param o other object.
-         * @return true if three values are equals.
-         */
-        @Override
-        public boolean equals(final Object o) {
-            if (o == null) {
-                return false;
-            }
-            if (!(o instanceof Combination)) {
-                return false;
-            }
-            Combination other = (Combination) o;
-            return other.mode.equals(this.mode) && other.sLang.toLowerCase().equals(this.sLang
-                    .toLowerCase()) && other.tLang.toLowerCase().equals(this.tLang.toLowerCase());
-        }
-
-        /**
-         * Return hashCode based on triplet strings.
-         * @return hash code.
-         */
-        @Override
-        public int hashCode() {
-            return (mode.name() + sLang.toLowerCase() + tLang.toLowerCase()).hashCode();
-        }
-    }
-
-    /**
-     * Check if parameter combination is valid or not.
-     * @return true is combination is valid, otherwise false.
-     */
     public boolean isCombinationValid() {
-        return combination.contains(new Combination(mode, sourceLang, targetLang));
+        return textraOptionCombinations.isCombinationValid(server, mode, sourceLang, targetLang);
+    }
+
+    /**
+     * Translation server
+     *
+     * There are known three services;
+     * 1. NiCT TexTra for nonprofit purpose
+     * 2. Kawamura-Internaltional TexTra for personal business.
+     * 3. Kawamura-Internaltional TexTra for business.
+     */
+    public enum Server {
+        nict,
+        minna_personal,
     }
 
     /**
@@ -183,6 +86,11 @@ public class TextraOptions {
          * Aka. Generic NT+
          */
         minnaNT,
+        /**
+         * science mode.
+         * only supported with KI personal edition.
+         */
+        science,
     }
 
     /**
@@ -261,6 +169,19 @@ public class TextraOptions {
         return this;
     }
 
+    public boolean isServer(final Server server) {
+        return this.server.equals(server);
+    }
+
+    public Server getServer() {
+        return server;
+    }
+
+    public TextraOptions setServer(final Server server) {
+        this.server = server;
+        return this;
+    }
+
     /**
      * Get mode name.
      * @return API mode string for target URL.
@@ -308,12 +229,12 @@ public class TextraOptions {
     }
 
     public TextraOptions setLang(final Language sLang, final Language tLang) {
-        this.sourceLang = formatLang(sLang.getLanguageCode(), sLang.getCountryCode());
-        this.targetLang = formatLang(tLang.getLanguageCode(), tLang.getCountryCode());
+        this.sourceLang = formatLang(sLang);
+        this.targetLang = formatLang(tLang);
         return this;
     }
 
-    private String formatLang(final String lang, final String country) {
+    private static String formatLang(final String lang, final String country) {
         String result;
         if (country.equals("CN")) {
             result = lang.toLowerCase() + "-" + country.toUpperCase();
@@ -321,6 +242,10 @@ public class TextraOptions {
             result = lang.toLowerCase();
         }
         return result;
+    }
+
+    static String formatLang(final Language lang) {
+        return formatLang(lang.getLanguageCode(), lang.getCountryCode());
     }
 
     /**

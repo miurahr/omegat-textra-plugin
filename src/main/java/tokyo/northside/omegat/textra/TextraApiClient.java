@@ -13,6 +13,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpRequestRetryHandler;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.LaxRedirectStrategy;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -22,6 +23,8 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +39,7 @@ public class TextraApiClient {
     private static final int SO_TIMEOUT = 10 * 60 * 1000;
     private static final Logger LOGGER = LoggerFactory.getLogger(TextraApiClient.class);
     private static final String API_URL = "https://mt-auto-minhon-mlt.ucri.jgn-x.jp/api/mt/";
+    private static final String KI_API_URL = "https://minna-mt.k-intl.jp/api/mt/";
 
     private HttpClient httpClient;
     private HttpPost httpPost;
@@ -56,10 +60,12 @@ public class TextraApiClient {
         httpClient = HttpClientBuilder.create()
                 .setDefaultRequestConfig(requestConfig)
                 .setRetryHandler(new DefaultHttpRequestRetryHandler(3, true))
+                .setRedirectStrategy(new LaxRedirectStrategy())
                 .build();
         requestConfig = RequestConfig.custom()
                 .setConnectTimeout(CONNECTION_TIMEOUT)
                 .setSocketTimeout(SO_TIMEOUT)
+                .setRedirectsEnabled(true)
                 .build();
         httpPost = new HttpPost(url);
         httpPost.setConfig(requestConfig);
@@ -92,11 +98,20 @@ public class TextraApiClient {
     public String executeTranslation() {
         int respStatus;
         InputStream respBodyStream;
+        HttpResponse httpResponse;
         try {
-            HttpResponse httpResponse = httpClient.execute(httpPost);
+            httpResponse = httpClient.execute(httpPost);
             respBodyStream = httpResponse.getEntity().getContent();
             respStatus = httpResponse.getStatusLine().getStatusCode();
-        } catch (IOException ex) {
+            if (respStatus == 302) {
+                String newLocation = httpResponse.getHeaders("Location").toString();
+                LOGGER.info("redirect(302): " + newLocation);
+                httpPost.setURI(new URI(newLocation));
+                httpResponse = httpClient.execute(httpPost);
+                respBodyStream = httpResponse.getEntity().getContent();
+                respStatus = httpResponse.getStatusLine().getStatusCode();
+            }
+        } catch (IOException | URISyntaxException ex) {
             LOGGER.info("http access error: " + ex.getMessage());
             return null;
         }
@@ -122,9 +137,18 @@ public class TextraApiClient {
     }
 
     private static String getAccessUrl(final TextraOptions options) {
+        String apiUrl;
         String apiEngine = options.getModeName().replace("_", "-");
-        String apiUrl = API_URL + apiEngine + "_" + options.getSourceLang()
+        if (options.isServer(TextraOptions.Server.nict)) {
+            apiUrl = API_URL + apiEngine + "_" + options.getSourceLang()
                 + "_" + options.getTargetLang() + "/";
+        } else if (options.isServer(TextraOptions.Server.minna_personal)){
+            apiUrl = KI_API_URL + apiEngine + "_" + options.getSourceLang()
+                    + "_" + options.getTargetLang() + "/";
+        } else {
+            apiUrl = API_URL + apiEngine + "_" + options.getSourceLang()
+                    + "_" + options.getTargetLang() + "/";
+        }
         LOGGER.debug("Access URL:" + apiUrl);
         return apiUrl;
     }
