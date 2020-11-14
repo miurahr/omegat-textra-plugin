@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [2020.1.0] - 2020-11-14
+
+- Support Kawamura-internaltional business account.(#32)
+- Change version schema with Year.(#33)
+- Defined the supported language and engine combinations in JSON file(#32)
+
 ## [0.11.1] - 2020-11-12
 
 - Support minnaNT mode/汎用NT+ mode (#30)
@@ -140,7 +146,9 @@ All notable changes to this project will be documented in this file.
 ### Added
 - Start project.
 
-[Unreleased]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.11.0...HEAD
+[Unreleased]: https://github.com/miurahr/omegat-textra-plugin/compare/v2020.1.0...HEAD
+[2020.1.0]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.11.1...v2020.1.0
+[0.11.1]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.11.0...v0.11.1
 [0.11.0]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.10.0...v0.11.0
 [0.10.0]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.9.3...v0.10.0
 [0.9.3]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.9.2...v0.9.3
