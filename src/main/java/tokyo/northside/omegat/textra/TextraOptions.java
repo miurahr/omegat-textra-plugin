@@ -170,7 +170,7 @@ public class TextraOptions {
      */
     public String getCustomId() {
         if (customId == null) {
-            return "CustomID(c99999)";
+            return "CustomID(ex. c-12345)";
         }
         return customId;
     }
@@ -179,6 +179,7 @@ public class TextraOptions {
      * Setter of custom id.
      * @param customId  id string format 'c999999'
      */
+    @SuppressWarnings("HiddenField")
     public void setCustomId(String customId) {
         this.customId = customId;
     }

@@ -196,7 +196,7 @@
                   </grid>
                 </constraints>
                 <properties>
-                  <text value="custom id"/>
+                  <text value="custom id(ex. c-12345)"/>
                 </properties>
               </component>
             </children>
