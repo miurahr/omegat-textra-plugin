@@ -30,6 +30,8 @@ public class TextraOptionDialog extends JDialog {
     private JRadioButton minnaNTModeRadioButton;
     private JRadioButton nictRadioButton;
     private JRadioButton kiRadioButton;
+    private JRadioButton customRadioButton;
+    private JTextField customIdTextField;
 
 
     public TextraOptionDialog(final TextraOptions data) {
@@ -76,6 +78,7 @@ public class TextraOptionDialog extends JDialog {
         usernameField.setText(data.getUsername());
         apikeyField.setText(data.getApikey());
         secretField.setText(data.getSecret());
+        customIdTextField.setText(data.getCustomId());
         switch (data.getMode()) {
             case generalNT:
                 generalNTModeRadioButton.setSelected(true);
@@ -92,6 +95,8 @@ public class TextraOptionDialog extends JDialog {
             case fsaNT:
                 financeNTModeRadioButton.setSelected(true);
                 break;
+            case custom:
+                customRadioButton.setSelected(true);
             default:
                 generalNTModeRadioButton.setSelected(true);
                 break;

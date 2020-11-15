@@ -11,6 +11,7 @@ public class TextraOptions {
     private String username;
     private String apikey;
     private String secret;
+    private String customId;
     private Mode mode;
 
     private Server server;
@@ -22,11 +23,12 @@ public class TextraOptions {
     private String targetLang;
 
 
-    public TextraOptions(Server server, String username, String apikey, String secret, Mode mode,
-                         OmegatTextraMachineTranslation omegatTextraMachineTranslation) {
+    public TextraOptions(Server server, String username, String apikey, String secret, String customId,
+                         Mode mode, OmegatTextraMachineTranslation omegatTextraMachineTranslation) {
         this.username = username;
         this.apikey = apikey;
         this.secret = secret;
+        this.customId = customId;
         this.mode = mode;
         this.omegatTextraMachineTranslation = omegatTextraMachineTranslation;
         this.server = server;
@@ -38,7 +40,7 @@ public class TextraOptions {
      * Dummy constructor for test.
      */
     public TextraOptions() {
-        this(Server.nict, "", "", "", Mode.generalNT, null);
+        this(Server.nict, "", "", "", null, Mode.generalNT, null);
     }
 
     public void saveCredentials() {
@@ -46,7 +48,15 @@ public class TextraOptions {
     }
 
     public boolean isCombinationValid() {
-        return textraOptionCombinations.isCombinationValid(server, mode, sourceLang, targetLang);
+        if (mode != Mode.custom) {
+            return textraOptionCombinations.isCombinationValid(server, mode, sourceLang, targetLang);
+        } else {
+            if (customId != null && customId.startsWith("c")) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 
     /**
@@ -91,6 +101,10 @@ public class TextraOptions {
          * only supported with KI personal edition.
          */
         science,
+        /**
+         * Custom mode.
+         */
+        custom,
     }
 
     /**
@@ -148,6 +162,25 @@ public class TextraOptions {
     public TextraOptions setSecret(final String secret) {
         this.secret = secret;
         return this;
+    }
+
+    /**
+     * Getter of custom id.
+     * @return custom id when configured, otherwise "custom id"
+     */
+    public String getCustomId() {
+        if (customId == null) {
+            return "CustomID(c99999)";
+        }
+        return customId;
+    }
+
+    /**
+     * Setter of custom id.
+     * @param customId  id string format 'c999999'
+     */
+    public void setCustomId(String customId) {
+        this.customId = customId;
     }
 
     /**

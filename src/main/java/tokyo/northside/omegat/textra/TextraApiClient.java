@@ -138,7 +138,12 @@ public class TextraApiClient {
 
     private static String getAccessUrl(final TextraOptions options) {
         String apiUrl;
-        String apiEngine = options.getModeName().replace("_", "-");
+        String apiEngine;
+        if (options.getMode() == TextraOptions.Mode.custom) {
+            apiEngine = options.getCustomId();
+        } else {
+            apiEngine = options.getModeName().replace("_", "-");
+        }
         if (options.isServer(TextraOptions.Server.nict)) {
             apiUrl = API_URL + apiEngine + "_" + options.getSourceLang()
                 + "_" + options.getTargetLang() + "/";
