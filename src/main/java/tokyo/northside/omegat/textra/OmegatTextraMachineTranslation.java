@@ -65,6 +65,7 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
     private static final String OPTION_TEXTRA_SECRET = "mt_textra_secret";
     private static final String OPTION_TEXTRA_TRANSLATE_MODE = "mt_textra_translate_mode";
     private static final String OPTION_TEXTRA_SERVER = "mt_textra_server";
+    private static final String OPTION_TEXTRA_CUSTOM_ID = "mt_textra_custom_id";
     private static final String MENU_TEXTRA = "TexTra Powered by NICT";
 
     /**
@@ -77,6 +78,7 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
             getCredential(OPTION_TEXTRA_USERNAME),
             getCredential(OPTION_TEXTRA_APIKEY),
             getCredential(OPTION_TEXTRA_SECRET),
+            Preferences.getPreferenceDefault(OPTION_TEXTRA_CUSTOM_ID, null),
             Preferences.getPreferenceEnumDefault(OPTION_TEXTRA_TRANSLATE_MODE, generalNT),
                 this);
         enabled = Preferences.isPreferenceDefault(OPTION_ALLOW_TEXTRA_TRANSLATE, true);

@@ -25,6 +25,9 @@ class TextraOptionsTest {
         options.setMode("generalNT")
         options.setLang("en", "ja")
         assertTrue(options.isCombinationValid())
+        options = new TextraOptions().setMode("custom");
+        options.setCustomId("c999999");
+        assertTrue(options.isCombinationValid())
     }
 
 
