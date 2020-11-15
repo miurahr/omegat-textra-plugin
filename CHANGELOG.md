@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [2020.1.2] - 2020-11-15
+
+### Fixed
+- Save CUSTOM ID properly.
+
 ## [2020.1.1] - 2020-11-15
 
 ### Added
@@ -158,7 +163,8 @@ All notable changes to this project will be documented in this file.
 ### Added
 - Start project.
 
-[Unreleased]: https://github.com/miurahr/omegat-textra-plugin/compare/v2020.1.1...HEAD
+[Unreleased]: https://github.com/miurahr/omegat-textra-plugin/compare/v2020.1.2...HEAD
+[2020.1.2]: https://github.com/miurahr/omegat-textra-plugin/compare/v2002.1.1...v2020.1.2
 [2020.1.1]: https://github.com/miurahr/omegat-textra-plugin/compare/v2002.1.0...v2020.1.1
 [2020.1.0]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.11.1...v2020.1.0
 [0.11.1]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.11.0...v0.11.1

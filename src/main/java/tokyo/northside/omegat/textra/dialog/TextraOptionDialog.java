@@ -127,6 +127,10 @@ public class TextraOptionDialog extends JDialog {
             options.setMode(Mode.fsaNT);
         } else if (voiceTraTaiwaNTModeRadioButton.isSelected()) {
             options.setMode(Mode.voicetraNT);
+        } else if (customRadioButton.isSelected()) {
+            String enteredCustomId = customIdTextField.getText();
+            options.setMode(Mode.custom);
+            options.setCustomId(enteredCustomId);
         } else {
             options.setMode(Mode.generalNT);
         }
