@@ -100,6 +100,7 @@ public class TextraOptionDialog extends JDialog {
                 break;
             case custom:
                 customRadioButton.setSelected(true);
+                break;
             default:
                 generalNTModeRadioButton.setSelected(true);
                 break;

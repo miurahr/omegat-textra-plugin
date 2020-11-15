@@ -95,6 +95,9 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
         setCredential(OPTION_TEXTRA_SECRET, options.getSecret(), false);
         Preferences.setPreference(OPTION_TEXTRA_SERVER, options.getServer());
         Preferences.setPreference(OPTION_TEXTRA_TRANSLATE_MODE, options.getMode());
+        if (options.getCustomId() != null) {
+            Preferences.setPreference(OPTION_TEXTRA_CUSTOM_ID, options.getCustomId());
+        }
         Preferences.save();
     }
 
