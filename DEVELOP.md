@@ -2,4 +2,4 @@
 
 ## Development tools
 
-Textra plugin is developed with Gradle build tool and IntelliJ IDEA. 
+You can build OmegaT Textra plugin with Gradle building tool and IntelliJ IDEA IDE. 

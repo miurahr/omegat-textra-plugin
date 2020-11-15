@@ -114,6 +114,8 @@ sudo update-ca-certificates
     * Patent NT
     * General NT+ (minnaNT)
     * VoiceTra NT
+    
+    * CUSTOM engine
 
 ### Kawamura-Internaltional Personal Business account
 

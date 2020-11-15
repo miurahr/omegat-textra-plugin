@@ -3,20 +3,32 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [2020.1.1] - 2020-11-15
+
+### Added
+- Support custom translation engine.(#34)
+
 ## [2020.1.0] - 2020-11-14
 
+### Added
 - Support Kawamura-internaltional business account.(#32)
 - Change version schema with Year.(#33)
 - Defined the supported language and engine combinations in JSON file(#32)
 
 ## [0.11.1] - 2020-11-12
 
+### Added
 - Support minnaNT mode/汎用NT+ mode (#30)
 
 ## [0.11.0] - 2020-11-12
 
+### Added
 - Add new language combinations for NT mode (#29)
+
+### Deprecated
 - Drop NMT mode(no support from 11, Nov. 2020) (#28, #29)
+
+### Changed
 - Bump gradle version up to 6.6.1
 - Drop spotbugs and lessbugs check.
 - make language/method combination class to static 
@@ -146,7 +158,8 @@ All notable changes to this project will be documented in this file.
 ### Added
 - Start project.
 
-[Unreleased]: https://github.com/miurahr/omegat-textra-plugin/compare/v2020.1.0...HEAD
+[Unreleased]: https://github.com/miurahr/omegat-textra-plugin/compare/v2020.1.1...HEAD
+[2020.1.1]: https://github.com/miurahr/omegat-textra-plugin/compare/v2002.1.0...v2020.1.1
 [2020.1.0]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.11.1...v2020.1.0
 [0.11.1]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.11.0...v0.11.1
 [0.11.0]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.10.0...v0.11.0
