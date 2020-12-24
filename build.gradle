@@ -3,6 +3,7 @@ plugins {
     id 'groovy'
     id 'checkstyle'
     id 'distribution'
+    id 'org.omegat.gradle' version '1.1.1'
 }
 
 version = '2020.2.0'
@@ -11,15 +12,12 @@ ext {
     javaVersion = '1.8'
 }
 
+omegat {
+    version '5.2.0'
+}
+
 sourceCompatibility = javaVersion
 targetCompatibility = javaVersion
-
-repositories {
-    maven {
-        url "https://dl.bintray.com/omegat-org/maven/"
-    }
-    jcenter()
-}
 
 dependencies {
     compile 'oauth.signpost:signpost-core:1.2.1.2'
@@ -28,10 +26,8 @@ dependencies {
     compile 'org.json:json:20160810'
     compile fileTree(dir: 'lib', include: '*.jar')
     compile 'org.slf4j:slf4j-api:1.7.25'
-    compileOnly 'org.omegat:omegat:5.2.0'
     compileOnly 'commons-io:commons-io:2.5'
     compileOnly 'commons-lang:commons-lang:2.6'
-    testImplementation 'org.omegat:omegat:5.2.0'
     testImplementation 'commons-io:commons-io:2.5'
     testImplementation 'commons-lang:commons-lang:2.6'
     testImplementation "org.codehaus.groovy:groovy-all:3.0.1"
