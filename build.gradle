@@ -3,10 +3,10 @@ plugins {
     id 'groovy'
     id 'checkstyle'
     id 'distribution'
-    id 'org.omegat.gradle' version '1.1.1'
+    id 'org.omegat.gradle' version "1.2.5"
 }
 
-version = '2020.2.0'
+version = '2020.2.1-SNAPSHOT'
 
 ext {
     javaVersion = '1.8'
@@ -14,6 +14,7 @@ ext {
 
 omegat {
     version '5.2.0'
+    pluginClass "tokyo.northside.omegat.textra.OmegatTextraMachineTranslation"
 }
 
 sourceCompatibility = javaVersion
@@ -34,15 +35,6 @@ dependencies {
     testImplementation 'org.testng:testng:6.9.10'
 }
 test.useTestNG()
-
-jar {
-    from {
-        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
-    }
-    manifest {
-        attributes("OmegaT-Plugins": "tokyo.northside.omegat.textra.OmegatTextraMachineTranslation")
-    }
-}
 
 tasks.withType(JavaCompile) {
     options.compilerArgs << "-Xlint:deprecation" << "-Xlint:unchecked"
@@ -69,10 +61,6 @@ task spotlessChangedApply {
             it.path.endsWith('.java')
         }
     }
-}
-
-artifacts {
-    archives jar
 }
 
 distTar {
