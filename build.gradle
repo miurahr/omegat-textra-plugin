@@ -21,14 +21,14 @@ sourceCompatibility = javaVersion
 targetCompatibility = javaVersion
 
 dependencies {
-    compile 'oauth.signpost:signpost-core:1.2.1.2'
-    compile 'oauth.signpost:signpost-commonshttp4:1.2.1.2'
-    compile 'org.apache.httpcomponents:httpclient:4.5.12'
-    compile 'org.json:json:20160810'
-    compile fileTree(dir: 'lib', include: '*.jar')
-    compile 'org.slf4j:slf4j-api:1.7.25'
-    compileOnly 'commons-io:commons-io:2.5'
-    compileOnly 'commons-lang:commons-lang:2.6'
+    packIntoJar 'oauth.signpost:signpost-core:1.2.1.2'
+    packIntoJar 'oauth.signpost:signpost-commonshttp4:1.2.1.2'
+    packIntoJar 'org.apache.httpcomponents:httpclient:4.5.12'
+    packIntoJar 'org.json:json:20160810'
+    packIntoJar fileTree(dir: 'lib', include: '*.jar')
+    packIntoJar 'org.slf4j:slf4j-api:1.7.25'
+    implementation 'commons-io:commons-io:2.5'
+    implementation 'commons-lang:commons-lang:2.6'
     testImplementation 'commons-io:commons-io:2.5'
     testImplementation 'commons-lang:commons-lang:2.6'
     testImplementation "org.codehaus.groovy:groovy-all:3.0.1"
