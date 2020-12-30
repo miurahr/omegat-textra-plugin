@@ -3,50 +3,38 @@ plugins {
     id 'groovy'
     id 'checkstyle'
     id 'distribution'
+    id 'org.omegat.gradle' version "1.2.5"
 }
 
-version = '2020.2.0'
+version = '2020.2.1-SNAPSHOT'
 
 ext {
     javaVersion = '1.8'
 }
 
+omegat {
+    version '5.2.0'
+    pluginClass "tokyo.northside.omegat.textra.OmegatTextraMachineTranslation"
+}
+
 sourceCompatibility = javaVersion
 targetCompatibility = javaVersion
 
-repositories {
-    maven {
-        url "https://dl.bintray.com/omegat-org/maven/"
-    }
-    jcenter()
-}
-
 dependencies {
-    compile 'oauth.signpost:signpost-core:1.2.1.2'
-    compile 'oauth.signpost:signpost-commonshttp4:1.2.1.2'
-    compile 'org.apache.httpcomponents:httpclient:4.5.12'
-    compile 'org.json:json:20160810'
-    compile fileTree(dir: 'lib', include: '*.jar')
-    compile 'org.slf4j:slf4j-api:1.7.25'
-    compileOnly 'org.omegat:omegat:5.2.0'
-    compileOnly 'commons-io:commons-io:2.5'
-    compileOnly 'commons-lang:commons-lang:2.6'
-    testImplementation 'org.omegat:omegat:5.2.0'
+    packIntoJar 'oauth.signpost:signpost-core:1.2.1.2'
+    packIntoJar 'oauth.signpost:signpost-commonshttp4:1.2.1.2'
+    packIntoJar 'org.apache.httpcomponents:httpclient:4.5.12'
+    packIntoJar 'org.json:json:20160810'
+    packIntoJar fileTree(dir: 'lib', include: '*.jar')
+    packIntoJar 'org.slf4j:slf4j-api:1.7.25'
+    implementation 'commons-io:commons-io:2.5'
+    implementation 'commons-lang:commons-lang:2.6'
     testImplementation 'commons-io:commons-io:2.5'
     testImplementation 'commons-lang:commons-lang:2.6'
     testImplementation "org.codehaus.groovy:groovy-all:3.0.1"
     testImplementation 'org.testng:testng:6.9.10'
 }
 test.useTestNG()
-
-jar {
-    from {
-        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
-    }
-    manifest {
-        attributes("OmegaT-Plugins": "tokyo.northside.omegat.textra.OmegatTextraMachineTranslation")
-    }
-}
 
 tasks.withType(JavaCompile) {
     options.compilerArgs << "-Xlint:deprecation" << "-Xlint:unchecked"
@@ -73,10 +61,6 @@ task spotlessChangedApply {
             it.path.endsWith('.java')
         }
     }
-}
-
-artifacts {
-    archives jar
 }
 
 distTar {
