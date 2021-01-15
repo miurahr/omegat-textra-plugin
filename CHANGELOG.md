@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Changed
+- Use jackson instead of org.json library.(#37)
+
 ## [2020.2.0] - 2020-11-15
 
 ### Added

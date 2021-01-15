@@ -1,39 +1,35 @@
 package tokyo.northside.omegat.textra;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.omegat.util.Language;
-import tokyo.northside.omegat.textra.TextraOptions.Mode;
-import tokyo.northside.omegat.textra.TextraOptions.Server;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 
 public class TextraOptionCombinations {
 
-    private Set<Combination> combination;
+    private Set<Combination> combination = new HashSet<>();
 
-    public TextraOptionCombinations() {
-        combination = new HashSet<>();
+    public TextraOptionCombinations() throws IOException {
         InputStream is = TextraOptionCombinations.class.getResourceAsStream("combinations.json");
-        JSONObject jsonObj = new JSONObject(new BufferedReader(new InputStreamReader(is))
-                .lines().collect(Collectors.joining(" ")));
-        for (Server server : Arrays.asList(Server.nict, Server.minna_personal)) {
-            JSONArray jsonArray = jsonObj.getJSONArray(server.name());
-            int bound = jsonArray.length();
-            IntStream.range(0, bound).mapToObj(jsonArray::getJSONArray).forEach(record -> {
-                Mode mode = Mode.valueOf(record.getString(0));
-                String sourceLang = record.getString(1);
-                String targetLang = record.getString(2);
-                this.combination.add(new Combination(server, mode, sourceLang, targetLang));
-            });
+        ObjectMapper mapper = new ObjectMapper();
+        String json = new BufferedReader(new InputStreamReader(is)).lines()
+                .collect(Collectors.joining());
+        for (Definition definition : mapper.readValue(json, Definition[].class)) {
+            TextraOptions.Provider provider = definition.getProvider();
+            for (Service record : definition.getServices()) {
+                TextraOptions.Mode mode = TextraOptions.Mode.valueOf(record.getMode());
+                String sourceLang = record.getSource();
+                String targetLang = record.getTarget();
+                combination.add(new Combination(provider, mode, sourceLang, targetLang));
+            }
         }
     }
 
@@ -42,7 +38,7 @@ public class TextraOptionCombinations {
      * Check if parameter combination is valid or not.
      * @return true is combination is valid, otherwise false.
      */
-    public boolean isCombinationValid(Server service, Mode mode,
+    public boolean isCombinationValid(TextraOptions.Provider service, TextraOptions.Mode mode,
                                       String sourceLang, String targetLang) {
         return combination.contains(new Combination(service, mode, sourceLang, targetLang));
     }
@@ -51,7 +47,7 @@ public class TextraOptionCombinations {
      * Class for check mode, language combination.
      */
     private static class Combination {
-        private Server service;
+        private TextraOptions.Provider provider;
         private TextraOptions.Mode mode;
         private Language sLang;
         private Language tLang;
@@ -62,9 +58,9 @@ public class TextraOptionCombinations {
          * @param sLang source language.
          * @param tLang target language.
          */
-        Combination(final Server service, final TextraOptions.Mode mode,
+        Combination(final TextraOptions.Provider provider, final TextraOptions.Mode mode,
                     final String sLang, final String tLang) {
-            this.service = service;
+            this.provider = provider;
             this.mode = mode;
             this.sLang = new Language(sLang);
             this.tLang = new Language(tLang);
@@ -84,7 +80,7 @@ public class TextraOptionCombinations {
                 return false;
             }
             Combination other = (Combination) o;
-            return other.service.equals(this.service) && other.mode.equals(this.mode) &&
+            return other.provider.equals(this.provider) && other.mode.equals(this.mode) &&
                    leq(other.sLang, this.sLang) && leq(other.tLang, this.tLang);
         }
 
@@ -100,8 +96,76 @@ public class TextraOptionCombinations {
          */
         @Override
         public int hashCode() {
-            return (service.name() + mode.name()
+            return (provider.name() + mode.name()
                     + sLang.getDisplayName() + tLang.getDisplayName()).hashCode();
+        }
+    }
+
+    public static class Service {
+        private String mode;
+        private String source;
+        private String target;
+
+        public String getMode() {
+            return mode;
+        }
+
+        public void setMode(String mode) {
+            this.mode = mode;
+        }
+
+        public String getSource() {
+            return source;
+        }
+
+        public void setSource(String source) {
+            this.source = source;
+        }
+
+        public String getTarget() {
+            return target;
+        }
+
+        public void setTarget(String target) {
+            this.target = target;
+        }
+
+        @Override
+        public String toString() {
+            return "Service{" +
+                    "mode='" + mode + '\'' +
+                    ", source='" + source + '\'' +
+                    ", target='" + target + '\'' +
+                    '}';
+        }
+    }
+
+    public static class Definition {
+        private TextraOptions.Provider provider;
+        private List<Service> services;
+
+        public TextraOptions.Provider getProvider() {
+            return provider;
+        }
+
+        public void setProvider(TextraOptions.Provider provider) {
+            this.provider = provider;
+        }
+
+        public List<Service> getServices() {
+            return services;
+        }
+
+        public void setServices(List<Service> services) {
+            this.services = services;
+        }
+
+        @Override
+        public String toString() {
+            return "Definition{" +
+                    "provider=" + provider +
+                    ", services=" + services +
+                    '}';
         }
     }
 }

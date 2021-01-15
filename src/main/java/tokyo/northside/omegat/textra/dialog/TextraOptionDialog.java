@@ -13,6 +13,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ResourceBundle;
 
@@ -64,7 +65,7 @@ public class TextraOptionDialog extends JDialog {
      * @param data option data.
      */
     public void setOptions(final TextraOptions data) {
-        switch (data.getServer()) {
+        switch (data.getProvider()) {
             case nict:
                 nictRadioButton.setSelected(true);
                 break;
@@ -109,11 +110,11 @@ public class TextraOptionDialog extends JDialog {
 
     private void onOK(final TextraOptions options) {
         if (nictRadioButton.isSelected()) {
-            options.setServer(TextraOptions.Server.nict);
+            options.setProvider(TextraOptions.Provider.nict);
         } else if (kiRadioButton.isSelected()) {
-            options.setServer(TextraOptions.Server.minna_personal);
+            options.setProvider(TextraOptions.Provider.minna_personal);
         } else {
-            options.setServer(TextraOptions.Server.nict);
+            options.setProvider(TextraOptions.Provider.nict);
         }
         options.setUsername(usernameField.getText());
         options.setApikey(apikeyField.getText());
@@ -145,7 +146,12 @@ public class TextraOptionDialog extends JDialog {
     }
 
     public static void main(String[] args) {
-        TextraOptions options = new TextraOptions();
+        TextraOptions options = null;
+        try {
+            options = new TextraOptions();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         TextraOptionDialog dialog = new TextraOptionDialog(options);
         dialog.pack();
         dialog.setVisible(true);
