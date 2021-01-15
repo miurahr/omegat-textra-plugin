@@ -1,5 +1,7 @@
 package tokyo.northside.omegat.textra;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import oauth.signpost.OAuthConsumer;
 import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer;
 import oauth.signpost.exception.OAuthCommunicationException;
@@ -15,7 +17,6 @@ import org.apache.http.impl.client.DefaultHttpRequestRetryHandler;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.LaxRedirectStrategy;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -126,9 +127,10 @@ public class TextraApiClient {
             LOGGER.debug("Http response status: " + respStatus);
             String rsp = IOUtils.toString(bis, StandardCharsets.UTF_8);
             LOGGER.debug("response body: " + rsp);
-            JSONObject jobj = new JSONObject(rsp);
-            JSONObject resultset = jobj.getJSONObject("resultset");
-            result = resultset.getJSONObject("result").getString("text");
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode jobj = mapper.readTree(rsp);
+            JsonNode resultset = jobj.get("resultset");
+            result = resultset.get("result").get("text").asText();
         } catch (IOException ex) {
             LOGGER.info("Invalid http response: " + ex.getMessage());
             return null;
@@ -144,10 +146,10 @@ public class TextraApiClient {
         } else {
             apiEngine = options.getModeName().replace("_", "-");
         }
-        if (options.isServer(TextraOptions.Server.nict)) {
+        if (options.isServer(TextraOptions.Provider.nict)) {
             apiUrl = API_URL + apiEngine + "_" + options.getSourceLang()
                 + "_" + options.getTargetLang() + "/";
-        } else if (options.isServer(TextraOptions.Server.minna_personal)){
+        } else if (options.isServer(TextraOptions.Provider.minna_personal)){
             apiUrl = KI_API_URL + apiEngine + "_" + options.getSourceLang()
                     + "_" + options.getTargetLang() + "/";
         } else {

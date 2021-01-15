@@ -21,6 +21,7 @@
 package tokyo.northside.omegat.textra;
 
 import java.awt.Window;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -71,10 +72,10 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
     /**
      * Construct options.
      */
-    public OmegatTextraMachineTranslation() {
+    public OmegatTextraMachineTranslation() throws IOException {
         super();
         options = new TextraOptions(
-            Preferences.getPreferenceEnumDefault(OPTION_TEXTRA_SERVER, TextraOptions.Server.nict),
+            Preferences.getPreferenceEnumDefault(OPTION_TEXTRA_SERVER, TextraOptions.Provider.nict),
             getCredential(OPTION_TEXTRA_USERNAME),
             getCredential(OPTION_TEXTRA_APIKEY),
             getCredential(OPTION_TEXTRA_SECRET),
@@ -93,7 +94,7 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
         setCredential(OPTION_TEXTRA_USERNAME, options.getUsername(), false);
         setCredential(OPTION_TEXTRA_APIKEY, options.getApikey(), false);
         setCredential(OPTION_TEXTRA_SECRET, options.getSecret(), false);
-        Preferences.setPreference(OPTION_TEXTRA_SERVER, options.getServer());
+        Preferences.setPreference(OPTION_TEXTRA_SERVER, options.getProvider());
         Preferences.setPreference(OPTION_TEXTRA_TRANSLATE_MODE, options.getMode());
         if (options.getCustomId() != null) {
             Preferences.setPreference(OPTION_TEXTRA_CUSTOM_ID, options.getCustomId());
@@ -181,7 +182,7 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
                 LOGGER.info(String.format("Textra:Invalid language combination"
                                 + " for %s with source %s, and target %s on %s.",
                         options.getModeName(), options.getSourceLang(), options.getTargetLang(),
-                        options.getServer().name()));
+                        options.getProvider().name()));
                 return null;
             }
 

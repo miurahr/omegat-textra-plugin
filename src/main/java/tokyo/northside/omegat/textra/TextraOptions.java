@@ -2,6 +2,8 @@ package tokyo.northside.omegat.textra;
 
 import org.omegat.util.Language;
 
+import java.io.IOException;
+
 /**
  * Data class for TexTra configuration Options.
  * Also have combination limitation knowledge.
@@ -14,7 +16,7 @@ public class TextraOptions {
     private String customId;
     private Mode mode;
 
-    private Server server;
+    private Provider provider;
 
     private OmegatTextraMachineTranslation omegatTextraMachineTranslation;
     private TextraOptionCombinations textraOptionCombinations;
@@ -23,15 +25,15 @@ public class TextraOptions {
     private String targetLang;
 
 
-    public TextraOptions(Server server, String username, String apikey, String secret, String customId,
-                         Mode mode, OmegatTextraMachineTranslation omegatTextraMachineTranslation) {
+    public TextraOptions(Provider provider, String username, String apikey, String secret, String customId,
+                         Mode mode, OmegatTextraMachineTranslation omegatTextraMachineTranslation) throws IOException {
         this.username = username;
         this.apikey = apikey;
         this.secret = secret;
         this.customId = customId;
         this.mode = mode;
         this.omegatTextraMachineTranslation = omegatTextraMachineTranslation;
-        this.server = server;
+        this.provider = provider;
 
         this.textraOptionCombinations = new TextraOptionCombinations();
     }
@@ -39,8 +41,8 @@ public class TextraOptions {
     /**
      * Dummy constructor for test.
      */
-    public TextraOptions() {
-        this(Server.nict, "", "", "", null, Mode.generalNT, null);
+    public TextraOptions() throws IOException {
+        this(Provider.nict, "", "", "", null, Mode.generalNT, null);
     }
 
     public void saveCredentials() {
@@ -49,7 +51,7 @@ public class TextraOptions {
 
     public boolean isCombinationValid() {
         if (mode != Mode.custom) {
-            return textraOptionCombinations.isCombinationValid(server, mode, sourceLang, targetLang);
+            return textraOptionCombinations.isCombinationValid(provider, mode, sourceLang, targetLang);
         } else {
             if (customId != null && customId.startsWith("c")) {
                 return true;
@@ -60,14 +62,14 @@ public class TextraOptions {
     }
 
     /**
-     * Translation server
+     * Translation provider
      *
      * There are known three services;
      * 1. NiCT TexTra for nonprofit purpose
      * 2. Kawamura-Internaltional TexTra for personal business.
      * 3. Kawamura-Internaltional TexTra for business.
      */
-    public enum Server {
+    public enum Provider {
         nict,
         minna_personal,
     }
@@ -203,16 +205,16 @@ public class TextraOptions {
         return this;
     }
 
-    public boolean isServer(final Server server) {
-        return this.server.equals(server);
+    public boolean isServer(final Provider provider) {
+        return this.provider.equals(provider);
     }
 
-    public Server getServer() {
-        return server;
+    public Provider getProvider() {
+        return provider;
     }
 
-    public TextraOptions setServer(final Server server) {
-        this.server = server;
+    public TextraOptions setProvider(final Provider provider) {
+        this.provider = provider;
         return this;
     }
 
