@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 - Use jackson instead of org.json library.(#37)
+- Use Kotlin DSL for project configuration.
 
 ## [2020.2.0] - 2020-11-15
 
