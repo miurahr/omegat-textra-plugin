@@ -53,7 +53,7 @@ public class TextraOptions {
         if (mode != Mode.custom) {
             return textraOptionCombinations.isCombinationValid(provider, mode, sourceLang, targetLang);
         } else {
-            if (customId != null && customId.startsWith("c")) {
+            if (customId != null && (customId.startsWith("c-") || customId.startsWith("a-"))) {
                 return true;
             } else {
                 return false;
