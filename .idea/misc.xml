@@ -1,162 +1,115 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="EntryPointsManager">
-    <list size="83">
-      <item index="0" class="java.lang.String" itemvalue="com.codahale.metrics.annotation.Gauge" />
-      <item index="1" class="java.lang.String" itemvalue="com.google.auto.service.AutoService" />
-      <item index="2" class="java.lang.String" itemvalue="javax.annotation.PostConstruct" />
-      <item index="3" class="java.lang.String" itemvalue="javax.annotation.PreDestroy" />
-      <item index="4" class="java.lang.String" itemvalue="javax.annotation.Resource" />
-      <item index="5" class="java.lang.String" itemvalue="javax.annotation.Resources" />
-      <item index="6" class="java.lang.String" itemvalue="javax.inject.Inject" />
-      <item index="7" class="java.lang.String" itemvalue="name.remal.gradle_plugins.api.AutoService" />
-      <item index="8" class="java.lang.String" itemvalue="name.remal.gradle_plugins.dsl.CreateConfigurationsPluginAction" />
-      <item index="9" class="java.lang.String" itemvalue="name.remal.gradle_plugins.dsl.CreateExtensionsPluginAction" />
-      <item index="10" class="java.lang.String" itemvalue="name.remal.gradle_plugins.dsl.HighestPriorityPluginAction" />
-      <item index="11" class="java.lang.String" itemvalue="name.remal.gradle_plugins.dsl.LowestPriorityPluginAction" />
-      <item index="12" class="java.lang.String" itemvalue="name.remal.gradle_plugins.dsl.Plugin" />
-      <item index="13" class="java.lang.String" itemvalue="name.remal.gradle_plugins.dsl.PluginAction" />
-      <item index="14" class="java.lang.String" itemvalue="name.remal.gradle_plugins.dsl.PluginActionsGroup" />
-      <item index="15" class="java.lang.String" itemvalue="name.remal.gradle_plugins.dsl.PluginCondition" />
-      <item index="16" class="java.lang.String" itemvalue="org.aspectj.lang.annotation.After" />
-      <item index="17" class="java.lang.String" itemvalue="org.aspectj.lang.annotation.AfterReturning" />
-      <item index="18" class="java.lang.String" itemvalue="org.aspectj.lang.annotation.AfterThrowing" />
-      <item index="19" class="java.lang.String" itemvalue="org.aspectj.lang.annotation.Around" />
-      <item index="20" class="java.lang.String" itemvalue="org.aspectj.lang.annotation.Aspect" />
-      <item index="21" class="java.lang.String" itemvalue="org.aspectj.lang.annotation.Before" />
-      <item index="22" class="java.lang.String" itemvalue="org.aspectj.lang.annotation.DeclareAnnotation" />
-      <item index="23" class="java.lang.String" itemvalue="org.aspectj.lang.annotation.DeclareError" />
-      <item index="24" class="java.lang.String" itemvalue="org.aspectj.lang.annotation.DeclareMixin" />
-      <item index="25" class="java.lang.String" itemvalue="org.aspectj.lang.annotation.DeclareParents" />
-      <item index="26" class="java.lang.String" itemvalue="org.aspectj.lang.annotation.DeclarePrecedence" />
-      <item index="27" class="java.lang.String" itemvalue="org.aspectj.lang.annotation.DeclareWarning" />
-      <item index="28" class="java.lang.String" itemvalue="org.aspectj.lang.annotation.Pointcut" />
-      <item index="29" class="java.lang.String" itemvalue="org.gradle.api.tasks.Input" />
-      <item index="30" class="java.lang.String" itemvalue="org.gradle.api.tasks.TaskAction" />
-      <item index="31" class="java.lang.String" itemvalue="org.immutables.metainf.Metainf.Service" />
-      <item index="32" class="java.lang.String" itemvalue="org.junit.After" />
-      <item index="33" class="java.lang.String" itemvalue="org.junit.AfterClass" />
-      <item index="34" class="java.lang.String" itemvalue="org.junit.Before" />
-      <item index="35" class="java.lang.String" itemvalue="org.junit.BeforeClass" />
-      <item index="36" class="java.lang.String" itemvalue="org.junit.Test" />
-      <item index="37" class="java.lang.String" itemvalue="org.junit.jupiter.api.AfterAll" />
-      <item index="38" class="java.lang.String" itemvalue="org.junit.jupiter.api.AfterEach" />
-      <item index="39" class="java.lang.String" itemvalue="org.junit.jupiter.api.BeforeAll" />
-      <item index="40" class="java.lang.String" itemvalue="org.junit.jupiter.api.BeforeEach" />
-      <item index="41" class="java.lang.String" itemvalue="org.junit.jupiter.api.ParameterizedTest" />
-      <item index="42" class="java.lang.String" itemvalue="org.junit.jupiter.api.RepeatedTest" />
-      <item index="43" class="java.lang.String" itemvalue="org.junit.jupiter.api.Test" />
-      <item index="44" class="java.lang.String" itemvalue="org.junit.jupiter.api.TestFactory" />
-      <item index="45" class="java.lang.String" itemvalue="org.junit.runners.Parameterized.Parameters" />
-      <item index="46" class="java.lang.String" itemvalue="org.mangosdk.spi.ProviderFor" />
-      <item index="47" class="java.lang.String" itemvalue="org.springframework.beans.factory.annotation.Autowired" />
-      <item index="48" class="java.lang.String" itemvalue="org.springframework.boot.test.context.TestComponent" />
-      <item index="49" class="java.lang.String" itemvalue="org.springframework.boot.test.context.TestConfiguration" />
-      <item index="50" class="java.lang.String" itemvalue="org.springframework.context.annotation.Bean" />
-      <item index="51" class="java.lang.String" itemvalue="org.springframework.context.annotation.Configuration" />
-      <item index="52" class="java.lang.String" itemvalue="org.springframework.scheduling.annotation.Scheduled" />
-      <item index="53" class="java.lang.String" itemvalue="org.springframework.scheduling.annotation.Schedules" />
-      <item index="54" class="java.lang.String" itemvalue="org.springframework.stereotype.Component" />
-      <item index="55" class="java.lang.String" itemvalue="org.springframework.stereotype.Controller" />
-      <item index="56" class="java.lang.String" itemvalue="org.springframework.stereotype.Repository" />
-      <item index="57" class="java.lang.String" itemvalue="org.springframework.stereotype.Service" />
-      <item index="58" class="java.lang.String" itemvalue="org.springframework.web.bind.annotation.ControllerAdvice" />
-      <item index="59" class="java.lang.String" itemvalue="org.springframework.web.bind.annotation.DeleteMapping" />
-      <item index="60" class="java.lang.String" itemvalue="org.springframework.web.bind.annotation.ExceptionHandler" />
-      <item index="61" class="java.lang.String" itemvalue="org.springframework.web.bind.annotation.GetMapping" />
-      <item index="62" class="java.lang.String" itemvalue="org.springframework.web.bind.annotation.InitBinder" />
-      <item index="63" class="java.lang.String" itemvalue="org.springframework.web.bind.annotation.Mapping" />
-      <item index="64" class="java.lang.String" itemvalue="org.springframework.web.bind.annotation.PatchMapping" />
-      <item index="65" class="java.lang.String" itemvalue="org.springframework.web.bind.annotation.PostMapping" />
-      <item index="66" class="java.lang.String" itemvalue="org.springframework.web.bind.annotation.PutMapping" />
-      <item index="67" class="java.lang.String" itemvalue="org.springframework.web.bind.annotation.RequestMapping" />
-      <item index="68" class="java.lang.String" itemvalue="org.springframework.web.bind.annotation.RestController" />
-      <item index="69" class="java.lang.String" itemvalue="org.springframework.web.bind.annotation.RestControllerAdvice" />
-      <item index="70" class="java.lang.String" itemvalue="org.testng.annotations.AfterClass" />
-      <item index="71" class="java.lang.String" itemvalue="org.testng.annotations.AfterGroups" />
-      <item index="72" class="java.lang.String" itemvalue="org.testng.annotations.AfterMethod" />
-      <item index="73" class="java.lang.String" itemvalue="org.testng.annotations.AfterSuite" />
-      <item index="74" class="java.lang.String" itemvalue="org.testng.annotations.AfterTest" />
-      <item index="75" class="java.lang.String" itemvalue="org.testng.annotations.BeforeClass" />
-      <item index="76" class="java.lang.String" itemvalue="org.testng.annotations.BeforeGroups" />
-      <item index="77" class="java.lang.String" itemvalue="org.testng.annotations.BeforeMethod" />
-      <item index="78" class="java.lang.String" itemvalue="org.testng.annotations.BeforeSuite" />
-      <item index="79" class="java.lang.String" itemvalue="org.testng.annotations.BeforeTest" />
-      <item index="80" class="java.lang.String" itemvalue="org.testng.annotations.DataProvider" />
-      <item index="81" class="java.lang.String" itemvalue="org.testng.annotations.Factory" />
-      <item index="82" class="java.lang.String" itemvalue="org.testng.annotations.Test" />
-    </list>
-    <writeAnnotations>
-      <writeAnnotation name="javax.annotation.Resource" />
-      <writeAnnotation name="javax.annotation.Resources" />
-      <writeAnnotation name="javax.inject.Inject" />
-      <writeAnnotation name="org.junit.runners.Parameterized.Parameter" />
-      <writeAnnotation name="org.springframework.beans.factory.annotation.Autowired" />
-      <writeAnnotation name="org.springframework.beans.factory.annotation.Value" />
-      <writeAnnotation name="org.springframework.boot.test.mock.mockito.MockBean" />
-      <writeAnnotation name="org.springframework.boot.test.mock.mockito.MockBeans" />
-      <writeAnnotation name="org.springframework.boot.test.mock.mockito.SpyBean" />
-      <writeAnnotation name="org.springframework.boot.test.mock.mockito.SpyBeans" />
-      <writeAnnotation name="org.springframework.boot.web.server.LocalServerPort" />
-    </writeAnnotations>
+  <component name="CheckStyle-IDEA">
+    <option name="configuration">
+      <map>
+        <entry key="checkstyle-version" value="8.2" />
+        <entry key="location-0" value="BUNDLED:(bundled):Sun Checks" />
+        <entry key="location-1" value="BUNDLED:(bundled):Google Checks" />
+        <entry key="scan-before-checkin" value="false" />
+        <entry key="scanscope" value="JavaOnly" />
+        <entry key="suppress-errors" value="false" />
+      </map>
+    </option>
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$" />
   </component>
-  <component name="JavaScriptSettings">
-    <option name="languageLevel" value="ES6" />
+  <component name="MarkdownNavigator.ProfileManager" plain-text-search-scope="Project Files" />
+  <component name="MarkdownProjectSettings" wasCopied="true">
+    <PreviewSettings splitEditorLayout="SPLIT" splitEditorPreview="PREVIEW" useGrayscaleRendering="false" zoomFactor="1.0" maxImageWidth="0" showGitHubPageIfSynced="false" allowBrowsingInPreview="false" synchronizePreviewPosition="true" highlightPreviewType="LINE" highlightFadeOut="5" highlightOnTyping="true" synchronizeSourcePosition="true" verticallyAlignSourceAndPreviewSyncPosition="true" showSearchHighlightsInPreview="true" showSelectionInPreview="true" openRemoteLinks="true" replaceUnicodeEmoji="false" lastLayoutSetsDefault="false">
+      <PanelProvider>
+        <provider providerId="com.vladsch.idea.multimarkdown.editor.swing.html.panel" providerName="Default - Swing" />
+      </PanelProvider>
+    </PreviewSettings>
+    <ParserSettings gitHubSyntaxChange="false" emojiShortcuts="0" emojiImages="0">
+      <PegdownExtensions>
+        <option name="ABBREVIATIONS" value="false" />
+        <option name="ANCHORLINKS" value="true" />
+        <option name="ASIDE" value="false" />
+        <option name="ATXHEADERSPACE" value="true" />
+        <option name="AUTOLINKS" value="true" />
+        <option name="DEFINITIONS" value="false" />
+        <option name="DEFINITION_BREAK_DOUBLE_BLANK_LINE" value="false" />
+        <option name="FENCED_CODE_BLOCKS" value="true" />
+        <option name="FOOTNOTES" value="false" />
+        <option name="HARDWRAPS" value="false" />
+        <option name="HTML_DEEP_PARSER" value="false" />
+        <option name="INSERTED" value="false" />
+        <option name="QUOTES" value="false" />
+        <option name="RELAXEDHRULES" value="true" />
+        <option name="SMARTS" value="false" />
+        <option name="STRIKETHROUGH" value="true" />
+        <option name="SUBSCRIPT" value="false" />
+        <option name="SUPERSCRIPT" value="false" />
+        <option name="SUPPRESS_HTML_BLOCKS" value="false" />
+        <option name="SUPPRESS_INLINE_HTML" value="false" />
+        <option name="TABLES" value="true" />
+        <option name="TASKLISTITEMS" value="true" />
+        <option name="TOC" value="false" />
+        <option name="WIKILINKS" value="true" />
+      </PegdownExtensions>
+      <ParserOptions>
+        <option name="ADMONITION_EXT" value="false" />
+        <option name="ATTRIBUTES_EXT" value="false" />
+        <option name="COMMONMARK_LISTS" value="false" />
+        <option name="DUMMY" value="false" />
+        <option name="EMOJI_SHORTCUTS" value="true" />
+        <option name="ENUMERATED_REFERENCES_EXT" value="false" />
+        <option name="FLEXMARK_FRONT_MATTER" value="false" />
+        <option name="GFM_LOOSE_BLANK_LINE_AFTER_ITEM_PARA" value="false" />
+        <option name="GFM_TABLE_RENDERING" value="true" />
+        <option name="GITBOOK_URL_ENCODING" value="false" />
+        <option name="GITHUB_LISTS" value="true" />
+        <option name="GITHUB_WIKI_LINKS" value="true" />
+        <option name="GITLAB_EXT" value="false" />
+        <option name="GITLAB_MATH_EXT" value="false" />
+        <option name="GITLAB_MERMAID_EXT" value="false" />
+        <option name="HEADER_ID_NON_ASCII_TO_LOWERCASE" value="false" />
+        <option name="HEADER_ID_NO_DUPED_DASHES" value="false" />
+        <option name="JEKYLL_FRONT_MATTER" value="false" />
+        <option name="MACROS_EXT" value="false" />
+        <option name="NO_TEXT_ATTRIBUTES" value="false" />
+        <option name="PARSE_HTML_ANCHOR_ID" value="false" />
+        <option name="PLANTUML_FENCED_CODE" value="false" />
+        <option name="PUML_FENCED_CODE" value="false" />
+        <option name="SIM_TOC_BLANK_LINE_SPACER" value="true" />
+      </ParserOptions>
+    </ParserSettings>
+    <HtmlSettings headerTopEnabled="false" headerBottomEnabled="false" bodyTopEnabled="false" bodyBottomEnabled="false" embedUrlContent="false" addPageHeader="true" embedImages="false" embedHttpImages="false" imageUriSerials="false" addDocTypeHtml="true" noParaTags="false" plantUmlConversion="0" mathConversion="-1">
+      <GeneratorProvider>
+        <provider providerId="com.vladsch.idea.multimarkdown.editor.swing.html.generator" providerName="Default Swing HTML Generator" />
+      </GeneratorProvider>
+      <headerTop />
+      <headerBottom />
+      <bodyTop />
+      <bodyBottom />
+    </HtmlSettings>
+    <CssSettings previewScheme="UI_SCHEME" cssUri="" isCssUriEnabled="false" isCssUriSerial="true" isCssTextEnabled="false" isDynamicPageWidth="true">
+      <StylesheetProvider>
+        <provider providerId="com.vladsch.idea.multimarkdown.editor.swing.html.css" providerName="Default Swing Stylesheet" />
+      </StylesheetProvider>
+      <ScriptProviders />
+      <cssText />
+      <cssUriHistory />
+    </CssSettings>
+    <AnnotatorSettings targetHasSpaces="true" linkCaseMismatch="true" wikiCaseMismatch="true" wikiLinkHasDashes="true" notUnderWikiHome="true" targetNotWikiPageExt="true" notUnderSourceWikiHome="true" targetNameHasAnchor="true" targetPathHasAnchor="true" wikiLinkHasSlash="true" wikiLinkHasSubdir="true" wikiLinkHasOnlyAnchor="true" linkTargetsWikiHasExt="true" linkTargetsWikiHasBadExt="true" notUnderSameRepo="true" targetNotUnderVcs="false" linkNeedsExt="true" linkHasBadExt="true" linkTargetNeedsExt="true" linkTargetHasBadExt="true" wikiLinkNotInWiki="true" imageTargetNotInRaw="true" repoRelativeAcrossVcsRoots="true" multipleWikiTargetsMatch="true" unresolvedLinkReference="true" linkIsIgnored="true" anchorIsIgnored="true" anchorIsUnresolved="true" anchorLineReferenceIsUnresolved="true" anchorLineReferenceFormat="true" anchorHasDuplicates="true" abbreviationDuplicates="true" abbreviationNotUsed="true" attributeIdDuplicateDefinition="true" attributeIdNotUsed="true" footnoteDuplicateDefinition="true" footnoteUnresolved="true" footnoteDuplicates="true" footnoteNotUsed="true" macroDuplicateDefinition="true" macroUnresolved="true" macroDuplicates="true" macroNotUsed="true" referenceDuplicateDefinition="true" referenceUnresolved="true" referenceDuplicates="true" referenceNotUsed="true" referenceUnresolvedNumericId="true" enumRefDuplicateDefinition="true" enumRefUnresolved="true" enumRefDuplicates="true" enumRefNotUsed="true" enumRefLinkUnresolved="true" enumRefLinkDuplicates="true" simTocUpdateNeeded="true" simTocTitleSpaceNeeded="true" />
+    <HtmlExportSettings updateOnSave="false" parentDir="$ProjectFileDir$" targetDir="$ProjectFileDir$" cssDir="$ProjectFileDir$/css" scriptDir="$ProjectFileDir$/js" plainHtml="false" imageDir="" copyLinkedImages="false" imageUniquifyType="0" targetPathType="2" targetExt="" useTargetExt="false" noCssNoScripts="false" useElementStyleAttribute="false" linkToExportedHtml="true" exportOnSettingsChange="true" regenerateOnProjectOpen="false" linkFormatType="HTTP_ABSOLUTE" />
+    <LinkMapSettings>
+      <textMaps />
+    </LinkMapSettings>
   </component>
-  <component name="NullableNotNullManager">
-    <option name="myDefaultNullable" value="org.jetbrains.annotations.Nullable" />
-    <option name="myDefaultNotNull" value="org.jetbrains.annotations.NotNull" />
-    <option name="myNullables">
-      <value>
-        <list size="18">
-          <item index="0" class="java.lang.String" itemvalue="android.support.annotation.Nullable" />
-          <item index="1" class="java.lang.String" itemvalue="androidx.annotation.Nullable" />
-          <item index="2" class="java.lang.String" itemvalue="com.mongodb.lang.Nullable" />
-          <item index="3" class="java.lang.String" itemvalue="edu.umd.cs.findbugs.annotations.Nullable" />
-          <item index="4" class="java.lang.String" itemvalue="javax.annotation.CheckForNull" />
-          <item index="5" class="java.lang.String" itemvalue="javax.annotation.Nullable" />
-          <item index="6" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.compatqual.NullableDecl" />
-          <item index="7" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.compatqual.NullableType" />
-          <item index="8" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.qual.Nullable" />
-          <item index="9" class="java.lang.String" itemvalue="org.eclipse.jdt.annotation.Nullable" />
-          <item index="10" class="java.lang.String" itemvalue="org.eclipse.jgit.annotation.Nullable" />
-          <item index="11" class="java.lang.String" itemvalue="org.gradle.api.Nullable" />
-          <item index="12" class="java.lang.String" itemvalue="org.jetbrains.annotations.Nullable" />
-          <item index="13" class="java.lang.String" itemvalue="org.springframework.lang.Nullable" />
-          <item index="14" class="java.lang.String" itemvalue="androidx.annotation.RecentlyNullable" />
-          <item index="15" class="java.lang.String" itemvalue="com.android.annotations.Nullable" />
-          <item index="16" class="java.lang.String" itemvalue="io.reactivex.annotations.Nullable" />
-          <item index="17" class="java.lang.String" itemvalue="io.reactivex.rxjava3.annotations.Nullable" />
-        </list>
-      </value>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK" />
+  <component name="SbtLocalSettings">
+    <option name="modificationStamps">
+      <map>
+        <entry key="$USER_HOME$/projects/Translate/Laika" value="1485829873758" />
+        <entry key="$USER_HOME$/projects/Translate/pegdown" value="1473314125244" />
+      </map>
     </option>
-    <option name="myNotNulls">
-      <value>
-        <list size="15">
-          <item index="0" class="java.lang.String" itemvalue="android.support.annotation.NonNull" />
-          <item index="1" class="java.lang.String" itemvalue="edu.umd.cs.findbugs.annotations.NonNull" />
-          <item index="2" class="java.lang.String" itemvalue="javax.annotation.Nonnull" />
-          <item index="3" class="java.lang.String" itemvalue="lombok.NonNull" />
-          <item index="4" class="java.lang.String" itemvalue="org.eclipse.jdt.annotation.NonNull" />
-          <item index="5" class="java.lang.String" itemvalue="org.eclipse.jgit.annotations.NonNull" />
-          <item index="6" class="java.lang.String" itemvalue="org.jetbrains.annotations.NotNull" />
-          <item index="7" class="java.lang.String" itemvalue="androidx.annotation.NonNull" />
-          <item index="8" class="java.lang.String" itemvalue="androidx.annotation.RecentlyNonNull" />
-          <item index="9" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.qual.NonNull" />
-          <item index="10" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.compatqual.NonNullDecl" />
-          <item index="11" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.compatqual.NonNullType" />
-          <item index="12" class="java.lang.String" itemvalue="com.android.annotations.NonNull" />
-          <item index="13" class="java.lang.String" itemvalue="io.reactivex.annotations.NonNull" />
-          <item index="14" class="java.lang.String" itemvalue="io.reactivex.rxjava3.annotations.NonNull" />
-        </list>
-      </value>
+    <option name="externalProjectsViewState">
+      <projects_view />
     </option>
-  </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="false" project-jdk-name="1.8" project-jdk-type="JavaSDK">
-    <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
 </project>
