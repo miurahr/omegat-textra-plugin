@@ -20,7 +20,10 @@ jobs:
         arguments: build
     - name: Get the version
       id: get_version
-      run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\/v/}
+      run: |
+        REV_COUNT=`git rev-list --count HEAD`
+        echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\/v/}
+        echo ::set-output name=FULL_VERION::${GITHUB_REF/refs\/tags\/v/}.${REV_COUNT}
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
@@ -38,7 +41,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: build/distributions/omegat-textra-plugin-${{ steps.get_version.outputs.VERSION }}.zip
-        asset_name: omegat-textra-plugin-${{ steps.get_version.outputs.VERSION }}.zip
+        asset_path: build/distributions/omegat-textra-plugin-${{ steps.get_version.outputs.FULL_VERSION }}.zip
+        asset_name: omegat-textra-plugin-${{ steps.get_version.outputs.FULL_VERSION }}.zip
         asset_content_type: application/zip
 
