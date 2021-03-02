@@ -6,7 +6,7 @@ plugins {
     id("org.omegat.gradle") version "1.3.2"
 }
 
-version = "2020.2.1"
+version = "2020.2.2"
 
 omegat {
     version = "5.2.0"
