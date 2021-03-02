@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [2020.2.2] - 2021-03-02
+
+### Fixed
+- Fix non-jar broken distribution package(#40)
+
 ## [2020.2.1] - 2021-01-16
 
 ### Added
@@ -167,7 +172,9 @@ All notable changes to this project will be documented in this file.
 ### Added
 - Start project.
 
-[Unreleased]: https://github.com/miurahr/omegat-textra-plugin/compare/v2020.2.1...HEAD
+
+[Unreleased]: https://github.com/miurahr/omegat-textra-plugin/compare/v2020.2.2...HEAD
+[2020.2.2]: https://github.com/miurahr/omegat-textra-plugin/compare/v2002.2.1...v2020.2.2
 [2020.2.1]: https://github.com/miurahr/omegat-textra-plugin/compare/v2002.2.0...v2020.2.1
 [2020.2.0]: https://github.com/miurahr/omegat-textra-plugin/compare/v2002.1.0...v2020.2.0
 [2020.1.0]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.11.1...v2020.1.0
