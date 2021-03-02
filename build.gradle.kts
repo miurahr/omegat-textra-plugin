@@ -3,7 +3,7 @@ plugins {
     groovy
     checkstyle
     distribution
-    id("org.omegat.gradle") version "1.3.2"
+    id("org.omegat.gradle") version "1.4.2"
     id("com.sarhanm.versioner") version "4.0.2"
 }
 
@@ -14,7 +14,7 @@ versioner{
 }
 
 omegat {
-    version = "5.2.0"
+    version = "5.4.1"
     pluginClass = "tokyo.northside.omegat.textra.OmegatTextraMachineTranslation"
 }
 
