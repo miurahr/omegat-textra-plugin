@@ -46,7 +46,7 @@ tasks.withType<Checkstyle>().configureEach {
 distributions {
     main {
         contents {
-            from("README.md", "CHANGELOG.md", "COPYING", "DEVELOP.md")
+            from(tasks["jar"], "README.md", "CHANGELOG.md", "COPYING", "DEVELOP.md")
         }
     }
 }
