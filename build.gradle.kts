@@ -4,9 +4,14 @@ plugins {
     checkstyle
     distribution
     id("org.omegat.gradle") version "1.3.2"
+    id("com.sarhanm.versioner") version "4.0.2"
 }
 
-version = "2021.1.0-SNAPSHOT"
+versioner{
+    snapshot=false
+    omitBranchMetadata=true
+    disableHotfixVersioning=true
+}
 
 omegat {
     version = "5.2.0"
