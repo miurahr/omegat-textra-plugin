@@ -48,6 +48,10 @@ tasks.withType<Checkstyle>().configureEach {
     exclude("**/dialog/TextraOptionDialog.java")
 }
 
+tasks.distTar {
+  compression = Compression.BZIP2
+}
+
 distributions {
     main {
         contents {
