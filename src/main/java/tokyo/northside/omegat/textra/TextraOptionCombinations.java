@@ -36,10 +36,16 @@ public class TextraOptionCombinations {
 
     /**
      * Check if parameter combination is valid or not.
+     * @param service
+     * @param mode
+     * @param sourceLang
+     * @param targetLang
      * @return true is combination is valid, otherwise false.
      */
-    public boolean isCombinationValid(TextraOptions.Provider service, TextraOptions.Mode mode,
-                                      String sourceLang, String targetLang) {
+    public boolean isCombinationValid(final TextraOptions.Provider service,
+                                      final TextraOptions.Mode mode,
+                                      final String sourceLang,
+                                      final String targetLang) {
         return combination.contains(new Combination(service, mode, sourceLang, targetLang));
     }
 
@@ -80,11 +86,11 @@ public class TextraOptionCombinations {
                 return false;
             }
             Combination other = (Combination) o;
-            return other.provider.equals(this.provider) && other.mode.equals(this.mode) &&
-                   leq(other.sLang, this.sLang) && leq(other.tLang, this.tLang);
+            return other.provider.equals(this.provider) && other.mode.equals(this.mode)
+                    && leq(other.sLang, this.sLang) && leq(other.tLang, this.tLang);
         }
 
-        private static boolean leq(Language langA, Language langB) {
+        private static boolean leq(final Language langA, final Language langB) {
             String a = TextraOptions.formatLang(langA);
             String b = TextraOptions.formatLang(langB);
             return a.equals(b);
@@ -110,7 +116,7 @@ public class TextraOptionCombinations {
             return mode;
         }
 
-        public void setMode(String mode) {
+        public void setMode(final String mode) {
             this.mode = mode;
         }
 
@@ -118,7 +124,7 @@ public class TextraOptionCombinations {
             return source;
         }
 
-        public void setSource(String source) {
+        public void setSource(final String source) {
             this.source = source;
         }
 
@@ -126,17 +132,14 @@ public class TextraOptionCombinations {
             return target;
         }
 
-        public void setTarget(String target) {
+        public void setTarget(final String target) {
             this.target = target;
         }
 
         @Override
         public String toString() {
-            return "Service{" +
-                    "mode='" + mode + '\'' +
-                    ", source='" + source + '\'' +
-                    ", target='" + target + '\'' +
-                    '}';
+            return "Service{" + "mode='" + mode + '\'' + ", source='" + source + '\''
+                    + ", target='" + target + '\'' + '}';
         }
     }
 
@@ -144,11 +147,19 @@ public class TextraOptionCombinations {
         private TextraOptions.Provider provider;
         private List<Service> services;
 
+        /**
+         * Gettor of provider configured.
+         * @return provider enum.
+         */
         public TextraOptions.Provider getProvider() {
             return provider;
         }
 
-        public void setProvider(TextraOptions.Provider provider) {
+        /**
+         * Set provider.
+         * @param provider service provider enum.
+         */
+        public void setProvider(final TextraOptions.Provider provider) {
             this.provider = provider;
         }
 
@@ -156,16 +167,13 @@ public class TextraOptionCombinations {
             return services;
         }
 
-        public void setServices(List<Service> services) {
+        public void setServices(final List<Service> services) {
             this.services = services;
         }
 
         @Override
         public String toString() {
-            return "Definition{" +
-                    "provider=" + provider +
-                    ", services=" + services +
-                    '}';
+            return "Definition{" + "provider=" + provider + ", services=" + services + '}';
         }
     }
 }

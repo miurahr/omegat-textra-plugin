@@ -149,7 +149,7 @@ public class TextraApiClient {
         if (options.isServer(TextraOptions.Provider.nict)) {
             apiUrl = API_URL + apiEngine + "_" + options.getSourceLang()
                 + "_" + options.getTargetLang() + "/";
-        } else if (options.isServer(TextraOptions.Provider.minna_personal)){
+        } else if (options.isServer(TextraOptions.Provider.minna_personal)) {
             apiUrl = KI_API_URL + apiEngine + "_" + options.getSourceLang()
                     + "_" + options.getTargetLang() + "/";
         } else {

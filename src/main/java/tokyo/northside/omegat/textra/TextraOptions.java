@@ -25,8 +25,14 @@ public class TextraOptions {
     private String targetLang;
 
 
-    public TextraOptions(Provider provider, String username, String apikey, String secret, String customId,
-                         Mode mode, OmegatTextraMachineTranslation omegatTextraMachineTranslation) throws IOException {
+    public TextraOptions(final Provider provider,
+                         final String username,
+                         final String apikey,
+                         final String secret,
+                         final String customId,
+                         final Mode mode,
+                         final OmegatTextraMachineTranslation omegatTextraMachineTranslation)
+            throws IOException {
         this.username = username;
         this.apikey = apikey;
         this.secret = secret;
@@ -51,26 +57,30 @@ public class TextraOptions {
 
     public boolean isCombinationValid() {
         if (mode != Mode.custom) {
-            return textraOptionCombinations.isCombinationValid(provider, mode, sourceLang, targetLang);
+            return textraOptionCombinations
+                    .isCombinationValid(provider, mode, sourceLang, targetLang);
         } else {
-            if (customId != null && (customId.startsWith("c-") || customId.startsWith("a-"))) {
-                return true;
-            } else {
-                return false;
-            }
+            return customId != null && (customId.startsWith("c-") || customId.startsWith("a-"));
         }
     }
 
     /**
-     * Translation provider
-     *
+     * Translation provider.
+     * <p>
      * There are known three services;
      * 1. NiCT TexTra for nonprofit purpose
      * 2. Kawamura-Internaltional TexTra for personal business.
      * 3. Kawamura-Internaltional TexTra for business.
+     * </p>
      */
     public enum Provider {
+        /**
+         * NICT free endpoint.
+         */
         nict,
+        /**
+         * Minna Personal commercial endpoint.
+         */
         minna_personal,
     }
 
@@ -182,7 +192,7 @@ public class TextraOptions {
      * @param customId  id string format 'c999999'
      */
     @SuppressWarnings("HiddenField")
-    public void setCustomId(String customId) {
+    public void setCustomId(final String customId) {
         this.customId = customId;
     }
 
@@ -205,14 +215,16 @@ public class TextraOptions {
         return this;
     }
 
+    @SuppressWarnings("HiddenField")
     public boolean isServer(final Provider provider) {
-        return this.provider.equals(provider);
+        return provider.equals(provider);
     }
 
     public Provider getProvider() {
         return provider;
     }
 
+    @SuppressWarnings("HiddenField")
     public TextraOptions setProvider(final Provider provider) {
         this.provider = provider;
         return this;

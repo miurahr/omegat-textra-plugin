@@ -90,14 +90,14 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
         }
     }
 
-    public void saveCredential(final TextraOptions options) {
-        setCredential(OPTION_TEXTRA_USERNAME, options.getUsername(), false);
-        setCredential(OPTION_TEXTRA_APIKEY, options.getApikey(), false);
-        setCredential(OPTION_TEXTRA_SECRET, options.getSecret(), false);
-        Preferences.setPreference(OPTION_TEXTRA_SERVER, options.getProvider());
-        Preferences.setPreference(OPTION_TEXTRA_TRANSLATE_MODE, options.getMode());
-        if (options.getCustomId() != null) {
-            Preferences.setPreference(OPTION_TEXTRA_CUSTOM_ID, options.getCustomId());
+    public void saveCredential(final TextraOptions textraOptions) {
+        setCredential(OPTION_TEXTRA_USERNAME, textraOptions.getUsername(), false);
+        setCredential(OPTION_TEXTRA_APIKEY, textraOptions.getApikey(), false);
+        setCredential(OPTION_TEXTRA_SECRET, textraOptions.getSecret(), false);
+        Preferences.setPreference(OPTION_TEXTRA_SERVER, textraOptions.getProvider());
+        Preferences.setPreference(OPTION_TEXTRA_TRANSLATE_MODE, textraOptions.getMode());
+        if (textraOptions.getCustomId() != null) {
+            Preferences.setPreference(OPTION_TEXTRA_CUSTOM_ID, textraOptions.getCustomId());
         }
         Preferences.save();
     }
