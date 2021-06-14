@@ -4,7 +4,7 @@ plugins {
     checkstyle
     distribution
     id("org.omegat.gradle") version "1.4.2"
-    id("com.sarhanm.versioner") version "4.0.2"
+    id("com.sarhanm.versioner") version "4.1.7"
 }
 
 versioner{
