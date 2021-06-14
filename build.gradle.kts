@@ -4,17 +4,19 @@ plugins {
     checkstyle
     distribution
     id("org.omegat.gradle") version "1.4.2"
-    id("com.sarhanm.versioner") version "4.1.7"
+    id("com.palantir.git-version") version "0.12.3"
 }
 
-versioner{
-    snapshot=false
-    omitBranchMetadata=true
-    disableHotfixVersioning=true
+// calculate version string from git tag, hash and commit distance
+fun getVersionDetails(): com.palantir.gradle.gitversion.VersionDetails = (extra["versionDetails"] as groovy.lang.Closure<*>)() as com.palantir.gradle.gitversion.VersionDetails
+if (getVersionDetails().isCleanTag) {
+    version = getVersionDetails().lastTag.substring(1)
+} else {
+    version = getVersionDetails().lastTag.substring(1) + "-" + getVersionDetails().commitDistance + "-" + getVersionDetails().gitHash + "-SNAPSHOT"
 }
 
 omegat {
-    version = "5.4.1"
+    version = "5.5.0"
     pluginClass = "tokyo.northside.omegat.textra.OmegatTextraMachineTranslation"
 }
 
@@ -46,10 +48,6 @@ tasks.withType(Test::class) {
 tasks.withType<Checkstyle>().configureEach {
     isIgnoreFailures = true
     exclude("**/dialog/TextraOptionDialog.java")
-}
-
-tasks.distTar {
-  compression = Compression.BZIP2
 }
 
 distributions {
