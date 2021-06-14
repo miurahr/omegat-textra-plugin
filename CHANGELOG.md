@@ -3,6 +3,17 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- Publish jar file on github release
+
+### Changed
+- Fix plugin category
+- Bump OmegaT-Gradle@1.5.3
+- Bump JUnit@5.7.2
+- Bump Gradle@6.9
+- Bump CI:setup-java@v2
+- Bump Gradle git-version@0.12.3
+
 ## [2020.2.2] - 2021-03-02
 
 ### Fixed
