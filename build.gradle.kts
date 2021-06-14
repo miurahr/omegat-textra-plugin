@@ -38,11 +38,8 @@ dependencies {
     testImplementation("commons-io:commons-io:2.5")
     testImplementation("commons-lang:commons-lang:2.6")
     testImplementation("org.codehaus.groovy:groovy-all:3.0.1")
-    testImplementation("org.testng:testng:6.9.10")
-}
-
-tasks.withType(Test::class) {
-    useTestNG()
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.0.0")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.0.0")
 }
 
 tasks.withType<Checkstyle>().configureEach {
