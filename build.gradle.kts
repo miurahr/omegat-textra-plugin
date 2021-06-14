@@ -38,7 +38,7 @@ dependencies {
     testImplementation("commons-io:commons-io:2.5")
     testImplementation("commons-lang:commons-lang:2.6")
     testImplementation("org.codehaus.groovy:groovy-all:3.0.1")
-    testImplementation("org.testng:testng:6.9.10")
+    testImplementation("org.testng:testng:7.4.0")
 }
 
 tasks.withType(Test::class) {
