@@ -45,14 +45,14 @@ jobs:
         asset_name: omegat-textra-plugin-${{ steps.get_version.outputs.FULL_VERSION }}.zip
         asset_content_type: application/zip
 
-    - name: Upload Release Asset(tbz2)
-      id: upload-release-asset-tbz2
+    - name: Upload Release Asset(jar)
+      id: upload-release-asset-jar
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: build/distributions/omegat-onlinedictionary-${{ steps.get_version.outputs.VERSION }}.tbz2
-        asset_name: omegat-onlinedictionary-${{ steps.get_version.outputs.VERSION }}.tbz2
-        asset_content_type: application/gzip
+        asset_path: build/libs/omegat-textra-plugin-${{ steps.get_version.outputs.FULL_VERSION }}.jar
+        asset_name: omegat-textra-plugin-${{ steps.get_version.outputs.FULL_VERSION }}.jar
+        asset_content_type: application/java-archive
 
