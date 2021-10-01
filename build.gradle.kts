@@ -29,7 +29,7 @@ dependencies {
     packIntoJar("oauth.signpost:signpost-core:2.1.1")
     packIntoJar("oauth.signpost:signpost-commonshttp4:2.1.1")
     packIntoJar("org.apache.httpcomponents:httpclient:4.5.12")
-    packIntoJar("com.fasterxml.jackson.core:jackson-core:2.12.5")
+    packIntoJar("com.fasterxml.jackson.core:jackson-core:2.13.0")
     packIntoJar("com.fasterxml.jackson.core:jackson-databind:2.12.5")
     packIntoJar(fileTree("lib") {include("*.jar")})
     packIntoJar("org.slf4j:slf4j-api:1.7.25")
