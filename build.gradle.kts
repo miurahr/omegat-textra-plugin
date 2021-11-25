@@ -32,7 +32,7 @@ dependencies {
     packIntoJar("com.fasterxml.jackson.core:jackson-core:2.13.0")
     packIntoJar("com.fasterxml.jackson.core:jackson-databind:2.13.0")
     packIntoJar(fileTree("lib") {include("*.jar")})
-    packIntoJar("org.slf4j:slf4j-api:1.7.25")
+    packIntoJar("org.slf4j:slf4j-api:1.7.32")
     implementation("commons-io:commons-io:2.11.0")
     implementation("commons-lang:commons-lang:2.6")
     testImplementation("commons-io:commons-io:2.7")
