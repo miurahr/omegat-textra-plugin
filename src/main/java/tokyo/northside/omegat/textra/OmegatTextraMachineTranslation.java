@@ -26,15 +26,13 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import tokyo.northside.omegat.textra.dialog.TextraOptionDialog;
 
 import org.omegat.core.Core;
 import org.omegat.core.machinetranslators.BaseTranslate;
 import org.omegat.gui.exttrans.IMachineTranslation;
 import org.omegat.util.Language;
+import org.omegat.util.Log;
 import org.omegat.util.Preferences;
 
 import static tokyo.northside.omegat.textra.TextraOptions.Mode.generalNT;
@@ -47,8 +45,6 @@ import static tokyo.northside.omegat.textra.TextraOptions.Mode.generalNT;
  */
 @SuppressWarnings({ "unchecked", "rawtypes" })
 public class OmegatTextraMachineTranslation extends BaseTranslate implements IMachineTranslation {
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(OmegatTextraMachineTranslation.class);
     protected TextraOptions options;
 
     /**
@@ -84,9 +80,9 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
                 this);
         enabled = Preferences.isPreferenceDefault(OPTION_ALLOW_TEXTRA_TRANSLATE, true);
         if (enabled) {
-            LOGGER.info("Textra Machine Translation plugin enabled.");
+            Log.log("Textra Machine Translation plugin enabled.");
         } else {
-            LOGGER.info("Textra Machine Translation plugin disabled.");
+            Log.log("Textra Machine Translation plugin disabled.");
         }
     }
 
@@ -179,7 +175,7 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
             // Set TexTra access options
             options.setLang(sLang, tLang);
             if (!options.isCombinationValid()) {
-                LOGGER.info(String.format("Textra:Invalid language combination"
+                Log.log(String.format("Textra:Invalid language combination"
                                 + " for %s with source %s, and target %s on %s.",
                         options.getModeName(), options.getSourceLang(), options.getTargetLang(),
                         options.getProvider().name()));
@@ -197,4 +193,3 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
     }
 
 }
-
