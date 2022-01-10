@@ -3,7 +3,7 @@ plugins {
     groovy
     checkstyle
     distribution
-    id("org.omegat.gradle") version "1.5.3"
+    id("org.omegat.gradle") version "1.5.7"
     id("com.palantir.git-version") version "0.12.3"
 }
 
