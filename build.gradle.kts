@@ -4,7 +4,7 @@ plugins {
     checkstyle
     distribution
     id("org.omegat.gradle") version "1.5.7"
-    id("com.palantir.git-version") version "0.13.0"
+    id("com.palantir.git-version") version "0.14.0"
 }
 
 // calculate version string from git tag, hash and commit distance
