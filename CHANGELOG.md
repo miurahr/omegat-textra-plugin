@@ -3,16 +3,27 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [2022.1.0] - 2022-04-11
+
 ### Added
+
 - Publish jar file on github release
 
 ### Changed
+
 - Fix plugin category
-- Bump OmegaT-Gradle@1.5.3
-- Bump JUnit@5.7.2
-- Bump Gradle@6.9
-- Bump CI:setup-java@v2
-- Bump Gradle git-version@0.12.3
+- Bump verions
+  - OmegaT-Gradle@1.5.3
+  - Jackson@2.13.2
+  - Jackson-databind@2.13.2.2
+  - Commons-io@2.11.0
+  - JUnit@5.8.1
+  - Gradle@6.9
+  - Gradle git-version@0.13.0
+  - CI:actions/setup-java@v2
+  - CI:actions/checkout@3
+  - Groovy@3.0.10
+- CI: check CodeQL static code analysis 
 
 ## [2020.2.2] - 2021-03-02
 
@@ -184,10 +195,11 @@ All notable changes to this project will be documented in this file.
 - Start project.
 
 
-[Unreleased]: https://github.com/miurahr/omegat-textra-plugin/compare/v2020.2.2...HEAD
-[2020.2.2]: https://github.com/miurahr/omegat-textra-plugin/compare/v2002.2.1...v2020.2.2
-[2020.2.1]: https://github.com/miurahr/omegat-textra-plugin/compare/v2002.2.0...v2020.2.1
-[2020.2.0]: https://github.com/miurahr/omegat-textra-plugin/compare/v2002.1.0...v2020.2.0
+[Unreleased]: https://github.com/miurahr/omegat-textra-plugin/compare/v2022.1.0...HEAD
+[2022.1.0]: https://github.com/miurahr/omegat-textra-plugin/compare/v2020.2.2...v2022.1.0
+[2020.2.2]: https://github.com/miurahr/omegat-textra-plugin/compare/v2020.2.1...v2020.2.2
+[2020.2.1]: https://github.com/miurahr/omegat-textra-plugin/compare/v2020.2.0...v2020.2.1
+[2020.2.0]: https://github.com/miurahr/omegat-textra-plugin/compare/v2020.1.0...v2020.2.0
 [2020.1.0]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.11.1...v2020.1.0
 [0.11.1]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.11.0...v0.11.1
 [0.11.0]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.10.0...v0.11.0
