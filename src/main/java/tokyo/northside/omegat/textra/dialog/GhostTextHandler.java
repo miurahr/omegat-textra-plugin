@@ -27,7 +27,10 @@ public class GhostTextHandler implements FocusListener, DocumentListener, Proper
         this.ghostText = ghostText;
         isEmpty = textComponent.getText().isEmpty();
         foregroundColor = textComponent.getForeground();
-        textComponent.setForeground(Color.GRAY);
+        if (isEmpty) {
+            textComponent.setText(ghostText);
+            textComponent.setForeground(Color.GRAY);
+        }
     }
 
     @Override
