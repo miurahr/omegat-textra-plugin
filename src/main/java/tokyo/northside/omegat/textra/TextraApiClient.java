@@ -51,13 +51,23 @@ public class TextraApiClient {
      * @param options connectivity options.
      * @param text source text for translation.
      */
-    public void authenticate(final TextraOptions options, final String text) {
+    public void authenticate(final TextraOptions options, final String text) throws Exception {
         authenticate(getAccessUrl(options), options.getUsername(), options.getApikey(),
                 options.getSecret(), text);
     }
 
     private void authenticate(final String url, final String apiUsername, final String apiKey,
-                      final String apiSecret, final String text) {
+                      final String apiSecret, final String text) throws Exception {
+        if (apiUsername == null || apiUsername.isEmpty()) {
+            throw new Exception("TexTra Username is not found.");
+        }
+        if (apiKey == null || apiKey.isEmpty()) {
+            throw new Exception("TexTra API key is not found.");
+        }
+        if (apiSecret == null || apiSecret.isEmpty()) {
+            throw new Exception("TexTra API secret is not found.");
+        }
+
         httpClient = HttpClientBuilder.create()
                 .setDefaultRequestConfig(requestConfig)
                 .setRetryHandler(new DefaultHttpRequestRetryHandler(3, true))
@@ -81,7 +91,7 @@ public class TextraApiClient {
         try {
             httpPost.setEntity(new UrlEncodedFormEntity(postParameters, "UTF-8"));
         } catch (UnsupportedEncodingException ex) {
-            LOGGER.info("Encoding error.");
+            throw new Exception("Translation source is not able to encode into UTF-8.");
         }
 
         try {
@@ -89,6 +99,7 @@ public class TextraApiClient {
         } catch (OAuthMessageSignerException | OAuthExpectationFailedException
                 | OAuthCommunicationException ex) {
             LOGGER.info("OAuth error: " + ex.getMessage());
+            throw new Exception("Authentication error!");
         }
     }
 
@@ -96,7 +107,7 @@ public class TextraApiClient {
      * Execute translation on Web API.
      * @return translated text when success, otherwise return null.
      */
-    public String executeTranslation() {
+    public String executeTranslation() throws Exception {
         int respStatus;
         InputStream respBodyStream;
         HttpResponse httpResponse;
@@ -105,7 +116,7 @@ public class TextraApiClient {
             respBodyStream = httpResponse.getEntity().getContent();
             respStatus = httpResponse.getStatusLine().getStatusCode();
             if (respStatus == 302) {
-                String newLocation = httpResponse.getHeaders("Location").toString();
+                String newLocation = httpResponse.getHeaders("Location")[0].toString();
                 LOGGER.info("redirect(302): " + newLocation);
                 httpPost.setURI(new URI(newLocation));
                 httpResponse = httpClient.execute(httpPost);
@@ -119,7 +130,7 @@ public class TextraApiClient {
 
         if (respStatus != 200) {
             LOGGER.info(String.format("Get response: %d", respStatus));
-            return null;
+            throw new Exception("");
         }
 
         String result;
