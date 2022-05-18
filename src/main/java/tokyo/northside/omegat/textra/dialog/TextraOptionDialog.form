@@ -195,9 +195,7 @@
                     <preferred-size width="150" height="-1"/>
                   </grid>
                 </constraints>
-                <properties>
-                  <text value="custom id(ex. c-12345)"/>
-                </properties>
+                <properties/>
               </component>
             </children>
           </grid>
