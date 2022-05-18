@@ -48,6 +48,9 @@ public class TextraOptionDialog extends JDialog {
 
 
     public TextraOptionDialog(final TextraOptions data) {
+        GhostTextHandler.register(customIdTextField, "Input like c-12345...");
+        GhostTextHandler.register(apikeyField, "Input 41 HEX chars...");
+        GhostTextHandler.register(secretField, "Input 32 HEX chars...");
         setContentPane(contentPane);
         setModal(true);
         setOptions(data);
@@ -256,7 +259,6 @@ public class TextraOptionDialog extends JDialog {
         customRadioButton.setText("Custom");
         panel5.add(customRadioButton, new GridConstraints(6, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         customIdTextField = new JTextField();
-        customIdTextField.setText("custom id(ex. c-12345)");
         panel5.add(customIdTextField, new GridConstraints(6, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         final JPanel panel6 = new JPanel();
         panel6.setLayout(new GridLayoutManager(2, 2, new Insets(0, 0, 0, 0), -1, -1));

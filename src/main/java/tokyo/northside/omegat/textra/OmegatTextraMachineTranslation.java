@@ -43,16 +43,9 @@ import static tokyo.northside.omegat.textra.TextraOptions.Mode.generalNT;
  *
  * @author Hiroshi Miura
  */
-@SuppressWarnings({ "unchecked", "rawtypes" })
 public class OmegatTextraMachineTranslation extends BaseTranslate implements IMachineTranslation {
     protected TextraOptions options;
 
-    /**
-     * Machine translation implementation can use this cache for skip requests twice.
-     * Cache will not be cleared during OmegaT work.
-     * FIXME: add timeout and flush functionality.
-     */
-    private final Map<String, String> cache = Collections.synchronizedMap(new HashMap<>());
     /**
      * Preparation for OmegaT Menu.
      */
@@ -154,7 +147,7 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
      * @return translated test.
      */
     @Override
-    protected String translate(final Language sLang, final Language tLang, final String text) {
+    protected String translate(final Language sLang, final Language tLang, final String text) throws Exception {
        // Access to TexTra Web API
         TextraApiClient client = new TextraApiClient();
         client.authenticate(options, text);
@@ -170,7 +163,7 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
      * @param text source text.
      * @return translated text.
      */
-    public String getTranslation(final Language sLang, final Language tLang, final String text) {
+    public String getTranslation(final Language sLang, final Language tLang, final String text) throws Exception {
         if (enabled) {
             // Set TexTra access options
             options.setLang(sLang, tLang);
