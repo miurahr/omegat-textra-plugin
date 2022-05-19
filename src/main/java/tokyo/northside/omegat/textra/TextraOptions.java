@@ -181,9 +181,6 @@ public class TextraOptions {
      * @return custom id when configured, otherwise "custom id"
      */
     public String getCustomId() {
-        if (customId == null) {
-            return "CustomID(ex. c-12345)";
-        }
         return customId;
     }
 
