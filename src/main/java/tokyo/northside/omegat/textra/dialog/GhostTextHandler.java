@@ -1,5 +1,7 @@
 package tokyo.northside.omegat.textra.dialog;
 
+import org.omegat.util.StringUtil;
+
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.JTextComponent;
@@ -25,7 +27,7 @@ public class GhostTextHandler implements FocusListener, DocumentListener, Proper
     protected GhostTextHandler(final JTextComponent textComponent, final String ghostText) {
         this.textComponent = textComponent;
         this.ghostText = ghostText;
-        isEmpty = textComponent.getText().isEmpty();
+        isEmpty = StringUtil.isEmpty(textComponent.getText());
         foregroundColor = textComponent.getForeground();
         if (isEmpty) {
             textComponent.setText(ghostText);
@@ -65,21 +67,21 @@ public class GhostTextHandler implements FocusListener, DocumentListener, Proper
 
     @Override
     public void insertUpdate(DocumentEvent documentEvent) {
-        isEmpty = textComponent.getText().isEmpty();
+        isEmpty = StringUtil.isEmpty(textComponent.getText());
     }
 
     @Override
     public void removeUpdate(DocumentEvent documentEvent) {
-        isEmpty = textComponent.getText().isEmpty();
+        isEmpty = StringUtil.isEmpty(textComponent.getText());
     }
 
     @Override
     public void changedUpdate(DocumentEvent documentEvent) {
-        isEmpty = textComponent.getText().isEmpty();
+        isEmpty = StringUtil.isEmpty(textComponent.getText());
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
-        isEmpty = textComponent.getText().isEmpty();
+        isEmpty = StringUtil.isEmpty(textComponent.getText());
     }
 }

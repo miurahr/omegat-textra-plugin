@@ -15,11 +15,15 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.border.TitledBorder;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 public class TextraOptionDialog extends JDialog {
     private JPanel contentPane;
@@ -38,18 +42,19 @@ public class TextraOptionDialog extends JDialog {
     private JRadioButton customRadioButton;
     private JTextField customIdTextField;
 
-    {
-        initGui();
-    }
+    /** Resource bundle that contains all the strings */
+    private ResourceBundle bundle;
 
     public TextraOptionDialog(final TextraOptions data) {
-        GhostTextHandler.register(customIdTextField, "Input like c-12345...");
-        GhostTextHandler.register(apikeyField, "Input 41 HEX chars...");
-        GhostTextHandler.register(secretField, "Input 32 HEX chars...");
+        bundle = ResourceBundle.getBundle("tokyo.northside.omegat.textra.TextraMachineTranslation");
+        initGui();
         setContentPane(contentPane);
         setModal(true);
         setOptions(data);
         getRootPane().setDefaultButton(buttonOK);
+        GhostTextHandler.register(customIdTextField, getString("CustomIdHint"));
+        GhostTextHandler.register(apikeyField, getString("ApiKeyHint"));
+        GhostTextHandler.register(secretField, getString("ApiSecretHint"));
 
         buttonOK.addActionListener(e -> onOK(data));
 
@@ -183,7 +188,7 @@ public class TextraOptionDialog extends JDialog {
         final JPanel idPanel = new JPanel();
         idPanel.setLayout(new GridBagLayout());
         final JLabel usernameLabel = new JLabel();
-        usernameLabel.setText("Username");
+        usernameLabel.setText(getString("Username"));
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 0;
@@ -196,23 +201,27 @@ public class TextraOptionDialog extends JDialog {
         c.gridy = 0;
         idPanel.add(usernameField, c);
         final JLabel label2 = new JLabel();
-        label2.setText("ApiKey");
+        label2.setText(getString("ApiKey"));
+        label2.setToolTipText(getString("APIKeyToolTipText"));
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 1;
         idPanel.add(label2, c);
         apikeyField = new JTextField();
+        apikeyField.setToolTipText(getString("APIKeyToolTipText"));
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 1;
         c.gridy = 1;
         idPanel.add(apikeyField, c);
         final JLabel label3 = new JLabel();
-        label3.setText("ApiSecret");
+        label3.setText(getString("ApiSecret"));
+        label3.setToolTipText(getString("SecretToolTipText"));
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 2;
         idPanel.add(label3, c);
         secretField = new JTextField();
+        secretField.setToolTipText(getString("SecretToolTipText"));
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 1;
         c.gridy = 2;
@@ -223,44 +232,49 @@ public class TextraOptionDialog extends JDialog {
         modePanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black),
                 null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
         final JLabel label4 = new JLabel();
-        label4.setText("Select Translation Mode");
+        label4.setText(getString("SelectMode"));
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 0;
         modePanel.add(label4, c);
         generalNTModeRadioButton = new JRadioButton();
         generalNTModeRadioButton.setSelected(true);
-        generalNTModeRadioButton.setText("GeneralNTMode");
+        generalNTModeRadioButton.setText(getString("GeneralNTMode"));
+        generalNTModeRadioButton.setToolTipText(getString("GeneralNTModeToolTip"));
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 1;
         modePanel.add(generalNTModeRadioButton, c);
         patentNTModeRadioButton = new JRadioButton();
-        patentNTModeRadioButton.setText("PatentNTMode");
+        patentNTModeRadioButton.setText(getString("PatentNTMode"));
+        patentNTModeRadioButton.setToolTipText(getString("PatentNTModeToolTip"));
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 2;
         modePanel.add(patentNTModeRadioButton, c);
         voiceTraTaiwaNTModeRadioButton = new JRadioButton();
-        voiceTraTaiwaNTModeRadioButton.setText("VoiceTraNTMode");
+        voiceTraTaiwaNTModeRadioButton.setText(getString("VoiceTraNTMode"));
+        voiceTraTaiwaNTModeRadioButton.setToolTipText(getString("VoiceTraNTModeToolTip"));
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 3;
         modePanel.add(voiceTraTaiwaNTModeRadioButton, c);
         financeNTModeRadioButton = new JRadioButton();
-        financeNTModeRadioButton.setText("FsaNTMode");
+        financeNTModeRadioButton.setText(getString("FsaNTMode"));
+        financeNTModeRadioButton.setToolTipText(getString("FsaNTModeToolTip"));
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 4;
         modePanel.add(financeNTModeRadioButton, c);
         minnaNTModeRadioButton = new JRadioButton();
-        minnaNTModeRadioButton.setText("minnaNTMode");
+        minnaNTModeRadioButton.setText(getString("minnaNTMode"));
+        minnaNTModeRadioButton.setToolTipText(getString("minnaNTModeToolTip"));
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 5;
         modePanel.add(minnaNTModeRadioButton, c);
         customRadioButton = new JRadioButton();
-        customRadioButton.setText("Custom");
+        customRadioButton.setText(getString("Custom"));
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 6;
@@ -302,7 +316,7 @@ public class TextraOptionDialog extends JDialog {
         buttonGroup.add(nictRadioButton);
         //
         final JLabel titleLabel = new JLabel();
-        titleLabel.setText("Configurations for OmegaT TexTra Plugin");
+        titleLabel.setText(getString("TexTraOptionDialogTitle"));
         //
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
@@ -324,6 +338,10 @@ public class TextraOptionDialog extends JDialog {
         c.gridx = 0;
         c.gridy = 4;
         contentPane.add(buttonPanel, c);
+    }
+
+    private String getString(String key) {
+        return bundle.getString(key);
     }
 
 }
