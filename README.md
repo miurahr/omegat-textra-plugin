@@ -5,15 +5,15 @@ provided by NiCT for non-profit and OSS translations and Kawamura-International 
 
 * [日本語の利用方法の説明](https://github.com/miurahr/omegat-textra-plugin/wiki/%E5%88%A9%E7%94%A8%E6%96%B9%E6%B3%95)
 
-* [Usage description in English](https://github.com/miurahr/omegat-textra-plugin/wiki/Usage)
+* [Usage manual in English](https://github.com/miurahr/omegat-textra-plugin/wiki/Usage)
 
 
 ## NEWS
 
+- **10, Apr. 2022** - **Version 2022.1.0** - Update dependency libraries: Jackson 2.13.2, commons-io 2.11.0 and http-client 4.5.13
 - **16, Jan. 2021** - **Version 2020.2.1** - Support adaptive translation engine(custom id: a-*).
 - **15, Nov. 2020** - **Version 2020.2.0** - Support custom engine configuration(custom id: c-*).
 - **14, Nov. 2020** - **Version 2020.1.0** - Support business account and change version schema with **YEAR**.
-- **Version 0.11.0** Supports TexTra API which NICT changed web API on 11, Novmember, 2020. Versions before v0.11.0 is not working now.
 
 ## Install
 
@@ -21,6 +21,14 @@ Please download latest omegat-textra-plugin-x.x.zip file from [releases](https:/
 in this Github repository. You can get a plugin file (omegat-textra-plugin-x.x.jar) from downloaded zip distribution.
 The OmegaT plugin should be placed in `$HOME/.omegat/plugins` or `C:\Program Files\OmegaT\plugins`
 depending on your operating systemc.
+
+## Requirements
+
+- Java 11 Runtime 
+
+Note: Java 8 Runtime requiires modification of bundled TLS root certifications to run the plugin. See manual.
+- **Version 0.11.0** Supports TexTra API which NICT changed web API on 11, Novmember, 2020. Versions before v0.11.0 is not working now.
+18
 
 ## Configuration
 
