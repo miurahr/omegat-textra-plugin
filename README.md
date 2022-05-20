@@ -27,8 +27,6 @@ depending on your operating systemc.
 - Java 11 Runtime 
 
 Note: Java 8 Runtime requiires modification of bundled TLS root certifications to run the plugin. See manual.
-- **Version 0.11.0** Supports TexTra API which NICT changed web API on 11, Novmember, 2020. Versions before v0.11.0 is not working now.
-18
 
 ## Configuration
 
