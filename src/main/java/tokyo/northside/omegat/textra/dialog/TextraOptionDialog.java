@@ -1,163 +1,43 @@
 package tokyo.northside.omegat.textra.dialog;
 
-import tokyo.northside.omegat.textra.TextraOptions;
-import tokyo.northside.omegat.textra.TextraOptions.Mode;
-
-import javax.swing.*;
-import javax.swing.border.TitledBorder;
-import java.awt.Color;
+import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.event.KeyEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.io.IOException;
-import java.util.ResourceBundle;
+
+import static tokyo.northside.omegat.textra.StringUtil.getString;
 
 public class TextraOptionDialog extends JDialog {
-    private JPanel contentPane;
-    private JButton buttonOK;
-    private JButton buttonCancel;
-    private JTextField usernameField;
-    private JTextField apikeyField;
-    private JTextField secretField;
-    private JRadioButton generalNTModeRadioButton;
-    private JRadioButton patentNTModeRadioButton;
-    private JRadioButton voiceTraTaiwaNTModeRadioButton;
-    private JRadioButton financeNTModeRadioButton;
-    private JRadioButton minnaNTModeRadioButton;
-    private JRadioButton nictRadioButton;
-    private JRadioButton kiRadioButton;
-    private JRadioButton customRadioButton;
-    private JTextField customIdTextField;
+    JPanel contentPane;
+    JButton buttonOK;
+    JButton buttonCancel;
+    JTextField usernameField;
+    JTextField apikeyField;
+    JTextField secretField;
+    JRadioButton generalNTModeRadioButton;
+    JRadioButton patentNTModeRadioButton;
+    JRadioButton voiceTraTaiwaNTModeRadioButton;
+    JRadioButton financeNTModeRadioButton;
+    JRadioButton minnaNTModeRadioButton;
+    JRadioButton nictRadioButton;
+    JRadioButton kiRadioButton;
+    JRadioButton customRadioButton;
+    JTextField customIdTextField;
+    JButton connectionTestButton;
 
-    /** Resource bundle that contains all the strings */
-    private ResourceBundle bundle;
-
-    public TextraOptionDialog(final TextraOptions data) {
-        bundle = ResourceBundle.getBundle("tokyo.northside.omegat.textra.TextraMachineTranslation");
+    public TextraOptionDialog() {
         initGui();
-        setContentPane(contentPane);
-        setModal(true);
-        setOptions(data);
-        getRootPane().setDefaultButton(buttonOK);
-        GhostTextHandler.register(customIdTextField, getString("CustomIdHint"));
-        GhostTextHandler.register(apikeyField, getString("ApiKeyHint"));
-        GhostTextHandler.register(secretField, getString("ApiSecretHint"));
-
-        buttonOK.addActionListener(e -> onOK(data));
-
-        buttonCancel.addActionListener(e -> onCancel(data));
-
-        // call onCancel() when cross is clicked
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                onCancel(data);
-            }
-        });
-
-        // call onCancel() on ESCAPE
-        contentPane.registerKeyboardAction(e -> onCancel(data),
-                KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
-                JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-    }
-
-    /**
-     * Set Dialog options.
-     *
-     * @param data option data.
-     */
-    public void setOptions(final TextraOptions data) {
-        switch (data.getProvider()) {
-            case nict:
-                nictRadioButton.setSelected(true);
-                break;
-            case minna_personal:
-                kiRadioButton.setSelected(true);
-                break;
-            default:
-                nictRadioButton.setSelected(true);
-                break;
-        }
-        usernameField.setText(data.getUsername());
-        apikeyField.setText(data.getApikey());
-        secretField.setText(data.getSecret());
-        String custom = data.getCustomId();
-        if (custom != null) {
-            customIdTextField.setText(custom);
-        }
-        switch (data.getMode()) {
-            case generalNT:
-                generalNTModeRadioButton.setSelected(true);
-                break;
-            case minnaNT:
-                minnaNTModeRadioButton.setSelected(true);
-                break;
-            case patentNT:
-                patentNTModeRadioButton.setSelected(true);
-                break;
-            case voicetraNT:
-                voiceTraTaiwaNTModeRadioButton.setSelected(true);
-                break;
-            case fsaNT:
-                financeNTModeRadioButton.setSelected(true);
-                break;
-            case custom:
-                customRadioButton.setSelected(true);
-                break;
-            default:
-                generalNTModeRadioButton.setSelected(true);
-                break;
-        }
-    }
-
-    private void onOK(final TextraOptions options) {
-        if (nictRadioButton.isSelected()) {
-            options.setProvider(TextraOptions.Provider.nict);
-        } else if (kiRadioButton.isSelected()) {
-            options.setProvider(TextraOptions.Provider.minna_personal);
-        } else {
-            options.setProvider(TextraOptions.Provider.nict);
-        }
-        options.setUsername(usernameField.getText());
-        options.setApikey(apikeyField.getText());
-        options.setSecret(secretField.getText());
-        if (generalNTModeRadioButton.isSelected()) {
-            options.setMode(Mode.generalNT);
-        } else if (minnaNTModeRadioButton.isSelected()) {
-            options.setMode(Mode.minnaNT);
-        } else if (patentNTModeRadioButton.isSelected()) {
-            options.setMode(Mode.patentNT);
-        } else if (financeNTModeRadioButton.isSelected()) {
-            options.setMode(Mode.fsaNT);
-        } else if (voiceTraTaiwaNTModeRadioButton.isSelected()) {
-            options.setMode(Mode.voicetraNT);
-        } else if (customRadioButton.isSelected()) {
-            String enteredCustomId = customIdTextField.getText();
-            options.setMode(Mode.custom);
-            options.setCustomId(enteredCustomId);
-        } else {
-            options.setMode(Mode.generalNT);
-        }
-        options.saveCredentials();
-        dispose();
-    }
-
-    private void onCancel(final TextraOptions data) {
-        setOptions(data);
-        dispose();
     }
 
     public static void main(String[] args) {
-        TextraOptions options = null;
-        try {
-            options = new TextraOptions();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        TextraOptionDialog dialog = new TextraOptionDialog(options);
+        TextraOptionDialog dialog = new TextraOptionDialog();
         dialog.pack();
         dialog.setVisible(true);
         System.exit(0);
@@ -245,6 +125,11 @@ public class TextraOptionDialog extends JDialog {
         contentPane.add(secretField, c);
         //
         final JPanel panel1 = new JPanel();
+        panel1.setLayout(new BoxLayout(panel1, BoxLayout.PAGE_AXIS));
+        connectionTestButton = new JButton();
+        connectionTestButton.setText(getString("ConnectionTestBtn"));
+        connectionTestButton.setToolTipText(getString("ConnectionTestBtnToolTip"));
+        //
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 5;
@@ -252,6 +137,7 @@ public class TextraOptionDialog extends JDialog {
         c.weighty = 1.0d;
         c.anchor = GridBagConstraints.LINE_START;
         contentPane.add(panel1, c);
+        //
         // Service selection
         final JLabel label5 = new JLabel();
         label5.setText("Select service");
@@ -397,10 +283,8 @@ public class TextraOptionDialog extends JDialog {
         buttonGroup = new ButtonGroup();
         buttonGroup.add(kiRadioButton);
         buttonGroup.add(nictRadioButton);
-    }
-
-    private String getString(String key) {
-        return bundle.getString(key);
+        //
+        setContentPane(contentPane);
     }
 
 }

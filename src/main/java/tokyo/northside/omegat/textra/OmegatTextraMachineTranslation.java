@@ -34,6 +34,7 @@ import org.omegat.gui.exttrans.IMachineTranslation;
 import org.omegat.util.Language;
 import org.omegat.util.Log;
 import org.omegat.util.Preferences;
+import tokyo.northside.omegat.textra.dialog.TextraOptionDialogController;
 
 import static tokyo.northside.omegat.textra.TextraOptions.Mode.generalNT;
 
@@ -109,10 +110,7 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
 
     @Override
     public void showConfigurationUI(final Window parent) {
-        TextraOptionDialog dialog = new TextraOptionDialog(options);
-        dialog.pack();
-        dialog.setOptions(options);
-        dialog.setVisible(true);
+        TextraOptionDialogController.show(options);
     }
 
     /**
