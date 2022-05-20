@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Changed
+
+- Update options dialog UI
+  - Drop dependency for intellij's form runtime
+  - Add hint text for fields
+- Raise exception when authentication failed.
+
 ## [2022.1.0] - 2022-04-11
 
 ### Added
@@ -12,7 +19,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 
 - Fix plugin category
-- Bump verions
+- Bump versions
   - OmegaT-Gradle@1.5.3
   - Jackson@2.13.2
   - Jackson-databind@2.13.2.2
