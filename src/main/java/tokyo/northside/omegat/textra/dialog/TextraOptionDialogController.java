@@ -1,9 +1,12 @@
 package tokyo.northside.omegat.textra.dialog;
 
+import tokyo.northside.omegat.textra.AuthClient;
+import tokyo.northside.omegat.textra.TextraApiClient;
 import tokyo.northside.omegat.textra.TextraOptions;
 
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -33,6 +36,17 @@ public class TextraOptionDialogController {
         dialog.buttonCancel.addActionListener(e -> {
             setOptions(dialog, data);
             dialog.dispose();
+        });
+
+        dialog.connectionTestButton.addActionListener(e -> {
+            AuthClient authClient = new AuthClient(getAuthUrl(dialog), data.getApikey(), data.getSecret());
+            if (authClient.requestAuth()) {
+                dialog.connectionStatus.setText(getString("ConnectionStatusOk"));
+                dialog.connectionStatus.setForeground(Color.GREEN);
+            } else {
+                dialog.connectionStatus.setText(getString("ConnectionStatusNG"));
+                dialog.connectionStatus.setForeground(Color.RED);
+            }
         });
 
         // call onCancel() when cross is clicked
@@ -134,4 +148,17 @@ public class TextraOptionDialogController {
         options.saveCredentials();
     }
 
+    private static String getAuthUrl(TextraOptionDialog dialog) {
+        return getBaseUrl(dialog) + "/oauth2/token.php";
+    }
+
+    private static String getBaseUrl(TextraOptionDialog dialog) {
+        if (dialog.nictRadioButton.isSelected()) {
+            return TextraApiClient.BASE_URL;
+        } else if (dialog.kiRadioButton.isSelected()) {
+            return TextraApiClient.KI_BASE_URL;
+        } else {
+            return TextraApiClient.BASE_URL;
+        }
+    }
 }

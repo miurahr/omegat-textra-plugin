@@ -1,13 +1,6 @@
 package tokyo.northside.omegat.textra.dialog;
 
-import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JTextField;
+import javax.swing.*;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -30,6 +23,7 @@ public class TextraOptionDialog extends JDialog {
     JRadioButton kiRadioButton;
     JRadioButton customRadioButton;
     JTextField customIdTextField;
+    JLabel connectionStatus;
     JButton connectionTestButton;
 
     public TextraOptionDialog() {
@@ -125,11 +119,6 @@ public class TextraOptionDialog extends JDialog {
         contentPane.add(secretField, c);
         //
         final JPanel panel1 = new JPanel();
-        panel1.setLayout(new BoxLayout(panel1, BoxLayout.PAGE_AXIS));
-        connectionTestButton = new JButton();
-        connectionTestButton.setText(getString("ConnectionTestBtn"));
-        connectionTestButton.setToolTipText(getString("ConnectionTestBtnToolTip"));
-        //
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 5;
@@ -168,6 +157,14 @@ public class TextraOptionDialog extends JDialog {
         contentPane.add(kiRadioButton, c);
         //
         final JPanel panel2 = new JPanel();
+        connectionStatus = new JLabel();
+        connectionStatus.setText(getString("ConnectionStatusNotTested"));
+        connectionTestButton = new JButton();
+        connectionTestButton.setText(getString("ConnectionTestBtn"));
+        connectionTestButton.setToolTipText(getString("ConnectionTestBtnToolTip"));
+        panel2.add(connectionTestButton);
+        panel2.add(connectionStatus);
+        //
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 9;
