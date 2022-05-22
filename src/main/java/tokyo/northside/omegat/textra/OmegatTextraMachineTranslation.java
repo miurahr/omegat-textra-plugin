@@ -22,11 +22,6 @@ package tokyo.northside.omegat.textra;
 
 import java.awt.Window;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
-import tokyo.northside.omegat.textra.dialog.TextraOptionDialog;
 
 import org.omegat.core.Core;
 import org.omegat.core.machinetranslators.BaseTranslate;

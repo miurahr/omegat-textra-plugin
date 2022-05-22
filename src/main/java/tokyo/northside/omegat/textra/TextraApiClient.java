@@ -36,10 +36,12 @@ import java.util.List;
  * @author Hiroshi Miura
  */
 public class TextraApiClient {
-    private static final int CONNECTION_TIMEOUT = 2 * 60 * 1000;
-    private static final int SO_TIMEOUT = 10 * 60 * 1000;
+    static final int CONNECTION_TIMEOUT = 2 * 60 * 1000;
+    static final int SO_TIMEOUT = 10 * 60 * 1000;
     private static final Logger LOGGER = LoggerFactory.getLogger(TextraApiClient.class);
+    public static final String BASE_URL = "https://mt-auto-minhon-mlt.ucri.jgn-x.jp";
     private static final String API_URL = "https://mt-auto-minhon-mlt.ucri.jgn-x.jp/api/mt/";
+    public static final String KI_BASE_URL = "https://minna-mt.k-intl.jp";
     private static final String KI_API_URL = "https://minna-mt.k-intl.jp/api/mt/";
 
     private HttpClient httpClient;
