@@ -1,7 +1,7 @@
 /**************************************************************************
  TexTra Machine Translation plugin for OmegaT(http://www.omegat.org/)
 
- Copyright 2016,  Hiroshi Miura
+ Copyright 2016-2022  Hiroshi Miura
 
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -42,6 +42,8 @@ import static tokyo.northside.omegat.textra.TextraOptions.Mode.generalNT;
 public class OmegatTextraMachineTranslation extends BaseTranslate implements IMachineTranslation {
     protected TextraOptions options;
 
+    protected TextraApiClient client;
+
     /**
      * Preparation for OmegaT Menu.
      */
@@ -73,6 +75,7 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
         } else {
             Log.log("Textra Machine Translation plugin disabled.");
         }
+        client = new TextraApiClient(options);
     }
 
     public void saveCredential(final TextraOptions textraOptions) {
@@ -141,10 +144,7 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
      */
     @Override
     protected String translate(final Language sLang, final Language tLang, final String text) throws Exception {
-       // Access to TexTra Web API
-        TextraApiClient client = new TextraApiClient();
-        client.authenticate(options, text);
-        return client.executeTranslation();
+        return client.executeTranslation(options, text);
      }
 
     /**
