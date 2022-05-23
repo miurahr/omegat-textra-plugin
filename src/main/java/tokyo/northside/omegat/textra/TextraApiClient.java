@@ -149,7 +149,7 @@ public class TextraApiClient {
             consumer.sign(httpPost);
         } catch (OAuthMessageSignerException | OAuthExpectationFailedException
                 | OAuthCommunicationException ex) {
-            Log.log("OAuth error: " + ex.getMessage());
+            Log.log(ex);
             throw new Exception("Authentication error!");
         }
 
@@ -174,8 +174,7 @@ public class TextraApiClient {
         }
 
         if (respStatus != 200) {
-            Log.log(String.format("Get response: %d", respStatus));
-            throw new Exception("");
+            throw new Exception(String.format("Get response: %d", respStatus));
         }
 
         String result;
@@ -186,7 +185,7 @@ public class TextraApiClient {
             JsonNode resultset = jobj.get("resultset");
             result = resultset.get("result").get("text").asText();
         } catch (IOException ex) {
-            Log.log("Invalid http response: " + ex.getMessage());
+            Log.log(ex);
             return null;
         }
         return result;
@@ -210,7 +209,6 @@ public class TextraApiClient {
             apiUrl = API_URL + apiEngine + "_" + options.getSourceLang()
                     + "_" + options.getTargetLang() + "/";
         }
-        Log.log("Access URL:" + apiUrl);
         return apiUrl;
     }
 }
