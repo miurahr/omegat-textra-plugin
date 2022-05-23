@@ -16,7 +16,7 @@ if (getVersionDetails().isCleanTag) {
 }
 
 omegat {
-    version = "5.5.0"
+    version = "5.7.1"
     pluginClass = "tokyo.northside.omegat.textra.OmegatTextraMachineTranslation"
 }
 
@@ -31,7 +31,6 @@ dependencies {
     packIntoJar("org.apache.httpcomponents:httpclient:4.5.13")
     packIntoJar("com.fasterxml.jackson.core:jackson-core:2.13.3")
     packIntoJar("com.fasterxml.jackson.core:jackson-databind:2.13.3")
-    packIntoJar(fileTree("lib") {include("*.jar")})
     implementation("commons-io:commons-io:2.11.0")
     implementation("commons-lang:commons-lang:2.6")
     testImplementation("commons-io:commons-io:2.11.0")
