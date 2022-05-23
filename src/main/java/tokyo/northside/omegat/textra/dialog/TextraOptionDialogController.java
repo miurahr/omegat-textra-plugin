@@ -1,12 +1,12 @@
 package tokyo.northside.omegat.textra.dialog;
 
-import tokyo.northside.omegat.textra.AuthClient;
+import org.apache.commons.lang.StringUtils;
 import tokyo.northside.omegat.textra.TextraApiClient;
 import tokyo.northside.omegat.textra.TextraOptions;
 
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
-import java.awt.*;
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -39,8 +39,15 @@ public class TextraOptionDialogController {
         });
 
         dialog.connectionTestButton.addActionListener(e -> {
-            AuthClient authClient = new AuthClient(getAuthUrl(dialog), data.getApikey(), data.getSecret());
-            if (authClient.requestAuth()) {
+            String apikey = dialog.apikeyField.getText();
+            String apiSecret = dialog.secretField.getText();
+            if (StringUtils.isBlank(apikey)) {
+                return;
+            }
+            if (StringUtils.isBlank(apiSecret)) {
+                return;
+            }
+            if (TextraApiClient.checkAuth(getAuthUrl(dialog), apikey, apiSecret)) {
                 dialog.connectionStatus.setText(getString("ConnectionStatusOk"));
                 dialog.connectionStatus.setForeground(Color.GREEN);
             } else {

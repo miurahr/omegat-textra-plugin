@@ -308,4 +308,22 @@ public class TextraOptions {
     String getTargetLang() {
         return targetLang;
     }
+
+    public String getAuthUrl() {
+        return getBaseUrl() + "/oauth/token.php";
+    }
+
+    public String getOAuth2Url() {
+        return getBaseUrl() + "/oauth2/token.php";
+    }
+
+    public String getBaseUrl() {
+        if (getProvider().equals(Provider.nict)) {
+            return TextraApiClient.BASE_URL;
+        } else if (getProvider().equals(Provider.minna_personal)) {
+            return TextraApiClient.KI_BASE_URL;
+        } else {
+            return TextraApiClient.BASE_URL;
+        }
+    }
 }
