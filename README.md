@@ -10,6 +10,7 @@ provided by NiCT for non-profit and OSS translations and Kawamura-International 
 
 ## NEWS
 
+- **23, Apr. 2022** - **Version 2022.2.0** - Credentials check button on an option dialog, Jackson 2.13.3 
 - **10, Apr. 2022** - **Version 2022.1.0** - Update dependency libraries: Jackson 2.13.2, commons-io 2.11.0 and http-client 4.5.13
 - **16, Jan. 2021** - **Version 2020.2.1** - Support adaptive translation engine(custom id: a-*).
 - **15, Nov. 2020** - **Version 2020.2.0** - Support custom engine configuration(custom id: c-*).
