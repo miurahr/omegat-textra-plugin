@@ -3,12 +3,17 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [2022.2.0] - 2022-05-23
+
 ### Changed
 
 - Update options dialog UI
   - Drop dependency for intellij's form runtime
   - Add hint text for fields
+  - Add test credentials button
 - Raise exception when authentication failed.
+- Bump jackson@2.13.3
+- Bump base OmegaT@5.7.1
 
 ## [2022.1.0] - 2022-04-11
 
@@ -202,7 +207,8 @@ All notable changes to this project will be documented in this file.
 - Start project.
 
 
-[Unreleased]: https://github.com/miurahr/omegat-textra-plugin/compare/v2022.1.0...HEAD
+[Unreleased]: https://github.com/miurahr/omegat-textra-plugin/compare/v2022.2.0...HEAD
+[2022.2.0]: https://github.com/miurahr/omegat-textra-plugin/compare/v2022.1.0...v2022.2.0
 [2022.1.0]: https://github.com/miurahr/omegat-textra-plugin/compare/v2020.2.2...v2022.1.0
 [2020.2.2]: https://github.com/miurahr/omegat-textra-plugin/compare/v2020.2.1...v2020.2.2
 [2020.2.1]: https://github.com/miurahr/omegat-textra-plugin/compare/v2020.2.0...v2020.2.1
