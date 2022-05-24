@@ -177,18 +177,14 @@ public class TextraApiClient {
             throw new Exception(String.format("Get response: %d", respStatus));
         }
 
-        String result;
+        ObjectMapper mapper = new ObjectMapper();
         try (BufferedInputStream bis = new BufferedInputStream(respBodyStream)) {
-            String rsp = IOUtils.toString(bis, StandardCharsets.UTF_8);
-            ObjectMapper mapper = new ObjectMapper();
-            JsonNode jobj = mapper.readTree(rsp);
-            JsonNode resultset = jobj.get("resultset");
-            result = resultset.get("result").get("text").asText();
+            ResultSet resultSet = mapper.readValue(bis, ResultSet.class);
+            return resultSet.result.text;
         } catch (IOException ex) {
             Log.log(ex);
             return null;
         }
-        return result;
     }
 
     private static String getAccessUrl(final TextraOptions options) {
@@ -210,5 +206,13 @@ public class TextraApiClient {
                     + "_" + options.getTargetLang() + "/";
         }
         return apiUrl;
+    }
+
+    static class ResultSet {
+        public Result result;
+    }
+
+    static class Result {
+        public String text;
     }
 }
