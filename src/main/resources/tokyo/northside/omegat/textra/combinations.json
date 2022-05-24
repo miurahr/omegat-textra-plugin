@@ -36,8 +36,8 @@
     {"mode": "generalNT", "source": "en", "target": "de"}, {"mode": "generalNT", "source": "de", "target": "en"},
     {"mode": "generalNT", "source": "ja", "target": "de"}, {"mode": "generalNT", "source": "de", "target": "ja"},
 
-    {"mode": "generalNT", "source": "en", "target": "kr"}, {"mode": "generalNT", "source": "kr", "target": "en"},
-    {"mode": "generalNT", "source": "ja", "target": "kr"}, {"mode": "generalNT", "source": "kr", "target": "ja"},
+    {"mode": "generalNT", "source": "en", "target": "ko"}, {"mode": "generalNT", "source": "ko", "target": "en"},
+    {"mode": "generalNT", "source": "ja", "target": "ko"}, {"mode": "generalNT", "source": "ko", "target": "ja"},
 
     {"mode": "voicetraNT", "source": "ja","target":  "it"}, {"mode": "voicetraNT", "source": "it", "target": "ja"},
     {"mode": "voicetraNT", "source": "ja","target":  "id"}, {"mode": "voicetraNT", "source": "id", "target": "ja"},
@@ -57,7 +57,7 @@
 
     {"mode": "voicetraNT", "source": "ja", "target": "fp"}, {"mode": "voicetraNT", "source": "fp", "target": "ja"},
     {"mode": "voicetraNT", "source": "fr", "target": "my"}, {"mode": "voicetraNT", "source": "my", "target": "fr"},
-    {"mode": "voicetraNT", "source": "zh-CN", "target": "kr"}, {"mode": "voicetraNT", "source": "kr", "target": "zh-CN"},
+    {"mode": "voicetraNT", "source": "zh-CN", "target": "ko"}, {"mode": "voicetraNT", "source": "ko", "target": "zh-CN"},
 
     {"mode": "patentNT", "source": "ja", "target": "fr"}, {"mode": "patentNT", "source": "fr", "target": "ja"},
     {"mode": "patentNT", "source": "ja", "target": "zh-CN"}, {"mode": "patentNT", "source": "zh-CN", "target": "ja"},
