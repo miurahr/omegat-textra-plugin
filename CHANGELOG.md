@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [2022.2.1] - 2022-05-25
+
 ### Fixed
 
 - Fix language code for Korean (#95, #96)
@@ -211,7 +213,8 @@ All notable changes to this project will be documented in this file.
 - Start project.
 
 
-[Unreleased]: https://github.com/miurahr/omegat-textra-plugin/compare/v2022.2.0...HEAD
+[Unreleased]: https://github.com/miurahr/omegat-textra-plugin/compare/v2022.2.1...HEAD
+[2022.2.1]: https://github.com/miurahr/omegat-textra-plugin/compare/v2022.2.0...v2022.2.1
 [2022.2.0]: https://github.com/miurahr/omegat-textra-plugin/compare/v2022.1.0...v2022.2.0
 [2022.1.0]: https://github.com/miurahr/omegat-textra-plugin/compare/v2020.2.2...v2022.1.0
 [2020.2.2]: https://github.com/miurahr/omegat-textra-plugin/compare/v2020.2.1...v2020.2.2
