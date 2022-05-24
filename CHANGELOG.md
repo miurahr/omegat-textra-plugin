@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix language code for Korean (#95, #96)
+
 ## [2022.2.0] - 2022-05-23
 
 ### Changed
