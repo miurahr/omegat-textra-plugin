@@ -1,16 +1,13 @@
 package tokyo.northside.omegat.textra;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import oauth.signpost.OAuthConsumer;
 import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer;
 import oauth.signpost.exception.OAuthCommunicationException;
 import oauth.signpost.exception.OAuthExpectationFailedException;
 import oauth.signpost.exception.OAuthMessageSignerException;
-import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
@@ -28,7 +25,6 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -179,14 +175,20 @@ public class TextraApiClient {
         if (respStatus != 200) {
             throw new Exception(String.format("Get response: %d", respStatus));
         }
+        return parseResponse(respBodyStream);
+    }
 
+    protected static String parseResponse(InputStream respBodyStream) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         try (BufferedInputStream bis = new BufferedInputStream(respBodyStream)) {
-            ResultSet resultSet = mapper.readValue(bis, ResultSet.class);
-            return resultSet.result.text;
-        } catch (IOException ex) {
-            Log.log(ex);
-            return null;
+            Root root = mapper.readValue(bis, Root.class);
+            if (root == null || root.resultset == null) {
+                return null;
+            }
+            if (root.resultset.code != 0 || root.resultset.result == null) {
+                throw new Exception(root.resultset.message);
+            }
+            return root.resultset.result.text;
         }
     }
 
@@ -211,10 +213,15 @@ public class TextraApiClient {
         return apiUrl;
     }
 
+    static class Root {
+        @JsonProperty("resultset")
+        public ResultSet resultset;
+    }
+
     @JsonIgnoreProperties(ignoreUnknown=true)
     static class ResultSet {
         public Result result;
-        public String code;
+        public int code;
         public String message;
     }
 
