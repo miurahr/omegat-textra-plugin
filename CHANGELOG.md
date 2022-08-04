@@ -3,6 +3,14 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [2022.2.3] - 2022-08-04
+
+### Fixed
+
+- Rewrite response JSON parser and now work again.
+  v2022.2.2 has defeat.
+
+
 ## [2022.2.2] - 2022-06-04
 
 ### Fixed
@@ -226,7 +234,8 @@ All notable changes to this project will be documented in this file.
 - Start project.
 
 
-[Unreleased]: https://github.com/miurahr/omegat-textra-plugin/compare/v2022.2.2...HEAD
+[Unreleased]: https://github.com/miurahr/omegat-textra-plugin/compare/v2022.2.3...HEAD
+[2022.2.3]: https://github.com/miurahr/omegat-textra-plugin/compare/v2022.2.2...v2022.2.3
 [2022.2.2]: https://github.com/miurahr/omegat-textra-plugin/compare/v2022.2.1...v2022.2.2
 [2022.2.1]: https://github.com/miurahr/omegat-textra-plugin/compare/v2022.2.0...v2022.2.1
 [2022.2.0]: https://github.com/miurahr/omegat-textra-plugin/compare/v2022.1.0...v2022.2.0
