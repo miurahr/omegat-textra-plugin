@@ -186,7 +186,14 @@ public class TextraApiClient {
                 return null;
             }
             if (root.resultset.code != 0 || root.resultset.result == null) {
-                throw new Exception(root.resultset.message);
+                String message;
+                if (ErrorMessages.messages.get(root.resultset.code) != null) {
+                    message = String.format("%d %s", root.resultset.code,
+                            ErrorMessages.messages.get(root.resultset.code));
+                } else {
+                    message = String.format("%d %s", root.resultset.code, root.resultset.message);
+                }
+                throw new Exception(message);
             }
             return root.resultset.result.text;
         }
