@@ -1,9 +1,7 @@
 package tokyo.northside.omegat.textra.dialog;
 
 import javax.swing.*;
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import java.awt.*;
 
 import static tokyo.northside.omegat.textra.StringUtil.getString;
 
@@ -26,12 +24,14 @@ public class TextraOptionDialog extends JDialog {
     JLabel connectionStatus;
     JButton connectionTestButton;
 
-    public TextraOptionDialog() {
+    public TextraOptionDialog(Window parent) {
         initGui();
+        setLocationRelativeTo(parent);
     }
 
     public static void main(String[] args) {
-        TextraOptionDialog dialog = new TextraOptionDialog();
+        JFrame jFrame = new JFrame();
+        TextraOptionDialog dialog = new TextraOptionDialog(jFrame);
         dialog.pack();
         dialog.setVisible(true);
         System.exit(0);

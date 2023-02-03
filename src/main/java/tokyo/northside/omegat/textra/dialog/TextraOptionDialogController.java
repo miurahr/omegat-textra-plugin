@@ -6,7 +6,7 @@ import tokyo.northside.omegat.textra.TextraOptions;
 
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
-import java.awt.Color;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -19,8 +19,8 @@ public class TextraOptionDialogController {
     private TextraOptionDialogController() {
     }
 
-    public static void show(final TextraOptions data) {
-        TextraOptionDialog dialog = new TextraOptionDialog();
+    public static void show(Window parent, TextraOptions data) {
+        TextraOptionDialog dialog = new TextraOptionDialog(parent);
         dialog.setModal(true);
         setOptions(dialog, data);
         dialog.getRootPane().setDefaultButton(dialog.buttonOK);

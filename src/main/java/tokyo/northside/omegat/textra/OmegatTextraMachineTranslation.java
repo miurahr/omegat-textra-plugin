@@ -108,7 +108,7 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
 
     @Override
     public void showConfigurationUI(final Window parent) {
-        TextraOptionDialogController.show(options);
+        TextraOptionDialogController.show(parent, options);
     }
 
     /**
