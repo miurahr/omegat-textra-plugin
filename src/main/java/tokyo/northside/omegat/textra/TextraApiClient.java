@@ -46,19 +46,6 @@ public class TextraApiClient {
 
     public TextraApiClient(final TextraOptions options) {
         this.options = options;
-        String apiUsername = options.getUsername();
-        String apiKey = options.getApikey();
-        String apiSecret = options.getSecret();
-        if (apiUsername == null || apiUsername.isEmpty()) {
-            return;
-        }
-        if (apiKey == null || apiKey.isEmpty()) {
-            return;
-        }
-        if (apiSecret == null || apiSecret.isEmpty()) {
-            return;
-        }
-        consumer = new CommonsHttpOAuthConsumer(apiKey, apiSecret);
     }
 
     public static boolean checkAuth(String authUrl, String apiKey, String apiSecret) {
@@ -113,6 +100,11 @@ public class TextraApiClient {
         if (apiSecret == null || apiSecret.isEmpty()) {
             throw new Exception("TexTra API secret is not found.");
         }
+        // when first time, or update options, recreate oauth consumer.
+        if (consumer == null || !options.equals(this.options)) {
+            consumer = new CommonsHttpOAuthConsumer(apiKey, apiSecret);
+            this.options = options;
+        }
 
         RequestConfig requestConfig = RequestConfig.custom()
                 .setConnectTimeout(CONNECTION_TIMEOUT)
@@ -126,11 +118,6 @@ public class TextraApiClient {
                 .build();
         HttpPost httpPost = new HttpPost(url);
         httpPost.setConfig(requestConfig);
-        // when update options, recreate oauth consumer.
-        if (!options.equals(this.options)) {
-            consumer = new CommonsHttpOAuthConsumer(apiKey, apiSecret);
-            this.options = options;
-        }
 
         List<BasicNameValuePair> postParameters = new ArrayList<>(5);
         postParameters.add(new BasicNameValuePair("key", apiKey));
