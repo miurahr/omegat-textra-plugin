@@ -75,7 +75,7 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
         } else {
             Log.log("Textra Machine Translation plugin disabled.");
         }
-        client = new TextraApiClient(options);
+        client = new TextraApiClient();
     }
 
     public void saveCredential(final TextraOptions textraOptions) {
@@ -149,7 +149,6 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
 
     /**
      * Return machine translation result.
-     *
      * {@link IMachineTranslation()#getTranslation}
      * @param sLang source language.
      * @param tLang target language.

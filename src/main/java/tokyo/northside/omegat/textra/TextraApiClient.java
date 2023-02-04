@@ -41,11 +41,9 @@ public class TextraApiClient {
     public static final String KI_BASE_URL = "https://minna-mt.k-intl.jp";
     private static final String KI_API_URL = "https://minna-mt.k-intl.jp/api/mt/";
 
-    private TextraOptions options;
     private OAuthConsumer consumer = null;
 
-    public TextraApiClient(final TextraOptions options) {
-        this.options = options;
+    public TextraApiClient() {
     }
 
     public static boolean checkAuth(String authUrl, String apiKey, String apiSecret) {
@@ -101,9 +99,8 @@ public class TextraApiClient {
             throw new Exception("TexTra API secret is not found.");
         }
         // when first time, or update options, recreate oauth consumer.
-        if (consumer == null || !options.equals(this.options)) {
+        if (consumer == null || !options.isChanged()) {
             consumer = new CommonsHttpOAuthConsumer(apiKey, apiSecret);
-            this.options = options;
         }
 
         RequestConfig requestConfig = RequestConfig.custom()

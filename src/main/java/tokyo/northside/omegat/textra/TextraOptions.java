@@ -18,11 +18,13 @@ public class TextraOptions {
 
     private Provider provider;
 
-    private OmegatTextraMachineTranslation omegatTextraMachineTranslation;
-    private TextraOptionCombinations textraOptionCombinations;
+    private final OmegatTextraMachineTranslation omegatTextraMachineTranslation;
+    private final TextraOptionCombinations textraOptionCombinations;
 
     private String sourceLang;
     private String targetLang;
+
+    private boolean changed;
 
 
     public TextraOptions(final Provider provider,
@@ -42,6 +44,8 @@ public class TextraOptions {
         this.provider = provider;
 
         this.textraOptionCombinations = new TextraOptionCombinations();
+
+        this.changed = false;
     }
 
     /**
@@ -53,6 +57,7 @@ public class TextraOptions {
 
     public void saveCredentials() {
         this.omegatTextraMachineTranslation.saveCredential(this);
+        changed = true;
     }
 
     public boolean isCombinationValid() {
@@ -214,7 +219,7 @@ public class TextraOptions {
 
     @SuppressWarnings("HiddenField")
     public boolean isServer(final Provider provider) {
-        return provider.equals(provider);
+        return provider.equals(this.provider);
     }
 
     public Provider getProvider() {
@@ -325,5 +330,11 @@ public class TextraOptions {
         } else {
             return TextraApiClient.BASE_URL;
         }
+    }
+
+    public boolean isChanged() {
+        final boolean result = changed;
+        changed = false;
+        return result;
     }
 }
