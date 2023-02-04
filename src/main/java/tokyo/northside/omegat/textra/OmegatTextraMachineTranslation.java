@@ -1,7 +1,7 @@
 /**************************************************************************
  TexTra Machine Translation plugin for OmegaT(http://www.omegat.org/)
 
- Copyright 2016-2022  Hiroshi Miura
+ Copyright 2016-2023  Hiroshi Miura
 
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by

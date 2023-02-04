@@ -30,14 +30,12 @@ dependencies {
     packIntoJar("com.fasterxml.jackson.core:jackson-annotations:2.13.4")
     packIntoJar("com.fasterxml.jackson:jackson-bom:2.13.4")
     packIntoJar("com.fasterxml.jackson.core:jackson-databind:2.13.4")
-    implementation("commons-io:commons-io:2.11.0")
     implementation("commons-lang:commons-lang:2.6")
-    testImplementation("commons-io:commons-io:2.11.0")
-    testImplementation("commons-lang:commons-lang:2.6")
     testImplementation("org.codehaus.groovy:groovy-all:3.0.12")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.9.0")
 }
+
 repositories {
     mavenCentral()
 }
