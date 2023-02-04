@@ -2,31 +2,14 @@ package tokyo.northside.omegat.textra;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import oauth.signpost.OAuthConsumer;
-import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer;
-import oauth.signpost.exception.OAuthCommunicationException;
-import oauth.signpost.exception.OAuthExpectationFailedException;
-import oauth.signpost.exception.OAuthMessageSignerException;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.config.RequestConfig;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpRequestRetryHandler;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.impl.client.LaxRedirectStrategy;
-import org.apache.http.message.BasicNameValuePair;
-import org.omegat.util.Log;
+import org.omegat.util.HttpConnectionUtils;
 
-import java.io.BufferedInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
 
 /**
  * TexTra access API client.
@@ -34,48 +17,34 @@ import java.util.List;
  * @author Hiroshi Miura
  */
 public class TextraApiClient {
-    private static final int CONNECTION_TIMEOUT = 2 * 60 * 1000;
-    private static final int SO_TIMEOUT = 10 * 60 * 1000;
     public static final String BASE_URL = "https://mt-auto-minhon-mlt.ucri.jgn-x.jp";
     private static final String API_URL = "https://mt-auto-minhon-mlt.ucri.jgn-x.jp/api/mt/";
     public static final String KI_BASE_URL = "https://minna-mt.k-intl.jp";
     private static final String KI_API_URL = "https://minna-mt.k-intl.jp/api/mt/";
 
-    private OAuthConsumer consumer = null;
+    private final ObjectMapper mapper;
+
+    private String accessToken = null;
+    private LocalTime expire = null;
 
     public TextraApiClient() {
+        mapper = new ObjectMapper();
     }
 
     public static boolean checkAuth(String authUrl, String apiKey, String apiSecret) {
-        RequestConfig requestConfig = RequestConfig.custom()
-                .setConnectTimeout(CONNECTION_TIMEOUT)
-                .setSocketTimeout(SO_TIMEOUT)
-                .setRedirectsEnabled(true)
-                .build();
-        HttpClient httpClient = HttpClientBuilder.create()
-                .setRetryHandler(new DefaultHttpRequestRetryHandler(3, true))
-                .setRedirectStrategy(new LaxRedirectStrategy())
-                .build();
-        HttpPost httpPost = new HttpPost(authUrl);
-        List<BasicNameValuePair> postParameters = new ArrayList<>(3);
-        postParameters.add(new BasicNameValuePair("grant_type", "client_credentials"));
-        postParameters.add(new BasicNameValuePair("client_id", apiKey));
-        postParameters.add(new BasicNameValuePair("client_secret", apiSecret));
-        httpPost.setConfig(requestConfig);
-        HttpResponse httpResponse;
         try {
-            httpPost.setEntity(new UrlEncodedFormEntity(postParameters, "UTF-8"));
-            httpResponse = httpClient.execute(httpPost);
-        } catch (IOException e) {
-            Log.log("Failed to connect to Textra server.");
-            return false;
+           return getToken(authUrl, apiKey, apiSecret).contains("access_token");
+        } catch (IOException ignored) {
         }
-        int respStatus = httpResponse.getStatusLine().getStatusCode();
-        if (respStatus != 200) {
-            Log.log("Failed to connect to Textra server.");
-            return false;
-        }
-        return true;
+        return false;
+    }
+
+    private static String getToken(String authUrl, String apiKey, String apiSecret) throws IOException {
+        Map<String, String> postParameters = new HashMap<>(3);
+        postParameters.put("grant_type", "client_credentials");
+        postParameters.put("client_id", apiKey);
+        postParameters.put("client_secret", apiSecret);
+        return  HttpConnectionUtils.post(authUrl, postParameters, null);
     }
 
     /**
@@ -85,7 +54,6 @@ public class TextraApiClient {
      * @return translated text when success, otherwise return null.
      */
     public String executeTranslation(final TextraOptions options, final String text) throws Exception {
-        String url = getAccessUrl(options);
         String apiUsername = options.getUsername();
         String apiKey = options.getApikey();
         String apiSecret = options.getSecret();
@@ -98,99 +66,66 @@ public class TextraApiClient {
         if (apiSecret == null || apiSecret.isEmpty()) {
             throw new Exception("TexTra API secret is not found.");
         }
-        // when first time, or update options, recreate oauth consumer.
-        if (consumer == null || !options.isChanged()) {
-            consumer = new CommonsHttpOAuthConsumer(apiKey, apiSecret);
-        }
+        String authUrl = options.getOAuth2Url();
 
-        RequestConfig requestConfig = RequestConfig.custom()
-                .setConnectTimeout(CONNECTION_TIMEOUT)
-                .setSocketTimeout(SO_TIMEOUT)
-                .setRedirectsEnabled(true)
-                .build();
-        HttpClient httpClient = HttpClientBuilder.create()
-                .setDefaultRequestConfig(requestConfig)
-                .setRetryHandler(new DefaultHttpRequestRetryHandler(3, true))
-                .setRedirectStrategy(new LaxRedirectStrategy())
-                .build();
-        HttpPost httpPost = new HttpPost(url);
-        httpPost.setConfig(requestConfig);
-
-        List<BasicNameValuePair> postParameters = new ArrayList<>(5);
-        postParameters.add(new BasicNameValuePair("key", apiKey));
-        postParameters.add(new BasicNameValuePair("name", apiUsername));
-        postParameters.add(new BasicNameValuePair("type", "json"));
-        postParameters.add(new BasicNameValuePair("text", text));
-
-        try {
-            httpPost.setEntity(new UrlEncodedFormEntity(postParameters, "UTF-8"));
-        } catch (UnsupportedEncodingException ex) {
-            throw new Exception("Translation source is not able to encode into UTF-8.");
-        }
-
-        try {
-            consumer.sign(httpPost);
-        } catch (OAuthMessageSignerException | OAuthExpectationFailedException
-                | OAuthCommunicationException ex) {
-            Log.log(ex);
-            throw new Exception("Authentication error!");
-        }
-
-        int respStatus;
-        InputStream respBodyStream;
-        HttpResponse httpResponse;
-        try {
-            httpResponse = httpClient.execute(httpPost);
-            respBodyStream = httpResponse.getEntity().getContent();
-            respStatus = httpResponse.getStatusLine().getStatusCode();
-            if (respStatus == 302) {
-                String newLocation = httpResponse.getHeaders("Location")[0].toString();
-                Log.log("redirect(302): " + newLocation);
-                httpPost.setURI(new URI(newLocation));
-                httpResponse = httpClient.execute(httpPost);
-                respBodyStream = httpResponse.getEntity().getContent();
-                respStatus = httpResponse.getStatusLine().getStatusCode();
+        if (expire == null || expire.isAfter(LocalTime.now())) {
+            try {
+                String json = getToken(authUrl, apiKey, apiSecret);
+                JsonNode jsonNode = mapper.readTree(json);
+                JsonNode tokenNode = jsonNode.get("access_token");
+                if (tokenNode == null) {
+                    throw new Exception("Authentication error!");
+                }
+                accessToken = tokenNode.asText();
+                long expireIn = jsonNode.get("expires_in").asLong();
+                LocalTime localTime = LocalTime.now();
+                expire = localTime.plus(expireIn, ChronoUnit.SECONDS).minus(1, ChronoUnit.SECONDS);
+            } catch (Exception e) {
+                throw new Exception("Authentication error!");
             }
-        } catch (IOException | URISyntaxException ex) {
-            Log.log("http access error: " + ex.getMessage());
-            return null;
         }
 
-        if (respStatus != 200) {
-            throw new Exception(String.format("Get response: %d", respStatus));
-        }
-        return parseResponse(respBodyStream);
+        String accessUrl = getAccessUrl(options);
+        String api_param = getApiParam(options);
+
+        Map<String, String> postParameters = new HashMap<>(5);
+        postParameters.put("key", apiKey);
+        postParameters.put("name", apiUsername);
+        postParameters.put("type", "json");
+        postParameters.put("text", text);
+        postParameters.put("access_token", accessToken);
+        postParameters.put("api_name", "mt");
+        postParameters.put("api_param", api_param);
+
+        String response = HttpConnectionUtils.post(accessUrl, postParameters, null);
+        return parseResponse(response);
     }
 
-    protected static String parseResponse(InputStream respBodyStream) throws Exception {
-        ObjectMapper mapper = new ObjectMapper();
-        try (BufferedInputStream bis = new BufferedInputStream(respBodyStream)) {
-            Root root = mapper.readValue(bis, Root.class);
-            if (root == null || root.resultset == null) {
-                return null;
-            }
-            if (root.resultset.code != 0 || root.resultset.result == null) {
-                String message;
-                if (ErrorMessages.messages.get(root.resultset.code) != null) {
-                    message = String.format("%d %s", root.resultset.code,
-                            ErrorMessages.messages.get(root.resultset.code));
-                } else {
-                    message = String.format("%d %s", root.resultset.code, root.resultset.message);
-                }
-                throw new Exception(message);
-            }
-            return root.resultset.result.text;
+    private String getApiParam(TextraOptions options) {
+        return String.format("%s_%s_%s", getApiEngine(options) , options.getSourceLang(), options.getTargetLang());
+    }
+
+    protected String parseResponse(String response) throws Exception {
+        Root root = mapper.readValue(response, Root.class);
+        if (root == null || root.resultset == null) {
+            return null;
         }
+        if (root.resultset.code != 0 || root.resultset.result == null) {
+            String message;
+            if (ErrorMessages.messages.get(root.resultset.code) != null) {
+                message = String.format("%d %s", root.resultset.code,
+                        ErrorMessages.messages.get(root.resultset.code));
+            } else {
+                message = String.format("%d %s", root.resultset.code, root.resultset.message);
+            }
+            throw new Exception(message);
+        }
+        return root.resultset.result.text;
     }
 
     private static String getAccessUrl(final TextraOptions options) {
         String apiUrl;
-        String apiEngine;
-        if (options.getMode() == TextraOptions.Mode.custom) {
-            apiEngine = options.getCustomId();
-        } else {
-            apiEngine = options.getModeName().replace("_", "-");
-        }
+        String apiEngine = getApiEngine(options);
         if (options.isServer(TextraOptions.Provider.nict)) {
             apiUrl = API_URL + apiEngine + "_" + options.getSourceLang()
                 + "_" + options.getTargetLang() + "/";
@@ -202,6 +137,14 @@ public class TextraApiClient {
                     + "_" + options.getTargetLang() + "/";
         }
         return apiUrl;
+    }
+
+    private static String getApiEngine(TextraOptions options) {
+        if (options.getMode() == TextraOptions.Mode.custom) {
+            return options.getCustomId();
+        }
+        return options.getModeName().replace("_", "-");
+
     }
 
     static class Root {

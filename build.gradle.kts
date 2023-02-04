@@ -26,9 +26,6 @@ configure<JavaPluginConvention> {
 }
 
 dependencies {
-    packIntoJar("oauth.signpost:signpost-core:2.1.1")
-    packIntoJar("oauth.signpost:signpost-commonshttp4:2.1.1")
-    packIntoJar("org.apache.httpcomponents:httpclient:4.5.13")
     packIntoJar("com.fasterxml.jackson.core:jackson-core:2.13.4")
     packIntoJar("com.fasterxml.jackson.core:jackson-annotations:2.13.4")
     packIntoJar("com.fasterxml.jackson:jackson-bom:2.13.4")
