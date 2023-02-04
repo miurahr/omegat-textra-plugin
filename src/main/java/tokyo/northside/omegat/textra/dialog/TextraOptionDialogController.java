@@ -19,22 +19,22 @@ public class TextraOptionDialogController {
     private TextraOptionDialogController() {
     }
 
-    public static void show(Window parent, TextraOptions data) {
+    public static void show(Window parent, TextraOptions options) {
         TextraOptionDialog dialog = new TextraOptionDialog(parent);
         dialog.setModal(true);
-        setOptions(dialog, data);
+        setOptions(dialog, options);
         dialog.getRootPane().setDefaultButton(dialog.buttonOK);
         GhostTextHandler.register(dialog.customIdTextField, getString("CustomIdHint"));
         GhostTextHandler.register(dialog.apikeyField, getString("ApiKeyHint"));
         GhostTextHandler.register(dialog.secretField, getString("ApiSecretHint"));
 
         dialog.buttonOK.addActionListener(e -> {
-            onOK(dialog, data);
+            onOK(dialog, options);
             dialog.dispose();
         });
 
         dialog.buttonCancel.addActionListener(e -> {
-            setOptions(dialog, data);
+            setOptions(dialog, options);
             dialog.dispose();
         });
 
@@ -60,15 +60,13 @@ public class TextraOptionDialogController {
         dialog.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         dialog.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-                setOptions(dialog, data);
+                setOptions(dialog, options);
                 dialog.dispose();
             }
         });
 
         // call onCancel() on ESCAPE
-        dialog.contentPane.registerKeyboardAction(e -> {
-                    setOptions(dialog, data);
-                },
+        dialog.contentPane.registerKeyboardAction(e -> setOptions(dialog, options),
                 KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
                 JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
         dialog.pack();

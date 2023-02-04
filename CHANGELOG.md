@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- When not configured but requested, show dialog.
+
 ### Fixed
 - Fix NPE when first time configured with API key
 

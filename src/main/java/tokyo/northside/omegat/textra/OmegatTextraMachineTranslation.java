@@ -31,6 +31,8 @@ import org.omegat.util.Log;
 import org.omegat.util.Preferences;
 import tokyo.northside.omegat.textra.dialog.TextraOptionDialogController;
 
+import javax.swing.*;
+
 import static tokyo.northside.omegat.textra.TextraOptions.Mode.generalNT;
 
 
@@ -126,6 +128,7 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
     /**
      * Register plugin into OmegaT.
      */
+    @SuppressWarnings("unused")
     public static void loadPlugins() {
         Core.registerMachineTranslationClass(OmegatTextraMachineTranslation.class);
     }
@@ -134,6 +137,7 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
      * Unregister plugin.
      * Currently not supported.
      */
+    @SuppressWarnings("unused")
     public static void unloadPlugins() {
     }
 
@@ -147,6 +151,17 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
         return client.executeTranslation(options, text);
      }
 
+    protected boolean checkConfig() {
+        String apiUsername = options.getUsername();
+        String apiKey = options.getApikey();
+        String apiSecret = options.getSecret();
+        if (apiUsername == null || apiUsername.isEmpty() || apiKey == null || apiKey.isEmpty() || apiSecret == null || apiSecret.isEmpty()) {
+            SwingUtilities.invokeLater(() -> TextraOptionDialogController.show(Core.getMainWindow().getApplicationFrame(), options));
+            return false;
+        }
+        return true;
+    }
+
     /**
      * Return machine translation result.
      * {@link IMachineTranslation()#getTranslation}
@@ -155,8 +170,12 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
      * @param text source text.
      * @return translated text.
      */
+    @Override
     public String getTranslation(final Language sLang, final Language tLang, final String text) throws Exception {
         if (enabled) {
+            if (!checkConfig()) {
+                return null;
+            }
             // Set TexTra access options
             options.setLang(sLang, tLang);
             if (!options.isCombinationValid()) {
