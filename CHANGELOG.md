@@ -3,13 +3,21 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Fixed
+- Fix NPE when first time configured with API key
+
+### Changed
+
+- Drop Apache http client dependnecy
+- Drop httppost dependency
+- Use org.omegat.util.HttpConnectionUtils.
+
 ## [2022.2.3] - 2022-08-04
 
 ### Fixed
 
 - Rewrite response JSON parser and now work again.
   v2022.2.2 has defeat.
-
 
 ## [2022.2.2] - 2022-06-04
 
