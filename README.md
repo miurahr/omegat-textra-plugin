@@ -1,33 +1,32 @@
 # NICT TexTra Machine Translation API plugin for OmegaT
 
 This is an implementation of OmegaT plugin which support NICT TexTra Machine Translation API which are
-provided by NiCT for non-profit and OSS translations and Kawamura-International for Business translations.
+provided by NiCT for non-profit and OSS translations, and Kawamura-International for Business translations.
 
 * [日本語の利用方法の説明](https://github.com/miurahr/omegat-textra-plugin/wiki/%E5%88%A9%E7%94%A8%E6%96%B9%E6%B3%95)
 
 * [Usage manual in English](https://github.com/miurahr/omegat-textra-plugin/wiki/Usage)
 
+When you are looking for Mirai Translator(R) connector, based on NICT engine and NTT collaboration,
+you may be interested in [MT plugin for OmegaT](https://codeberg.org/miurahr/omegat-mirai).
 
 ## NEWS
 
+- **04, Feb. 2023** - **Version 2023.1.0** - Update http access code, Jackson 2.13.4
+- **04, Aug. 2022** - **Version 2022.2.3** - Update JSON response parser.
+- **25, May, 2022** - **Version 2022.2.1** - Fix korean language code.
 - **23, Apr. 2022** - **Version 2022.2.0** - Credentials check button on an option dialog, Jackson 2.13.3 
-- **10, Apr. 2022** - **Version 2022.1.0** - Update dependency libraries: Jackson 2.13.2, commons-io 2.11.0 and http-client 4.5.13
-- **16, Jan. 2021** - **Version 2020.2.1** - Support adaptive translation engine(custom id: a-*).
-- **15, Nov. 2020** - **Version 2020.2.0** - Support custom engine configuration(custom id: c-*).
-- **14, Nov. 2020** - **Version 2020.1.0** - Support business account and change version schema with **YEAR**.
 
 ## Install
 
 Please download latest omegat-textra-plugin-x.x.zip file from [releases](https://github.com/miurahr/omegat-textra-plugin/releases) page 
-in this Github repository. You can get a plugin file (omegat-textra-plugin-x.x.jar) from downloaded zip distribution.
+in this GitHub repository. You can get a plugin file (omegat-textra-plugin-x.x.jar) from downloaded zip distribution.
 The OmegaT plugin should be placed in `$HOME/.omegat/plugins` or `C:\Program Files\OmegaT\plugins`
 depending on your operating systemc.
 
 ## Requirements
 
-- Java 11 Runtime 
-
-Note: Java 8 Runtime requiires modification of bundled TLS root certifications to run the plugin. See manual.
+- OmegaT 5.7.1 or later
 
 ## Configuration
 

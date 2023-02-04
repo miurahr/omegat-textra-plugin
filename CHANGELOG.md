@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [2023.1.0] - 2023-02-04
+
 ### Added
 - When not configured but requested, show dialog.
 
@@ -11,7 +13,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
-- Drop Apache http client dependnecy
+- Drop Apache http client dependency
 - Drop httppost dependency
 - Use org.omegat.util.HttpConnectionUtils.
 
@@ -21,6 +23,9 @@ All notable changes to this project will be documented in this file.
 
 - Rewrite response JSON parser and now work again.
   v2022.2.2 has defeat.
+
+### Changed
+- Move project onto codeberg.org forge site.
 
 ## [2022.2.2] - 2022-06-04
 
@@ -245,27 +250,28 @@ All notable changes to this project will be documented in this file.
 - Start project.
 
 
-[Unreleased]: https://github.com/miurahr/omegat-textra-plugin/compare/v2022.2.3...HEAD
-[2022.2.3]: https://github.com/miurahr/omegat-textra-plugin/compare/v2022.2.2...v2022.2.3
-[2022.2.2]: https://github.com/miurahr/omegat-textra-plugin/compare/v2022.2.1...v2022.2.2
-[2022.2.1]: https://github.com/miurahr/omegat-textra-plugin/compare/v2022.2.0...v2022.2.1
-[2022.2.0]: https://github.com/miurahr/omegat-textra-plugin/compare/v2022.1.0...v2022.2.0
-[2022.1.0]: https://github.com/miurahr/omegat-textra-plugin/compare/v2020.2.2...v2022.1.0
-[2020.2.2]: https://github.com/miurahr/omegat-textra-plugin/compare/v2020.2.1...v2020.2.2
-[2020.2.1]: https://github.com/miurahr/omegat-textra-plugin/compare/v2020.2.0...v2020.2.1
-[2020.2.0]: https://github.com/miurahr/omegat-textra-plugin/compare/v2020.1.0...v2020.2.0
-[2020.1.0]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.11.1...v2020.1.0
-[0.11.1]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.11.0...v0.11.1
-[0.11.0]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.10.0...v0.11.0
-[0.10.0]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.9.3...v0.10.0
-[0.9.3]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.9.2...v0.9.3
-[0.9.2]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.9.1...v0.9.2
-[0.9.1]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.9.0...v0.9.1
-[0.9.0]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.8...v0.9.0
-[0.8]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.7...v0.8
-[0.7]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.6...v0.7
-[0.6]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.5...v0.6
-[0.5]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.4...v0.5
-[0.4]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.3...v0.4
-[0.3]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.2...v0.3
-[0.2]: https://github.com/miurahr/omegat-textra-plugin/compare/v0.1...v0.2
+[Unreleased]: https://codeberg.org/miurahr/omegat-textra-plugin/compare/v2023.1.0...HEAD
+[2023.1.0]: https://codeberg.org/miurahr/omegat-textra-plugin/compare/v2022.2.3...v2023.1.0
+[2022.2.3]: https://codeberg.org/miurahr/omegat-textra-plugin/compare/v2022.2.2...v2022.2.3
+[2022.2.2]: https://codeberg.org/miurahr/omegat-textra-plugin/compare/v2022.2.1...v2022.2.2
+[2022.2.1]: https://codeberg.org/miurahr/omegat-textra-plugin/compare/v2022.2.0...v2022.2.1
+[2022.2.0]: https://codeberg.org/miurahr/omegat-textra-plugin/compare/v2022.1.0...v2022.2.0
+[2022.1.0]: https://codeberg.org/miurahr/omegat-textra-plugin/compare/v2020.2.2...v2022.1.0
+[2020.2.2]: https://codeberg.org/miurahr/omegat-textra-plugin/compare/v2020.2.1...v2020.2.2
+[2020.2.1]: https://codeberg.org/miurahr/omegat-textra-plugin/compare/v2020.2.0...v2020.2.1
+[2020.2.0]: https://codeberg.org/miurahr/omegat-textra-plugin/compare/v2020.1.0...v2020.2.0
+[2020.1.0]: https://codeberg.org/miurahr/omegat-textra-plugin/compare/v0.11.1...v2020.1.0
+[0.11.1]: https://codeberg.org/miurahr/omegat-textra-plugin/compare/v0.11.0...v0.11.1
+[0.11.0]: https://codeberg.org/miurahr/omegat-textra-plugin/compare/v0.10.0...v0.11.0
+[0.10.0]: https://codeberg.org/miurahr/omegat-textra-plugin/compare/v0.9.3...v0.10.0
+[0.9.3]: https://codeberg.org/miurahr/omegat-textra-plugin/compare/v0.9.2...v0.9.3
+[0.9.2]: https://codeberg.org/miurahr/omegat-textra-plugin/compare/v0.9.1...v0.9.2
+[0.9.1]: https://codeberg.org/miurahr/omegat-textra-plugin/compare/v0.9.0...v0.9.1
+[0.9.0]: https://codeberg.org/miurahr/omegat-textra-plugin/compare/v0.8...v0.9.0
+[0.8]: https://codeberg.org/miurahr/omegat-textra-plugin/compare/v0.7...v0.8
+[0.7]: https://codeberg.org/miurahr/omegat-textra-plugin/compare/v0.6...v0.7
+[0.6]: https://codeberg.org/miurahr/omegat-textra-plugin/compare/v0.5...v0.6
+[0.5]: https://codeberg.org/miurahr/omegat-textra-plugin/compare/v0.4...v0.5
+[0.4]: https://codeberg.org/miurahr/omegat-textra-plugin/compare/v0.3...v0.4
+[0.3]: https://codeberg.org/miurahr/omegat-textra-plugin/compare/v0.2...v0.3
+[0.2]: https://codeberg.org/miurahr/omegat-textra-plugin/compare/v0.1...v0.2
