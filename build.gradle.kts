@@ -20,14 +20,15 @@ if (getVersionDetails().isCleanTag) {
     version = getVersionDetails().lastTag.substring(1) + "-" + getVersionDetails().commitDistance + "-" + getVersionDetails().gitHash + "-SNAPSHOT"
 }
 
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(8))
+    }
+}
+
 omegat {
     version = "5.7.1"
     pluginClass = "tokyo.northside.omegat.textra.OmegatTextraMachineTranslation"
-}
-
-configure<JavaPluginConvention> {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
 }
 
 dependencies {
