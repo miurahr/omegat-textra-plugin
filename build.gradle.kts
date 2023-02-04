@@ -1,9 +1,12 @@
+import org.gradle.crypto.checksum.Checksum
+
 plugins {
     java
     groovy
     signing
     checkstyle
     distribution
+    id("org.gradle.crypto.checksum") version "1.4.0"
     id("com.diffplug.spotless") version "6.12.0"
     id("org.omegat.gradle") version "1.5.9"
     id("com.palantir.git-version") version "0.13.0"
@@ -90,4 +93,11 @@ spotless {
         palantirJavaFormat()
         importOrder("org.omegat", "tokyo.northside.omegat.textra", "java", "javax", "", "\\#")
     }
+}
+
+tasks.register<Checksum>("createChecksums") {
+  inputFiles.setFrom(listOf(tasks.jar.get(), tasks.distZip.get()))
+  outputDirectory.set(layout.buildDirectory.dir("distributions"))
+  checksumAlgorithm.set(Checksum.Algorithm.SHA512)
+  appendFileNameToChecksum.set(true)
 }
