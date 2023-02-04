@@ -1,8 +1,10 @@
 plugins {
     java
     groovy
+    signing
     checkstyle
     distribution
+    id("com.diffplug.spotless") version "6.12.0"
     id("org.omegat.gradle") version "1.5.9"
     id("com.palantir.git-version") version "0.13.0"
 }
@@ -50,5 +52,42 @@ distributions {
         contents {
             from(tasks["jar"], "README.md", "CHANGELOG.md", "COPYING", "DEVELOP.md")
         }
+    }
+}
+
+val signKey = listOf("signingKey", "signing.keyId", "signing.gnupg.keyName").find {project.hasProperty(it)}
+tasks.withType<Sign> {
+    onlyIf { signKey != null }
+}
+
+signing {
+    when (signKey) {
+        "signingKey" -> {
+            val signingKey: String? by project
+            val signingPassword: String? by project
+            useInMemoryPgpKeys(signingKey, signingPassword)
+        }
+
+        "signing.keyId" -> {/* do nothing */
+        }
+
+        "signing.gnupg.keyName" -> {
+            useGpgCmd()
+        }
+    }
+    sign(tasks.distZip.get())
+    sign(tasks.jar.get())
+}
+
+val jar by tasks.getting(Jar::class) {
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+
+spotless {
+    java {
+        target(listOf("src/*/java/**/*.java"))
+        removeUnusedImports()
+        palantirJavaFormat()
+        importOrder("org.omegat", "tokyo.northside.omegat.mirai", "java", "javax", "", "\\#")
     }
 }
