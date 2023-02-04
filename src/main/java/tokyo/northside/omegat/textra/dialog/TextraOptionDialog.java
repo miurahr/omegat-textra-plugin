@@ -1,7 +1,8 @@
 package tokyo.northside.omegat.textra.dialog;
 
-import javax.swing.*;
 import java.awt.*;
+
+import javax.swing.*;
 
 import static tokyo.northside.omegat.textra.StringUtil.getString;
 
@@ -283,5 +284,4 @@ public class TextraOptionDialog extends JDialog {
         //
         setContentPane(contentPane);
     }
-
 }

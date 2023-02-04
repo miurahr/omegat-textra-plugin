@@ -2,14 +2,15 @@ package tokyo.northside.omegat.textra.dialog;
 
 import org.omegat.util.StringUtil;
 
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.text.JTextComponent;
 import java.awt.Color;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.JTextComponent;
 
 public class GhostTextHandler implements FocusListener, DocumentListener, PropertyChangeListener {
     private final JTextComponent textComponent;

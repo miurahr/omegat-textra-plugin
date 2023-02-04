@@ -1,15 +1,16 @@
 package tokyo.northside.omegat.textra;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.omegat.util.HttpConnectionUtils;
 
 import java.io.IOException;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * TexTra access API client.
@@ -33,7 +34,7 @@ public class TextraApiClient {
 
     public static boolean checkAuth(String authUrl, String apiKey, String apiSecret) {
         try {
-           return getToken(authUrl, apiKey, apiSecret).contains("access_token");
+            return getToken(authUrl, apiKey, apiSecret).contains("access_token");
         } catch (IOException ignored) {
         }
         return false;
@@ -44,7 +45,7 @@ public class TextraApiClient {
         postParameters.put("grant_type", "client_credentials");
         postParameters.put("client_id", apiKey);
         postParameters.put("client_secret", apiSecret);
-        return  HttpConnectionUtils.post(authUrl, postParameters, null);
+        return HttpConnectionUtils.post(authUrl, postParameters, null);
     }
 
     /**
@@ -102,7 +103,7 @@ public class TextraApiClient {
     }
 
     private String getApiParam(TextraOptions options) {
-        return String.format("%s_%s_%s", getApiEngine(options) , options.getSourceLang(), options.getTargetLang());
+        return String.format("%s_%s_%s", getApiEngine(options), options.getSourceLang(), options.getTargetLang());
     }
 
     protected String parseResponse(String response) throws Exception {
@@ -113,8 +114,7 @@ public class TextraApiClient {
         if (root.resultset.code != 0 || root.resultset.result == null) {
             String message;
             if (ErrorMessages.messages.get(root.resultset.code) != null) {
-                message = String.format("%d %s", root.resultset.code,
-                        ErrorMessages.messages.get(root.resultset.code));
+                message = String.format("%d %s", root.resultset.code, ErrorMessages.messages.get(root.resultset.code));
             } else {
                 message = String.format("%d %s", root.resultset.code, root.resultset.message);
             }
@@ -127,14 +127,11 @@ public class TextraApiClient {
         String apiUrl;
         String apiEngine = getApiEngine(options);
         if (options.isServer(TextraOptions.Provider.nict)) {
-            apiUrl = API_URL + apiEngine + "_" + options.getSourceLang()
-                + "_" + options.getTargetLang() + "/";
+            apiUrl = API_URL + apiEngine + "_" + options.getSourceLang() + "_" + options.getTargetLang() + "/";
         } else if (options.isServer(TextraOptions.Provider.minna_personal)) {
-            apiUrl = KI_API_URL + apiEngine + "_" + options.getSourceLang()
-                    + "_" + options.getTargetLang() + "/";
+            apiUrl = KI_API_URL + apiEngine + "_" + options.getSourceLang() + "_" + options.getTargetLang() + "/";
         } else {
-            apiUrl = API_URL + apiEngine + "_" + options.getSourceLang()
-                    + "_" + options.getTargetLang() + "/";
+            apiUrl = API_URL + apiEngine + "_" + options.getSourceLang() + "_" + options.getTargetLang() + "/";
         }
         return apiUrl;
     }
@@ -144,7 +141,6 @@ public class TextraApiClient {
             return options.getCustomId();
         }
         return options.getModeName().replace("_", "-");
-
     }
 
     static class Root {
@@ -152,14 +148,14 @@ public class TextraApiClient {
         public ResultSet resultset;
     }
 
-    @JsonIgnoreProperties(ignoreUnknown=true)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     static class ResultSet {
         public Result result;
         public int code;
         public String message;
     }
 
-    @JsonIgnoreProperties(ignoreUnknown=true)
+    @JsonIgnoreProperties(ignoreUnknown = true)
     static class Result {
         public String text;
     }

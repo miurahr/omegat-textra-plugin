@@ -1,27 +1,23 @@
 /**************************************************************************
- TexTra Machine Translation plugin for OmegaT(http://www.omegat.org/)
-
- Copyright 2016-2023  Hiroshi Miura
-
- This program is free software; you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation; either version 3 of the License, or
- (at your option) any later version.
-
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with this program; if not, write to the Free Software
- Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
+ * TexTra Machine Translation plugin for OmegaT(http://www.omegat.org/)
+ *
+ * Copyright 2016-2023  Hiroshi Miura
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
  **************************************************************************/
-
 package tokyo.northside.omegat.textra;
-
-import java.awt.Window;
-import java.io.IOException;
 
 import org.omegat.core.Core;
 import org.omegat.core.machinetranslators.BaseTranslate;
@@ -29,12 +25,15 @@ import org.omegat.gui.exttrans.IMachineTranslation;
 import org.omegat.util.Language;
 import org.omegat.util.Log;
 import org.omegat.util.Preferences;
+
 import tokyo.northside.omegat.textra.dialog.TextraOptionDialogController;
+
+import java.awt.Window;
+import java.io.IOException;
 
 import javax.swing.*;
 
 import static tokyo.northside.omegat.textra.TextraOptions.Mode.generalNT;
-
 
 /**
  * Support TexTra powered by NICT machine translation.
@@ -50,6 +49,7 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
      * Preparation for OmegaT Menu.
      */
     private static final String OPTION_ALLOW_TEXTRA_TRANSLATE = "allow_textra_translate";
+
     private static final String OPTION_TEXTRA_USERNAME = "mt_textra_username";
     private static final String OPTION_TEXTRA_APIKEY = "mt_textra_apikey";
     private static final String OPTION_TEXTRA_SECRET = "mt_textra_secret";
@@ -64,12 +64,12 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
     public OmegatTextraMachineTranslation() throws IOException {
         super();
         options = new TextraOptions(
-            Preferences.getPreferenceEnumDefault(OPTION_TEXTRA_SERVER, TextraOptions.Provider.nict),
-            getCredential(OPTION_TEXTRA_USERNAME),
-            getCredential(OPTION_TEXTRA_APIKEY),
-            getCredential(OPTION_TEXTRA_SECRET),
-            Preferences.getPreferenceDefault(OPTION_TEXTRA_CUSTOM_ID, null),
-            Preferences.getPreferenceEnumDefault(OPTION_TEXTRA_TRANSLATE_MODE, generalNT),
+                Preferences.getPreferenceEnumDefault(OPTION_TEXTRA_SERVER, TextraOptions.Provider.nict),
+                getCredential(OPTION_TEXTRA_USERNAME),
+                getCredential(OPTION_TEXTRA_APIKEY),
+                getCredential(OPTION_TEXTRA_SECRET),
+                Preferences.getPreferenceDefault(OPTION_TEXTRA_CUSTOM_ID, null),
+                Preferences.getPreferenceEnumDefault(OPTION_TEXTRA_TRANSLATE_MODE, generalNT),
                 this);
         enabled = Preferences.isPreferenceDefault(OPTION_ALLOW_TEXTRA_TRANSLATE, true);
         if (enabled) {
@@ -138,8 +138,7 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
      * Currently not supported.
      */
     @SuppressWarnings("unused")
-    public static void unloadPlugins() {
-    }
+    public static void unloadPlugins() {}
 
     /**
      * Call Web API to translate.
@@ -149,14 +148,20 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
     @Override
     protected String translate(final Language sLang, final Language tLang, final String text) throws Exception {
         return client.executeTranslation(options, text);
-     }
+    }
 
     protected boolean checkConfig() {
         String apiUsername = options.getUsername();
         String apiKey = options.getApikey();
         String apiSecret = options.getSecret();
-        if (apiUsername == null || apiUsername.isEmpty() || apiKey == null || apiKey.isEmpty() || apiSecret == null || apiSecret.isEmpty()) {
-            SwingUtilities.invokeLater(() -> TextraOptionDialogController.show(Core.getMainWindow().getApplicationFrame(), options));
+        if (apiUsername == null
+                || apiUsername.isEmpty()
+                || apiKey == null
+                || apiKey.isEmpty()
+                || apiSecret == null
+                || apiSecret.isEmpty()) {
+            SwingUtilities.invokeLater(
+                    () -> TextraOptionDialogController.show(Core.getMainWindow().getApplicationFrame(), options));
             return false;
         }
         return true;
@@ -179,9 +184,11 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
             // Set TexTra access options
             options.setLang(sLang, tLang);
             if (!options.isCombinationValid()) {
-                Log.log(String.format("Textra:Invalid language combination"
-                                + " for %s with source %s, and target %s on %s.",
-                        options.getModeName(), options.getSourceLang(), options.getTargetLang(),
+                Log.log(String.format(
+                        "Textra:Invalid language combination" + " for %s with source %s, and target %s on %s.",
+                        options.getModeName(),
+                        options.getSourceLang(),
+                        options.getTargetLang(),
                         options.getProvider().name()));
                 return null;
             }
@@ -195,5 +202,4 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
             return null;
         }
     }
-
 }

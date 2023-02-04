@@ -1,6 +1,5 @@
 package tokyo.northside.omegat.textra;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.omegat.util.Language;
 
 import java.io.BufferedReader;
@@ -12,16 +11,16 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class TextraOptionCombinations {
 
-    private Set<Combination> combination = new HashSet<>();
+    private final Set<Combination> combination = new HashSet<>();
 
     public TextraOptionCombinations() throws IOException {
         InputStream is = TextraOptionCombinations.class.getResourceAsStream("combinations.json");
         ObjectMapper mapper = new ObjectMapper();
-        String json = new BufferedReader(new InputStreamReader(is)).lines()
-                .collect(Collectors.joining());
+        String json = new BufferedReader(new InputStreamReader(is)).lines().collect(Collectors.joining());
         for (Definition definition : mapper.readValue(json, Definition[].class)) {
             TextraOptions.Provider provider = definition.getProvider();
             for (Service record : definition.getServices()) {
@@ -33,19 +32,19 @@ public class TextraOptionCombinations {
         }
     }
 
-
     /**
      * Check if parameter combination is valid or not.
-     * @param service
-     * @param mode
-     * @param sourceLang
-     * @param targetLang
+     * @param service service provider enum.
+     * @param mode translation mode.
+     * @param sourceLang source language code.
+     * @param targetLang target language code.
      * @return true is combination is valid, otherwise false.
      */
-    public boolean isCombinationValid(final TextraOptions.Provider service,
-                                      final TextraOptions.Mode mode,
-                                      final String sourceLang,
-                                      final String targetLang) {
+    public boolean isCombinationValid(
+            final TextraOptions.Provider service,
+            final TextraOptions.Mode mode,
+            final String sourceLang,
+            final String targetLang) {
         return combination.contains(new Combination(service, mode, sourceLang, targetLang));
     }
 
@@ -64,8 +63,11 @@ public class TextraOptionCombinations {
          * @param sLang source language.
          * @param tLang target language.
          */
-        Combination(final TextraOptions.Provider provider, final TextraOptions.Mode mode,
-                    final String sLang, final String tLang) {
+        Combination(
+                final TextraOptions.Provider provider,
+                final TextraOptions.Mode mode,
+                final String sLang,
+                final String tLang) {
             this.provider = provider;
             this.mode = mode;
             this.sLang = new Language(sLang);
@@ -86,8 +88,10 @@ public class TextraOptionCombinations {
                 return false;
             }
             Combination other = (Combination) o;
-            return other.provider.equals(this.provider) && other.mode.equals(this.mode)
-                    && leq(other.sLang, this.sLang) && leq(other.tLang, this.tLang);
+            return other.provider.equals(this.provider)
+                    && other.mode.equals(this.mode)
+                    && leq(other.sLang, this.sLang)
+                    && leq(other.tLang, this.tLang);
         }
 
         private static boolean leq(final Language langA, final Language langB) {
@@ -102,8 +106,7 @@ public class TextraOptionCombinations {
          */
         @Override
         public int hashCode() {
-            return (provider.name() + mode.name()
-                    + sLang.getDisplayName() + tLang.getDisplayName()).hashCode();
+            return (provider.name() + mode.name() + sLang.getDisplayName() + tLang.getDisplayName()).hashCode();
         }
     }
 
@@ -138,8 +141,8 @@ public class TextraOptionCombinations {
 
         @Override
         public String toString() {
-            return "Service{" + "mode='" + mode + '\'' + ", source='" + source + '\''
-                    + ", target='" + target + '\'' + '}';
+            return "Service{" + "mode='" + mode + '\'' + ", source='" + source + '\'' + ", target='" + target + '\''
+                    + '}';
         }
     }
 

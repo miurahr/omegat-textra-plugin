@@ -13,5 +13,4 @@ public class StringUtil {
     public static String getString(String key) {
         return bundle.getString(key);
     }
-
 }

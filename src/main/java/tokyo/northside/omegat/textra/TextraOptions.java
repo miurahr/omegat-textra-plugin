@@ -26,14 +26,14 @@ public class TextraOptions {
 
     private boolean changed;
 
-
-    public TextraOptions(final Provider provider,
-                         final String username,
-                         final String apikey,
-                         final String secret,
-                         final String customId,
-                         final Mode mode,
-                         final OmegatTextraMachineTranslation omegatTextraMachineTranslation)
+    public TextraOptions(
+            final Provider provider,
+            final String username,
+            final String apikey,
+            final String secret,
+            final String customId,
+            final Mode mode,
+            final OmegatTextraMachineTranslation omegatTextraMachineTranslation)
             throws IOException {
         this.username = username;
         this.apikey = apikey;
@@ -62,8 +62,7 @@ public class TextraOptions {
 
     public boolean isCombinationValid() {
         if (mode != Mode.custom) {
-            return textraOptionCombinations
-                    .isCombinationValid(provider, mode, sourceLang, targetLang);
+            return textraOptionCombinations.isCombinationValid(provider, mode, sourceLang, targetLang);
         } else {
             return customId != null && (customId.startsWith("c-") || customId.startsWith("a-"));
         }
@@ -91,17 +90,18 @@ public class TextraOptions {
 
     /**
      * Translation mode.
-     * These name is as same as an part of API URL.
+     * These name is as same as a part of API URL.
      */
+    @SuppressWarnings("unused")
     public enum Mode {
-       /** general NT mode.
+        /** general NT mode.
          */
         generalNT,
-       /** Patent NT mode.
+        /** Patent NT mode.
          * Next generation of Patent NMT
          */
         patentNT,
-       /** Taiwa NT mode.
+        /** Taiwa NT mode.
          * Next generation of Taiwa NMT
          */
         voicetraNT,
@@ -312,10 +312,6 @@ public class TextraOptions {
      */
     String getTargetLang() {
         return targetLang;
-    }
-
-    public String getAuthUrl() {
-        return getBaseUrl() + "/oauth/token.php";
     }
 
     public String getOAuth2Url() {

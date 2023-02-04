@@ -1,23 +1,24 @@
 package tokyo.northside.omegat.textra.dialog;
 
-import org.apache.commons.lang.StringUtils;
 import tokyo.northside.omegat.textra.TextraApiClient;
 import tokyo.northside.omegat.textra.TextraOptions;
 
-import javax.swing.JComponent;
-import javax.swing.KeyStroke;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+
+import javax.swing.JComponent;
+import javax.swing.KeyStroke;
+
+import org.apache.commons.lang.StringUtils;
 
 import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 import static tokyo.northside.omegat.textra.StringUtil.getString;
 
 public class TextraOptionDialogController {
 
-    private TextraOptionDialogController() {
-    }
+    private TextraOptionDialogController() {}
 
     public static void show(Window parent, TextraOptions options) {
         TextraOptionDialog dialog = new TextraOptionDialog(parent);
@@ -66,7 +67,8 @@ public class TextraOptionDialogController {
         });
 
         // call onCancel() on ESCAPE
-        dialog.contentPane.registerKeyboardAction(e -> setOptions(dialog, options),
+        dialog.contentPane.registerKeyboardAction(
+                e -> setOptions(dialog, options),
                 KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
                 JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
         dialog.pack();

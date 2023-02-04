@@ -88,6 +88,6 @@ spotless {
         target(listOf("src/*/java/**/*.java"))
         removeUnusedImports()
         palantirJavaFormat()
-        importOrder("org.omegat", "tokyo.northside.omegat.mirai", "java", "javax", "", "\\#")
+        importOrder("org.omegat", "tokyo.northside.omegat.textra", "java", "javax", "", "\\#")
     }
 }
