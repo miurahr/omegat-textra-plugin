@@ -97,8 +97,9 @@ spotless {
 }
 
 tasks.register<Checksum>("createChecksums") {
-  inputFiles.setFrom(listOf(tasks.jar.get(), tasks.distZip.get()))
-  outputDirectory.set(layout.buildDirectory.dir("distributions"))
-  checksumAlgorithm.set(Checksum.Algorithm.SHA512)
-  appendFileNameToChecksum.set(true)
+    dependsOn(tasks.distZip)
+    inputFiles.setFrom(listOf(tasks.jar.get(), tasks.distZip.get()))
+    outputDirectory.set(layout.buildDirectory.dir("distributions"))
+    checksumAlgorithm.set(Checksum.Algorithm.SHA512)
+    appendFileNameToChecksum.set(true)
 }

@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+- Generate checksums and signing of distribution
+
 ## [2023.1.0] - 2023-02-04
 
 ### Added
