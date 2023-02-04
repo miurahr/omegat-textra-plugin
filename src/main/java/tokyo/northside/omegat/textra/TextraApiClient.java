@@ -67,10 +67,10 @@ public class TextraApiClient {
         if (apiSecret == null || apiSecret.isEmpty()) {
             throw new Exception("TexTra API secret is not found.");
         }
-        String authUrl = options.getOAuth2Url();
 
-        if (expire == null || expire.isAfter(LocalTime.now())) {
+        if (expire == null || expire.isAfter(LocalTime.now()) || options.isChanged()) {
             try {
+                String authUrl = options.getOAuth2Url();
                 String json = getToken(authUrl, apiKey, apiSecret);
                 JsonNode jsonNode = mapper.readTree(json);
                 JsonNode tokenNode = jsonNode.get("access_token");
