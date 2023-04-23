@@ -3,7 +3,14 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
-- Generate checksums and signing of distribution
+## [2023.2.0] - 2023-04-23
+
+- Generate checksums and signing of distribution.
+- Bump a base version of OmegaT to 5.8.0.
+
+Incompatible change:
+
+- Drop support for OmegaT 5.7.1 and before.
 
 ## [2023.1.0] - 2023-02-04
 
@@ -252,7 +259,8 @@ All notable changes to this project will be documented in this file.
 - Start project.
 
 
-[Unreleased]: https://codeberg.org/miurahr/omegat-textra-plugin/compare/v2023.1.0...HEAD
+[Unreleased]: https://codeberg.org/miurahr/omegat-textra-plugin/compare/v2023.2.0...HEAD
+[2023.2.0]: https://codeberg.org/miurahr/omegat-textra-plugin/compare/v2023.1.0...v2023.2.0
 [2023.1.0]: https://codeberg.org/miurahr/omegat-textra-plugin/compare/v2022.2.3...v2023.1.0
 [2022.2.3]: https://codeberg.org/miurahr/omegat-textra-plugin/compare/v2022.2.2...v2022.2.3
 [2022.2.2]: https://codeberg.org/miurahr/omegat-textra-plugin/compare/v2022.2.1...v2022.2.2
