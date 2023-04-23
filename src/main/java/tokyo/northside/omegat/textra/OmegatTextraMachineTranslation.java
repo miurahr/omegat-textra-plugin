@@ -20,7 +20,7 @@
 package tokyo.northside.omegat.textra;
 
 import org.omegat.core.Core;
-import org.omegat.core.machinetranslators.BaseTranslate;
+import org.omegat.core.machinetranslators.BaseCachedTranslate;
 import org.omegat.gui.exttrans.IMachineTranslation;
 import org.omegat.util.Language;
 import org.omegat.util.Log;
@@ -40,7 +40,7 @@ import static tokyo.northside.omegat.textra.TextraOptions.Mode.generalNT;
  *
  * @author Hiroshi Miura
  */
-public class OmegatTextraMachineTranslation extends BaseTranslate implements IMachineTranslation {
+public class OmegatTextraMachineTranslation extends BaseCachedTranslate implements IMachineTranslation {
     protected TextraOptions options;
 
     protected TextraApiClient client;
@@ -146,7 +146,22 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
      * @return translated test.
      */
     @Override
-    protected String translate(final Language sLang, final Language tLang, final String text) throws Exception {
+    protected String translate(Language sLang, final Language tLang, final String text) throws Exception {
+        if (!checkConfig()) {
+            enabled = false;
+            return null;
+        }
+        // Set TexTra access options
+        options.setLang(sLang, tLang);
+        if (!options.isCombinationValid()) {
+            Log.log(String.format(
+                    "Textra:Invalid language combination" + " for %s with source %s, and target %s on %s.",
+                    options.getModeName(),
+                    options.getSourceLang(),
+                    options.getTargetLang(),
+                    options.getProvider().name()));
+            return null;
+        }
         return client.executeTranslation(options, text);
     }
 
@@ -165,41 +180,5 @@ public class OmegatTextraMachineTranslation extends BaseTranslate implements IMa
             return false;
         }
         return true;
-    }
-
-    /**
-     * Return machine translation result.
-     * {@link IMachineTranslation()#getTranslation}
-     * @param sLang source language.
-     * @param tLang target language.
-     * @param text source text.
-     * @return translated text.
-     */
-    @Override
-    public String getTranslation(final Language sLang, final Language tLang, final String text) throws Exception {
-        if (enabled) {
-            if (!checkConfig()) {
-                return null;
-            }
-            // Set TexTra access options
-            options.setLang(sLang, tLang);
-            if (!options.isCombinationValid()) {
-                Log.log(String.format(
-                        "Textra:Invalid language combination" + " for %s with source %s, and target %s on %s.",
-                        options.getModeName(),
-                        options.getSourceLang(),
-                        options.getTargetLang(),
-                        options.getProvider().name()));
-                return null;
-            }
-
-            String result = translate(sLang, tLang, text);
-            if (result != null) {
-                putToCache(sLang, tLang, text, result);
-            }
-            return result;
-        } else {
-            return null;
-        }
     }
 }

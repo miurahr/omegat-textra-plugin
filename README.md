@@ -1,6 +1,6 @@
 # NICT TexTra Machine Translation API plugin for OmegaT
 
-This is an implementation of OmegaT plugin which support NICT TexTra Machine Translation API which are
+This is an implementation of OmegaT plugin which supports NICT TexTra Machine Translation API which is 
 provided by NiCT for non-profit and OSS translations, and Kawamura-International for Business translations.
 
 * [日本語の利用方法の説明](https://github.com/miurahr/omegat-textra-plugin/wiki/%E5%88%A9%E7%94%A8%E6%96%B9%E6%B3%95)
@@ -12,7 +12,8 @@ you may be interested in [MT plugin for OmegaT](https://codeberg.org/miurahr/ome
 
 ## NEWS
 
-- **04, Feb. 2023** - **Version 2023.1.0** - Update http access code, Jackson 2.13.4
+- **23, Apr. 2023** - **Version 2023.2.0** - Support OmegaT 5.8 and later, and drop support 5.7.1 and before.
+- **04, Feb. 2023** - **Version 2023.1.0** - Update http access code, Jackson 2.13.4. Last version that supports OmegaT 4.3.3.
 - **04, Aug. 2022** - **Version 2022.2.3** - Update JSON response parser.
 - **25, May, 2022** - **Version 2022.2.1** - Fix korean language code.
 - **23, Apr. 2022** - **Version 2022.2.0** - Credentials check button on an option dialog, Jackson 2.13.3 
@@ -34,7 +35,7 @@ You can enable the plugin using **Options > Preferences... > Machine Translation
 After enables configurations, it is necessary to configure TexTra username, API key and secret
 on a dialog shown when pushing **Configure** button
 
-The information can be obtained from a link shown on the dialog. 
+The information can be obtained from a link shown in the dialog. 
 After configured, suggestions will appear in the Machine Translation pane automatically.
 
 ### Windows
@@ -47,7 +48,7 @@ Windows 10: C:\Users<username>\AppData\Roaming\OmegaT
 ### Mac OS X
 
 On OS X you are recommended to install the plugin to /Users//Library/Preferences/OmegaT/plugins.
- The Library folder in your home directory may be hidden ; to access it from the Finder,
+ The Library folder in your home directory may be hidden; to access it from the Finder,
 select Go > Go to Folder from the main menu and enter ~/Library/Preferences/OmegaT/plugins.
 
 ### Linux & BSD
@@ -57,14 +58,14 @@ installed (alongside OmegaT.jar) or to ~/.omegat/plugins.
 
 ## TexTra Terms and API key
 
-You need to agree NICT TexTra Service terms  and  get an account (username, api key and api secret)
+You need to agree NICT TexTra Service terms and get an account (username, api key and api secret)
 to use this plugin with OmegaT. The terms show at
 https://mt-auto-minhon-mlt.ucri.jgn-x.jp/content/policy/
 
 ## TexTra TLS certification
 
 NICT TexTra uses Starfield G2 certificate for their https communication.
-Java8 does not includes its root certificate as trusted one.
+Java8 does not include its root certificate as trusted one.
 You may need to import its certification as trusted one from Java application.
 
 - Java 11.0.3 (Apr. 16, 2019) include the certification.
@@ -78,7 +79,7 @@ To download certification, please go to;
 `https://certs.secureserver.net/repository/`
 and download `sfroot-g2.crt`
 
-then import a cert, for example on  Mac:
+then import a cert, for example, on Mac:
 
 ```
 sudo keytool -importcert -trustcacerts -file sfroot-g2.crt -keystore /Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/security/cacerts -alias starfield-g2 -storepass changeit
