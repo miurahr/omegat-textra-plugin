@@ -22,12 +22,12 @@ if (getVersionDetails().isCleanTag) {
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(8))
+        languageVersion.set(JavaLanguageVersion.of(11))
     }
 }
 
 omegat {
-    version = "5.8.0"
+    version = "6.0.0"
     pluginClass = "tokyo.northside.omegat.textra.OmegatTextraMachineTranslation"
 }
 
