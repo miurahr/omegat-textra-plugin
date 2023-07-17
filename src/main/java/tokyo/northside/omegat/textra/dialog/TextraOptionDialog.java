@@ -4,7 +4,7 @@ import java.awt.*;
 
 import javax.swing.*;
 
-import static tokyo.northside.omegat.textra.StringUtil.getString;
+import static tokyo.northside.omegat.textra.dialog.BundleMessageUtil.getString;
 
 public class TextraOptionDialog extends JDialog {
     JPanel contentPane;

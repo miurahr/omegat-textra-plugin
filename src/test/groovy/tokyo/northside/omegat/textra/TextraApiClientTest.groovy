@@ -122,6 +122,9 @@ class TextraApiClientTest {
         init(prefsFile.getAbsolutePath())
 
         // Define expectations
+        JsonNode json = mapper.readTree('{ "error": "incorrect_request", ' +
+                '"error_description": "The client_id and/or client_secret passed are incorrect.", ' +
+                '"error_uri": "/oauth-access-token-request-errors/#incorrect-request" }')
         WireMock wireMock = wireMockRuntimeInfo.getWireMock()
         wireMock.register(post(urlPathEqualTo(TOKEN_PATH))
                 .withHeader('Content-Type', containing('application/x-www-form-urlencoded'))
@@ -129,9 +132,9 @@ class TextraApiClientTest {
                 .withRequestBody(containing("client_secret=" + SECRET))
                 .withRequestBody(containing("grant_type=client_credentials"))
                 .willReturn(aResponse()
-                        .withStatus(200)
+                        .withStatus(400)
                         .withHeader("Content-Type", "application/json")
-                        .withBody('{"response_type":"unauthorized_client", "error_description":"Error"}')
+                        .withJsonBody(json)
                 )
         )
 
@@ -203,7 +206,7 @@ class TextraApiClientTest {
         Exception exc = Assertions.assertThrows(Exception.class, () -> {
             client.executeTranslation(options, SOURCE_TEXT)
         })
-        assertEquals("500 API key error", exc.getMessage())
+        assertEquals("500 " + ErrorMessages.messages.get(500), exc.getMessage())
     }
 
     /**
