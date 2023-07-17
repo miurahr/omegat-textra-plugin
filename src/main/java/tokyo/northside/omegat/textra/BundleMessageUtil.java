@@ -5,7 +5,7 @@ import java.util.ResourceBundle;
 public final class BundleMessageUtil {
 
     private static final int[] ERROR_NUMS = {
-        500, 501, 502, 503, 504, 505, 510, 511, 520, 521, 522, 523, 524, 525, 530, 531, 533
+        500, 501, 502, 503, 504, 505, 510, 511, 520, 521, 522, 523, 524, 525, 530, 531, 532, 533
     };
 
     private BundleMessageUtil() {}
