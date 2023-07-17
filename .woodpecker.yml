@@ -1,6 +1,10 @@
+when:
+  - event: pull_request
+  - event: push
+    branch: [ main, releases/* ]
 
-clone:
-  git:
+steps:
+  clone:
     image: woodpeckerci/plugin-git
     settings:
       partial: false
@@ -8,17 +12,6 @@ clone:
       lfs: false
       tags: true
 
-pipeline:
-  build:
-    image: adoptopenjdk/openjdk11:alpine
-    commands: ./gradlew --no-daemon clean build
-    when:
-      event: push
-      branch: main
-
   check:
     image: adoptopenjdk/openjdk11:alpine
     commands: ./gradlew --no-daemon clean check
-    when:
-      event: pull_request
-      branch: main
