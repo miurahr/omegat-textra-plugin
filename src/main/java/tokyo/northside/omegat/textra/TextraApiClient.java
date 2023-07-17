@@ -19,9 +19,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 public class TextraApiClient {
     public static final String BASE_URL = "https://mt-auto-minhon-mlt.ucri.jgn-x.jp";
-    private static final String API_URL = "https://mt-auto-minhon-mlt.ucri.jgn-x.jp/api/mt/";
     public static final String KI_BASE_URL = "https://minna-mt.k-intl.jp";
-    private static final String KI_API_URL = "https://minna-mt.k-intl.jp/api/mt/";
+    private static final String API_URL_PREFIX = "/api/mt/";
 
     private final ObjectMapper mapper;
 
@@ -41,7 +40,7 @@ public class TextraApiClient {
     }
 
     private static String getToken(String authUrl, String apiKey, String apiSecret) throws IOException {
-        Map<String, String> postParameters = new HashMap<>(3);
+        Map<String, String> postParameters = new LinkedHashMap<>(3);
         postParameters.put("grant_type", "client_credentials");
         postParameters.put("client_id", apiKey);
         postParameters.put("client_secret", apiSecret);
@@ -124,16 +123,8 @@ public class TextraApiClient {
     }
 
     private static String getAccessUrl(final TextraOptions options) {
-        String apiUrl;
         String apiEngine = getApiEngine(options);
-        if (options.isServer(TextraOptions.Provider.nict)) {
-            apiUrl = API_URL + apiEngine + "_" + options.getSourceLang() + "_" + options.getTargetLang() + "/";
-        } else if (options.isServer(TextraOptions.Provider.minna_personal)) {
-            apiUrl = KI_API_URL + apiEngine + "_" + options.getSourceLang() + "_" + options.getTargetLang() + "/";
-        } else {
-            apiUrl = API_URL + apiEngine + "_" + options.getSourceLang() + "_" + options.getTargetLang() + "/";
-        }
-        return apiUrl;
+        return options.getBaseUrl() + API_URL_PREFIX + apiEngine + "_" + options.getSourceLang() + "_" + options.getTargetLang() + "/";
     }
 
     private static String getApiEngine(TextraOptions options) {

@@ -48,7 +48,7 @@ public class OmegatTextraMachineTranslation extends BaseCachedTranslate implemen
     /**
      * Preparation for OmegaT Menu.
      */
-    private static final String OPTION_ALLOW_TEXTRA_TRANSLATE = "allow_textra_translate";
+    public static final String OPTION_ALLOW_TEXTRA_TRANSLATE = "allow_textra_translate";
 
     private static final String OPTION_TEXTRA_USERNAME = "mt_textra_username";
     private static final String OPTION_TEXTRA_APIKEY = "mt_textra_apikey";

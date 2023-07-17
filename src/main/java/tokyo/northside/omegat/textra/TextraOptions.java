@@ -26,6 +26,8 @@ public class TextraOptions {
 
     private boolean changed;
 
+    private String baseUrl = null;
+
     public TextraOptions(
             final Provider provider,
             final String username,
@@ -52,7 +54,15 @@ public class TextraOptions {
      * Dummy constructor for test.
      */
     public TextraOptions() throws IOException {
+        this(null);
+    }
+
+    /**
+     * Dummy constructor for test.
+     */
+    public TextraOptions(String baseUrl) throws IOException {
         this(Provider.nict, "", "", "", null, Mode.generalNT, null);
+        this.baseUrl = baseUrl;
     }
 
     public void saveCredentials() {
@@ -319,13 +329,16 @@ public class TextraOptions {
     }
 
     public String getBaseUrl() {
-        if (getProvider().equals(Provider.nict)) {
-            return TextraApiClient.BASE_URL;
-        } else if (getProvider().equals(Provider.minna_personal)) {
-            return TextraApiClient.KI_BASE_URL;
-        } else {
-            return TextraApiClient.BASE_URL;
+        if (baseUrl == null) {
+            if (getProvider().equals(Provider.nict)) {
+                baseUrl = TextraApiClient.BASE_URL;
+            } else if (getProvider().equals(Provider.minna_personal)) {
+                baseUrl = TextraApiClient.KI_BASE_URL;
+            } else {
+                baseUrl = TextraApiClient.BASE_URL;
+            }
         }
+        return baseUrl;
     }
 
     public boolean isChanged() {
