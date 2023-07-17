@@ -14,7 +14,7 @@ import javax.swing.KeyStroke;
 import org.apache.commons.lang.StringUtils;
 
 import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
-import static tokyo.northside.omegat.textra.dialog.BundleMessageUtil.getString;
+import static tokyo.northside.omegat.textra.BundleMessageUtil.getString;
 
 public class TextraOptionDialogController {
 

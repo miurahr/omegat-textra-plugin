@@ -112,8 +112,9 @@ public class TextraApiClient {
         }
         if (root.resultset.code != 0 || root.resultset.result == null) {
             String message;
-            if (ErrorMessages.messages.get(root.resultset.code) != null) {
-                message = String.format("%d %s", root.resultset.code, ErrorMessages.messages.get(root.resultset.code));
+            if (BundleMessageUtil.hasErrorMessage(root.resultset.code)) {
+                message = String.format(
+                        "%d %s", root.resultset.code, BundleMessageUtil.getErrorMessage(root.resultset.code));
             } else {
                 message = String.format("%d %s", root.resultset.code, root.resultset.message);
             }

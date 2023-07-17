@@ -42,6 +42,27 @@ class TextraApiClientTest {
     private static final String SOURCE_LANGUAGE = 'en'
     private static final String TARGET_LANGUAGE = 'ja'
 
+    public static final Map<Integer, String> ERROR_MESSAGES = new HashMap<>()
+
+    static {
+        ERROR_MESSAGES.put(500, "API key error")
+        ERROR_MESSAGES.put(501, "name error")
+        ERROR_MESSAGES.put(502, "Request limit error(daily)")
+        ERROR_MESSAGES.put(504, "Request limit error(minutes)")
+        ERROR_MESSAGES.put(505, "Request limit error(concurrent)")
+        ERROR_MESSAGES.put(510, "OAuth authentication error")
+        ERROR_MESSAGES.put(511, "OAuth header error")
+        ERROR_MESSAGES.put(520, "Access URL error")
+        ERROR_MESSAGES.put(521, "Access URL error")
+        ERROR_MESSAGES.put(522, "Request key error")
+        ERROR_MESSAGES.put(523, "Request name error")
+        ERROR_MESSAGES.put(524, "Request parameter error")
+        ERROR_MESSAGES.put(525, "Request parameter error(maximum size exceeded)")
+        ERROR_MESSAGES.put(530, "Authorization error")
+        ERROR_MESSAGES.put(531, "Execution error")
+        ERROR_MESSAGES.put(533, "No data")
+    }
+
     @BeforeAll
     static final void setUpCore() throws Exception {
         tmpDir = Files.createTempDirectory("omegat").toFile()
@@ -121,7 +142,7 @@ class TextraApiClientTest {
         Exception exc = Assertions.assertThrows(Exception.class, () -> {
             client.executeTranslation(options, SOURCE_TEXT)
         })
-        assertEquals("500 " + ErrorMessages.messages.get(500), exc.getMessage())
+        assertEquals("500 " + BundleMessageUtil.getErrorMessage(500), exc.getMessage())
     }
 
     @Test
@@ -138,13 +159,13 @@ class TextraApiClientTest {
         Exception exc = Assertions.assertThrows(Exception.class, () -> {
             client.executeTranslation(options, SOURCE_TEXT)
         })
-        assertEquals("502 " + ErrorMessages.messages.get(502), exc.getMessage())
+        assertEquals("502 " + BundleMessageUtil.getErrorMessage(502), exc.getMessage())
     }
 
     // Utility methods
     static private JsonNode prepareExpectation(int code) {
         return mapper.readTree('{ "resultset": {"code": ' + code.toString() +
-                ', "message": "' + ErrorMessages.messages.get(code) + '"}}')
+                ', "message": "' + ERROR_MESSAGES.get(code) + '"}}')
     }
 
     static private TextraOptions getTextraOptions(int port) {
