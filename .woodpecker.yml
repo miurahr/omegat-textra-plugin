@@ -3,8 +3,8 @@ when:
   - event: push
     branch: [ main, releases/* ]
 
-steps:
-  clone:
+clone:
+  git:
     image: woodpeckerci/plugin-git
     settings:
       partial: false
@@ -12,6 +12,7 @@ steps:
       lfs: false
       tags: true
 
+steps:
   check:
     image: adoptopenjdk/openjdk11:alpine
     commands: ./gradlew --no-daemon clean check
