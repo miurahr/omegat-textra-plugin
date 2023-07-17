@@ -127,7 +127,8 @@ public class TextraApiClient {
 
     private static String getAccessUrl(final TextraOptions options) {
         String apiEngine = getApiEngine(options);
-        return options.getBaseUrl() + API_URL_PREFIX + apiEngine + "_" + options.getSourceLang() + "_" + options.getTargetLang() + "/";
+        return options.getBaseUrl() + API_URL_PREFIX + apiEngine + "_" + options.getSourceLang() + "_"
+                + options.getTargetLang() + "/";
     }
 
     private static String getApiEngine(TextraOptions options) {
