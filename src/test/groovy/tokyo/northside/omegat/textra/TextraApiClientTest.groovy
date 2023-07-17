@@ -3,8 +3,7 @@ package tokyo.northside.omegat.textra
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.github.tomakehurst.wiremock.client.WireMock
-import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
-import com.github.tomakehurst.wiremock.matching.StringValuePattern
+import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
 import com.github.tomakehurst.wiremock.junit5.WireMockTest
 import org.apache.commons.io.FileUtils
 
@@ -24,7 +23,6 @@ import static org.junit.Assert.*
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse
 import static com.github.tomakehurst.wiremock.client.WireMock.containing
-import static com.github.tomakehurst.wiremock.client.WireMock.equalTo
 import static com.github.tomakehurst.wiremock.client.WireMock.post
 import static com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo
 
@@ -32,17 +30,26 @@ import static com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo
 @WireMockTest
 class TextraApiClientTest {
 
-    private static File tmpDir;
+    private static File tmpDir
     private static final ObjectMapper mapper = new ObjectMapper()
+
+    private static final String USERNAME = 'username'
+    private static final String API_KEY = '329033940ADEF'
+    private static final String SECRET = '9B3ABC1234ABDD'
+    private static final String SOURCE_TEXT = 'source text'
+    private static final String TARGET_TEXT = 'Hello World!'
+    private static final String TOKEN_PATH = '/oauth2/token.php'
+    private static final String SOURCE_LANGUAGE = 'en'
+    private static final String TARGET_LANGUAGE = 'ja'
 
     @BeforeAll
     static final void setUpCore() throws Exception {
-        tmpDir = Files.createTempDirectory("omegat").toFile();
+        tmpDir = Files.createTempDirectory("omegat").toFile()
     }
 
     @AfterAll
     static final void tearDownCore() throws Exception {
-        FileUtils.deleteDirectory(tmpDir);
+        FileUtils.deleteDirectory(tmpDir)
     }
 
     @Test
@@ -55,39 +62,33 @@ class TextraApiClientTest {
 
     @Test
     void testResponse(WireMockRuntimeInfo wireMockRuntimeInfo) {
-        File prefsFile = new File(tmpDir, Preferences.FILE_PREFERENCES);
-        Preferences.IPreferences prefs = new PreferencesImpl(new PreferencesXML(null, prefsFile));
+        File prefsFile = new File(tmpDir, Preferences.FILE_PREFERENCES)
+        Preferences.IPreferences prefs = new PreferencesImpl(new PreferencesXML(null, prefsFile))
         prefs.setPreference(OmegatTextraMachineTranslation.OPTION_ALLOW_TEXTRA_TRANSLATE, true)
         init(prefsFile.getAbsolutePath())
 
-        String username = 'username'
-        String apiKey = '329033940ADEF'
-        String secret = '9B3ABC1234ABDD'
-        String sourceText = 'source text'
-        String targetText = 'Hello World!'
-        String tokenPath = '/oauth2/token.php'
         String engine = 'generalNT'
-        String sourceLanguage = 'en'
-        String targetLanguage = 'ja'
-        String apiParam = String.format("%s_%s_%s", engine, sourceLanguage, targetLanguage)
+        String apiParam = String.format("%s_%s_%s", engine, SOURCE_LANGUAGE, TARGET_LANGUAGE)
 
         // Define expectations
         WireMock wireMock = wireMockRuntimeInfo.getWireMock()
-        wireMock.register(post(urlPathEqualTo(tokenPath))
-                // .withHeader('Content-Type', equalTo('application/x-www-form-urlencoded'))
-                // .withRequestBody(containing("client_id=" + apiKey + "&client_secret=" + secret + "&grant_type=" + "client_credentials"))
+        wireMock.register(post(urlPathEqualTo(TOKEN_PATH))
+                .withHeader('Content-Type', containing('application/x-www-form-urlencoded'))
+                .withRequestBody(containing("client_id=" + API_KEY))
+                .withRequestBody(containing("client_secret=" + SECRET))
+                .withRequestBody(containing("grant_type=client_credentials"))
                 .willReturn(aResponse()
                         .withStatus(200)
                         .withHeader("Content-Type", "application/json")
                         .withBody('{"access_token":"MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3", "token_type":"Bearer", "expires_in":3600}')
                 )
         )
-        JsonNode expected = mapper.readTree('{ "resultset": { "result": { "text": "' + targetText + '", "code": 200, "message": ""} } }')
+        JsonNode expected = mapper.readTree('{ "resultset": { "code": 0, "message": "Succeeded", "result": { "blank": 0, "text": "' + TARGET_TEXT + '"} } }')
         WireMock.stubFor(post(urlPathEqualTo("/api/mt/" + apiParam + "/"))
-                .withRequestBody(containing("key=" + apiKey))
-                .withRequestBody(containing("name=" + username))
+                .withRequestBody(containing("key=" + API_KEY))
+                .withRequestBody(containing("name=" + USERNAME))
                 .withRequestBody(containing("type=json"))
-                .withRequestBody(containing("text=" + URLEncoder.encode(sourceText, StandardCharsets.UTF_8)))
+                .withRequestBody(containing("text=" + URLEncoder.encode(SOURCE_TEXT, StandardCharsets.UTF_8)))
                 .withRequestBody(containing("api_name=mt"))
                 .withRequestBody(containing("api_param=" + apiParam))
                 .withRequestBody(containing("access_token=MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3"))
@@ -102,15 +103,107 @@ class TextraApiClientTest {
         TextraApiClient client = new TextraApiClient()
         int port = wireMockRuntimeInfo.getHttpPort()
         String url = String.format("http://localhost:%d", port)
-        TextraOptions options = new TextraOptions(url);
-        options.setUsername(username)
-        options.setApikey(apiKey)
+        TextraOptions options = new TextraOptions(url)
+        options.setUsername(USERNAME)
+        options.setApikey(API_KEY)
         options.setLang("EN", "JA")
-        options.setSecret(secret)
+        options.setSecret(SECRET)
 
         // examine
-        String result = client.executeTranslation(options, sourceText);
-        assertEquals(targetText, result)
+        String result = client.executeTranslation(options, SOURCE_TEXT)
+        assertEquals(TARGET_TEXT, result)
+    }
+
+    @Test
+    void testAuthErrorResponse(WireMockRuntimeInfo wireMockRuntimeInfo) {
+        File prefsFile = new File(tmpDir, Preferences.FILE_PREFERENCES)
+        Preferences.IPreferences prefs = new PreferencesImpl(new PreferencesXML(null, prefsFile))
+        prefs.setPreference(OmegatTextraMachineTranslation.OPTION_ALLOW_TEXTRA_TRANSLATE, true)
+        init(prefsFile.getAbsolutePath())
+
+        // Define expectations
+        WireMock wireMock = wireMockRuntimeInfo.getWireMock()
+        wireMock.register(post(urlPathEqualTo(TOKEN_PATH))
+                .withHeader('Content-Type', containing('application/x-www-form-urlencoded'))
+                .withRequestBody(containing("client_id=" + API_KEY))
+                .withRequestBody(containing("client_secret=" + SECRET))
+                .withRequestBody(containing("grant_type=client_credentials"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withHeader("Content-Type", "application/json")
+                        .withBody('{"response_type":"unauthorized_client", "error_description":"Error"}')
+                )
+        )
+
+        // Create test instance
+        TextraApiClient client = new TextraApiClient()
+        int port = wireMockRuntimeInfo.getHttpPort()
+        String url = String.format("http://localhost:%d", port)
+        TextraOptions options = new TextraOptions(url)
+        options.setUsername(USERNAME)
+        options.setApikey(API_KEY)
+        options.setLang("EN", "JA")
+        options.setSecret(SECRET)
+
+        Exception exc = Assertions.assertThrows(Exception.class, () -> {
+            client.executeTranslation(options, SOURCE_TEXT)
+        })
+        assertEquals("Authentication error!", exc.getMessage())
+    }
+
+    @Test
+    void testApiKeyErrorResponse(WireMockRuntimeInfo wireMockRuntimeInfo) {
+        File prefsFile = new File(tmpDir, Preferences.FILE_PREFERENCES)
+        Preferences.IPreferences prefs = new PreferencesImpl(new PreferencesXML(null, prefsFile))
+        prefs.setPreference(OmegatTextraMachineTranslation.OPTION_ALLOW_TEXTRA_TRANSLATE, true)
+        init(prefsFile.getAbsolutePath())
+
+        String engine = 'generalNT'
+        String apiParam = String.format("%s_%s_%s", engine, SOURCE_LANGUAGE, TARGET_LANGUAGE)
+
+        // Define expectations
+        WireMock wireMock = wireMockRuntimeInfo.getWireMock()
+        wireMock.register(post(urlPathEqualTo(TOKEN_PATH))
+                .withHeader('Content-Type', containing('application/x-www-form-urlencoded'))
+                .withRequestBody(containing("client_id=" + API_KEY))
+                .withRequestBody(containing("client_secret=" + SECRET))
+                .withRequestBody(containing("grant_type=client_credentials"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withHeader("Content-Type", "application/json")
+                        .withBody('{"access_token":"MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3", "token_type":"Bearer", "expires_in":3600}')
+                )
+        )
+        JsonNode expected = mapper.readTree('{ "resultset": { "code": 500, "message": "API Key error" } }')
+        WireMock.stubFor(post(urlPathEqualTo("/api/mt/" + apiParam + "/"))
+                .withRequestBody(containing("key=" + API_KEY))
+                .withRequestBody(containing("name=" + USERNAME))
+                .withRequestBody(containing("type=json"))
+                .withRequestBody(containing("text=" + URLEncoder.encode(SOURCE_TEXT, StandardCharsets.UTF_8)))
+                .withRequestBody(containing("api_name=mt"))
+                .withRequestBody(containing("api_param=" + apiParam))
+                .withRequestBody(containing("access_token=MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withHeader("Content-Type", "application/json")
+                        .withJsonBody(expected)
+                )
+        )
+
+        // Create test instance
+        TextraApiClient client = new TextraApiClient()
+        int port = wireMockRuntimeInfo.getHttpPort()
+        String url = String.format("http://localhost:%d", port)
+        TextraOptions options = new TextraOptions(url)
+        options.setUsername(USERNAME)
+        options.setApikey(API_KEY)
+        options.setLang("EN", "JA")
+        options.setSecret(SECRET)
+
+        Exception exc = Assertions.assertThrows(Exception.class, () -> {
+            client.executeTranslation(options, SOURCE_TEXT)
+        })
+        assertEquals("500 API key error", exc.getMessage())
     }
 
     /**
@@ -118,9 +211,9 @@ class TextraApiClientTest {
      * @param configDir to create omegat.prefs.
      */
     static synchronized void init(String configDir) {
-        RuntimePreferences.setConfigDir(configDir);
-        Preferences.init();
-        Preferences.initFilters();
-        Preferences.initSegmentation();
+        RuntimePreferences.setConfigDir(configDir)
+        Preferences.init()
+        Preferences.initFilters()
+        Preferences.initSegmentation()
     }
 }

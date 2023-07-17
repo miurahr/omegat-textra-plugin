@@ -119,6 +119,9 @@ public class TextraApiClient {
             }
             throw new Exception(message);
         }
+        if (root.resultset.result.blank == 1) {
+            return "";
+        }
         return root.resultset.result.text;
     }
 
@@ -149,5 +152,6 @@ public class TextraApiClient {
     @JsonIgnoreProperties(ignoreUnknown = true)
     static class Result {
         public String text;
+        public int blank;
     }
 }
