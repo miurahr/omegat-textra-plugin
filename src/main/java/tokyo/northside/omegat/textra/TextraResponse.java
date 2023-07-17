@@ -16,6 +16,7 @@ class TextraResponse {
         public int code;
         public String message;
         public Request request;
+        public Information information;
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -36,5 +37,29 @@ class TextraResponse {
         public String log_use;
         public String editor_use;
         public String data;
+    }
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    static class Information {
+        @JsonProperty("text-s")
+        String sourceText;
+
+        @JsonProperty("text-t")
+        String targetText;
+    }
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    static class Sentence {
+        @JsonProperty("item")
+        SentenceItem item;
+    }
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    static class SentenceItem {
+        @JsonProperty("text-s")
+        String sourceText;
+
+        @JsonProperty("text-t")
+        String targetText;
     }
 }
