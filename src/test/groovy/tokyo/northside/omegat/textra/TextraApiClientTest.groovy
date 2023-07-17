@@ -200,6 +200,7 @@ class TextraApiClientTest {
                 .withRequestBody(containing("name=" + USERNAME))
                 .withRequestBody(containing("type=json"))
                 .withRequestBody(containing("text=" + URLEncoder.encode(SOURCE_TEXT, StandardCharsets.UTF_8)))
+                .withRequestBody(containing("xml=2"))
                 .withRequestBody(containing("api_name=mt"))
                 .withRequestBody(containing("api_param=" + apiParam))
                 .withRequestBody(containing("access_token=MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3"))

@@ -15,11 +15,26 @@ class TextraResponse {
         public Result result;
         public int code;
         public String message;
+        public Request request;
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     static class Result {
         public String text;
         public int blank;
+    }
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    static class Request {
+        public String url;
+        public String text;
+        public String split;
+        public String history;
+        public String xml;
+        public String term_id;
+        public String bilingual_id;
+        public String log_use;
+        public String editor_use;
+        public String data;
     }
 }

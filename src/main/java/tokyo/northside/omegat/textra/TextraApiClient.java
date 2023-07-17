@@ -93,6 +93,7 @@ public class TextraApiClient {
         postParameters.put("name", apiUsername);
         postParameters.put("type", "json");
         postParameters.put("text", text);
+        postParameters.put("xml", "2"); // handle tags
         postParameters.put("access_token", accessToken);
         postParameters.put("api_name", "mt");
         postParameters.put("api_param", api_param);
