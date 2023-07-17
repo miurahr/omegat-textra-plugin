@@ -88,7 +88,10 @@ class TextraApiClientTest {
         prefs.setPreference(OmegatTextraMachineTranslation.OPTION_ALLOW_TEXTRA_TRANSLATE, true)
         init(prefsFile.getAbsolutePath())
 
-        JsonNode expected = mapper.readTree('{ "resultset": { "code": 0, "message": "Succeeded", "result": { "blank": 0, "text": "' + TARGET_TEXT + '"} } }')
+        JsonNode expected = mapper.readTree('{ "resultset": { "code": 0, "message": "", "result": { "blank": "0", "text": "' +
+                TARGET_TEXT + '"}, "request": { "url": "https://mt-auto-minhon-mlt.ucri.jgn-x.jp/api/mt/generalNT_en_ja/", "text": "' +
+                SOURCE_TEXT + '", "split": 0, "history": 0, "xml": 2 }, "information": { "text-s": "' + SOURCE_TEXT + '", "text-t": "' +
+                TARGET_TEXT + '" } } }')
         setWireMockExpectations(wireMockRuntimeInfo, expected)
         TextraApiClient client = new TextraApiClient()
         TextraOptions options = getTextraOptions(wireMockRuntimeInfo.getHttpPort())
