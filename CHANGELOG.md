@@ -3,6 +3,14 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Chnaged
+- Drop support for OmegaT 5.8.0 and before
+- Bump a base OmegaT version to OmegaT 6.0.0
+- Add communication test with WireMock test library
+- Internationalize error messages
+- Add Japanese translation of error messages
+
+
 ## [2023.2.0] - 2023-04-23
 
 - Generate checksums and signing of distribution.

@@ -5,10 +5,10 @@ import org.omegat.util.HttpConnectionUtils;
 import java.io.IOException;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -93,6 +93,7 @@ public class TextraApiClient {
         postParameters.put("name", apiUsername);
         postParameters.put("type", "json");
         postParameters.put("text", text);
+        postParameters.put("xml", "2"); // handle tags
         postParameters.put("access_token", accessToken);
         postParameters.put("api_name", "mt");
         postParameters.put("api_param", api_param);
@@ -106,14 +107,15 @@ public class TextraApiClient {
     }
 
     protected String parseResponse(String response) throws Exception {
-        Root root = mapper.readValue(response, Root.class);
+        TextraResponse root = mapper.readValue(response, TextraResponse.class);
         if (root == null || root.resultset == null) {
             return null;
         }
         if (root.resultset.code != 0 || root.resultset.result == null) {
             String message;
-            if (ErrorMessages.messages.get(root.resultset.code) != null) {
-                message = String.format("%d %s", root.resultset.code, ErrorMessages.messages.get(root.resultset.code));
+            if (BundleMessageUtil.hasErrorMessage(root.resultset.code)) {
+                message = String.format(
+                        "%d %s", root.resultset.code, BundleMessageUtil.getErrorMessage(root.resultset.code));
             } else {
                 message = String.format("%d %s", root.resultset.code, root.resultset.message);
             }
@@ -136,23 +138,5 @@ public class TextraApiClient {
             return options.getCustomId();
         }
         return options.getModeName().replace("_", "-");
-    }
-
-    static class Root {
-        @JsonProperty("resultset")
-        public ResultSet resultset;
-    }
-
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    static class ResultSet {
-        public Result result;
-        public int code;
-        public String message;
-    }
-
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    static class Result {
-        public String text;
-        public int blank;
     }
 }
