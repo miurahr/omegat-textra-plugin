@@ -30,7 +30,7 @@ dependencies {
     packIntoJar("oauth.signpost:signpost-commonshttp4:2.1.1")
     packIntoJar("org.apache.httpcomponents:httpclient:4.5.13")
     packIntoJar("com.fasterxml.jackson.core:jackson-core:2.13.3")
-    packIntoJar("com.fasterxml.jackson.core:jackson-databind:2.13.3")
+    packIntoJar("com.fasterxml.jackson.core:jackson-databind:2.15.2")
     implementation("commons-io:commons-io:2.11.0")
     implementation("commons-lang:commons-lang:2.6")
     testImplementation("commons-io:commons-io:2.11.0")
