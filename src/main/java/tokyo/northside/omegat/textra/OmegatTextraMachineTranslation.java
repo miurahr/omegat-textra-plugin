@@ -1,22 +1,22 @@
-/**************************************************************************
- * TexTra Machine Translation plugin for OmegaT(http://www.omegat.org/)
- *
- * Copyright 2016-2023  Hiroshi Miura
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- **************************************************************************/
+/*
+  TexTra Machine Translation plugin for OmegaT(http://www.omegat.org/)
+
+  Copyright 2016-2023  Hiroshi Miura
+
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program; if not, write to the Free Software
+  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
+*/
 package tokyo.northside.omegat.textra;
 
 import org.omegat.core.Core;
@@ -41,7 +41,6 @@ import static tokyo.northside.omegat.textra.TextraOptions.Mode.generalNT;
  * @author Hiroshi Miura
  */
 public class OmegatTextraMachineTranslation extends BaseCachedTranslate implements IMachineTranslation {
-    protected TextraOptions options;
 
     protected TextraApiClient client;
 
@@ -59,18 +58,10 @@ public class OmegatTextraMachineTranslation extends BaseCachedTranslate implemen
     private static final String MENU_TEXTRA = "TexTra Powered by NICT";
 
     /**
-     * Construct options.
+     * Constructor.
      */
-    public OmegatTextraMachineTranslation() throws IOException {
+    public OmegatTextraMachineTranslation() {
         super();
-        options = new TextraOptions(
-                Preferences.getPreferenceEnumDefault(OPTION_TEXTRA_SERVER, TextraOptions.Provider.nict),
-                getCredential(OPTION_TEXTRA_USERNAME),
-                getCredential(OPTION_TEXTRA_APIKEY),
-                getCredential(OPTION_TEXTRA_SECRET),
-                Preferences.getPreferenceDefault(OPTION_TEXTRA_CUSTOM_ID, null),
-                Preferences.getPreferenceEnumDefault(OPTION_TEXTRA_TRANSLATE_MODE, generalNT),
-                this);
         enabled = Preferences.isPreferenceDefault(OPTION_ALLOW_TEXTRA_TRANSLATE, true);
         if (enabled) {
             Log.log("Textra Machine Translation plugin enabled.");
@@ -110,7 +101,11 @@ public class OmegatTextraMachineTranslation extends BaseCachedTranslate implemen
 
     @Override
     public void showConfigurationUI(final Window parent) {
-        TextraOptionDialogController.show(parent, options);
+        try {
+            TextraOptionDialogController.show(parent, getOptions());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -152,6 +147,7 @@ public class OmegatTextraMachineTranslation extends BaseCachedTranslate implemen
             return null;
         }
         // Set TexTra access options
+        TextraOptions options = getOptions();
         options.setLang(sLang, tLang);
         if (!options.isCombinationValid()) {
             Log.log(String.format(
@@ -165,7 +161,8 @@ public class OmegatTextraMachineTranslation extends BaseCachedTranslate implemen
         return client.executeTranslation(options, text);
     }
 
-    protected boolean checkConfig() {
+    protected boolean checkConfig() throws IOException {
+        TextraOptions options = getOptions();
         String apiUsername = options.getUsername();
         String apiKey = options.getApikey();
         String apiSecret = options.getSecret();
@@ -180,5 +177,21 @@ public class OmegatTextraMachineTranslation extends BaseCachedTranslate implemen
             return false;
         }
         return true;
+    }
+
+    private TextraOptions textraOptions;
+
+    private synchronized TextraOptions getOptions() throws IOException {
+        if (textraOptions == null) {
+            textraOptions = new TextraOptions(
+                    Preferences.getPreferenceEnumDefault(OPTION_TEXTRA_SERVER, TextraOptions.Provider.nict),
+                    getCredential(OPTION_TEXTRA_USERNAME),
+                    getCredential(OPTION_TEXTRA_APIKEY),
+                    getCredential(OPTION_TEXTRA_SECRET),
+                    Preferences.getPreferenceDefault(OPTION_TEXTRA_CUSTOM_ID, null),
+                    Preferences.getPreferenceEnumDefault(OPTION_TEXTRA_TRANSLATE_MODE, generalNT),
+                    this);
+        }
+        return textraOptions;
     }
 }
