@@ -3,7 +3,15 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
-### Chnaged
+## [2023.3.0] - 2023-12-14
+
+### Fixed
+- Avoid asking master password when starting OmegaT
+
+### Added
+- Handle XML tags in source text
+
+### Changed
 - Drop support for OmegaT 5.8.0 and before
 - Bump a base OmegaT version to OmegaT 6.0.0
 - Add communication test with WireMock test library
@@ -267,7 +275,8 @@ Incompatible change:
 - Start project.
 
 
-[Unreleased]: https://codeberg.org/miurahr/omegat-textra-plugin/compare/v2023.2.0...HEAD
+[Unreleased]: https://codeberg.org/miurahr/omegat-textra-plugin/compare/v2023.3.0...HEAD
+[2023.3.0]: https://codeberg.org/miurahr/omegat-textra-plugin/compare/v2023.2.0...v2023.3.0
 [2023.2.0]: https://codeberg.org/miurahr/omegat-textra-plugin/compare/v2023.1.0...v2023.2.0
 [2023.1.0]: https://codeberg.org/miurahr/omegat-textra-plugin/compare/v2022.2.3...v2023.1.0
 [2022.2.3]: https://codeberg.org/miurahr/omegat-textra-plugin/compare/v2022.2.2...v2022.2.3
