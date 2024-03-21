@@ -1,15 +1,15 @@
 package tokyo.northside.omegat.textra.dialog;
 
+import org.omegat.util.gui.DelegatingComboBoxRenderer;
+
 import tokyo.northside.omegat.textra.TextraApiClient;
 import tokyo.northside.omegat.textra.TextraOptions;
+import tokyo.northside.omegat.textra.TextraOptionsFactory;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 
-import javax.swing.JComponent;
-import javax.swing.KeyStroke;
+import javax.swing.*;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -18,16 +18,49 @@ import static tokyo.northside.omegat.textra.BundleMessageUtil.getString;
 
 public class TextraOptionDialogController {
 
-    private TextraOptionDialogController() {}
+    private static final String CUSTOM = "custom";
+    private static final String CUSTOM_ID_HINT_KEY = "CustomIdHint";
+    private static final String API_KEY_HINT_KEY = "ApiKeyHint";
+    private static final String API_SECRET_HINT_KEY = "ApiSecretHint";
+    private TextraOptionsFactory factory;
 
-    public static void show(Window parent, TextraOptions options) {
-        TextraOptionDialog dialog = new TextraOptionDialog(parent);
+    public TextraOptionDialogController() {}
+
+    public void show(Window parent, TextraOptionsFactory textraOptionsFactory, TextraOptions options) {
+        TextraOptionDialog dialog = new TextraOptionDialog(parent, textraOptionsFactory);
         dialog.setModal(true);
         setOptions(dialog, options);
         dialog.getRootPane().setDefaultButton(dialog.buttonOK);
-        GhostTextHandler.register(dialog.customIdTextField, getString("CustomIdHint"));
-        GhostTextHandler.register(dialog.apikeyField, getString("ApiKeyHint"));
-        GhostTextHandler.register(dialog.secretField, getString("ApiSecretHint"));
+        GhostTextHandler.register(dialog.customIdTextField, getString(CUSTOM_ID_HINT_KEY));
+        GhostTextHandler.register(dialog.apikeyField, getString(API_KEY_HINT_KEY));
+        GhostTextHandler.register(dialog.secretField, getString(API_SECRET_HINT_KEY));
+        factory = textraOptionsFactory;
+
+        dialog.providerComboBox.setModel(new DefaultComboBoxModel<>(textraOptionsFactory.getServices()));
+        dialog.providerComboBox.setRenderer(new DelegatingComboBoxRenderer<String, String>() {
+            @Override
+            protected String getDisplayText(String s) {
+                return textraOptionsFactory.getName(s);
+            }
+        });
+        String defaultProvider = textraOptionsFactory.getServices()[0];
+        dialog.modeComboBox.setModel(new DefaultComboBoxModel<>(textraOptionsFactory.getModes(defaultProvider)));
+        dialog.modeComboBox.setRenderer(new DelegatingComboBoxRenderer<String, String>() {
+            @Override
+            protected String getDisplayText(String s) {
+                return textraOptionsFactory.getName(s);
+            }
+        });
+        dialog.providerComboBox.setSelectedItem(defaultProvider);
+        dialog.providerComboBox.addActionListener(itemEvent -> {
+            if (itemEvent == null) {
+                return;
+            }
+            String v = (String) dialog.providerComboBox.getSelectedItem();
+            if (v != null) {
+                dialog.modeComboBox.setModel(new DefaultComboBoxModel<>(textraOptionsFactory.getModes(v)));
+            }
+        });
 
         dialog.buttonOK.addActionListener(e -> {
             onOK(dialog, options);
@@ -80,18 +113,7 @@ public class TextraOptionDialogController {
      *
      * @param data option data.
      */
-    private static void setOptions(TextraOptionDialog dialog, final TextraOptions data) {
-        switch (data.getProvider()) {
-            case nict:
-                dialog.nictRadioButton.setSelected(true);
-                break;
-            case minna_personal:
-                dialog.kiRadioButton.setSelected(true);
-                break;
-            default:
-                dialog.nictRadioButton.setSelected(true);
-                break;
-        }
+    private void setOptions(TextraOptionDialog dialog, final TextraOptions data) {
         dialog.usernameField.setText(data.getUsername());
         dialog.apikeyField.setText(data.getApikey());
         dialog.secretField.setText(data.getSecret());
@@ -99,73 +121,30 @@ public class TextraOptionDialogController {
         if (custom != null) {
             dialog.customIdTextField.setText(custom);
         }
-        switch (data.getMode()) {
-            case generalNT:
-                dialog.generalNTModeRadioButton.setSelected(true);
-                break;
-            case minnaNT:
-                dialog.minnaNTModeRadioButton.setSelected(true);
-                break;
-            case patentNT:
-                dialog.patentNTModeRadioButton.setSelected(true);
-                break;
-            case voicetraNT:
-                dialog.voiceTraTaiwaNTModeRadioButton.setSelected(true);
-                break;
-            case fsaNT:
-                dialog.financeNTModeRadioButton.setSelected(true);
-                break;
-            case custom:
-                dialog.customRadioButton.setSelected(true);
-                break;
-            default:
-                dialog.generalNTModeRadioButton.setSelected(true);
-                break;
-        }
+        dialog.providerComboBox.setSelectedItem(data.getProvider());
+        dialog.modeComboBox.setSelectedItem(data.getMode());
     }
 
-    private static void onOK(TextraOptionDialog dialog, final TextraOptions options) {
-        if (dialog.nictRadioButton.isSelected()) {
-            options.setProvider(TextraOptions.Provider.nict);
-        } else if (dialog.kiRadioButton.isSelected()) {
-            options.setProvider(TextraOptions.Provider.minna_personal);
-        } else {
-            options.setProvider(TextraOptions.Provider.nict);
-        }
+    private void onOK(TextraOptionDialog dialog, final TextraOptions options) {
+        String provider = (String) dialog.providerComboBox.getSelectedItem();
+        options.setProvider(provider);
         options.setUsername(dialog.usernameField.getText());
         options.setApikey(dialog.apikeyField.getText());
         options.setSecret(dialog.secretField.getText());
-        if (dialog.generalNTModeRadioButton.isSelected()) {
-            options.setMode(TextraOptions.Mode.generalNT);
-        } else if (dialog.minnaNTModeRadioButton.isSelected()) {
-            options.setMode(TextraOptions.Mode.minnaNT);
-        } else if (dialog.patentNTModeRadioButton.isSelected()) {
-            options.setMode(TextraOptions.Mode.patentNT);
-        } else if (dialog.financeNTModeRadioButton.isSelected()) {
-            options.setMode(TextraOptions.Mode.fsaNT);
-        } else if (dialog.voiceTraTaiwaNTModeRadioButton.isSelected()) {
-            options.setMode(TextraOptions.Mode.voicetraNT);
-        } else if (dialog.customRadioButton.isSelected()) {
+        String mode = (String) dialog.modeComboBox.getSelectedItem();
+        options.setMode(mode);
+        if (CUSTOM.equals(mode)) {
             String enteredCustomId = dialog.customIdTextField.getText();
-            options.setMode(TextraOptions.Mode.custom);
             options.setCustomId(enteredCustomId);
-        } else {
-            options.setMode(TextraOptions.Mode.generalNT);
         }
         options.saveCredentials();
     }
 
-    private static String getAuthUrl(TextraOptionDialog dialog) {
+    private String getAuthUrl(TextraOptionDialog dialog) {
         return getBaseUrl(dialog) + "/oauth2/token.php";
     }
 
-    private static String getBaseUrl(TextraOptionDialog dialog) {
-        if (dialog.nictRadioButton.isSelected()) {
-            return TextraApiClient.BASE_URL;
-        } else if (dialog.kiRadioButton.isSelected()) {
-            return TextraApiClient.KI_BASE_URL;
-        } else {
-            return TextraApiClient.BASE_URL;
-        }
+    private String getBaseUrl(TextraOptionDialog dialog) {
+        return factory.getURL((String) dialog.providerComboBox.getSelectedItem());
     }
 }

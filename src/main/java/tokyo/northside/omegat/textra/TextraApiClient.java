@@ -18,8 +18,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @author Hiroshi Miura
  */
 public class TextraApiClient {
-    public static final String BASE_URL = "https://mt-auto-minhon-mlt.ucri.jgn-x.jp";
-    public static final String KI_BASE_URL = "https://minna-mt.k-intl.jp";
     private static final String API_URL_PREFIX = "/api/mt/";
 
     private final ObjectMapper mapper;
@@ -134,7 +132,7 @@ public class TextraApiClient {
     }
 
     private static String getApiEngine(TextraOptions options) {
-        if (options.getMode() == TextraOptions.Mode.custom) {
+        if (options.getMode().equals("custom")) {
             return options.getCustomId();
         }
         return options.getModeName().replace("_", "-");

@@ -1,5 +1,9 @@
 package tokyo.northside.omegat.textra.dialog;
 
+import org.omegat.util.gui.DelegatingComboBoxRenderer;
+
+import tokyo.northside.omegat.textra.TextraOptionsFactory;
+
 import java.awt.*;
 
 import javax.swing.*;
@@ -13,29 +17,49 @@ public class TextraOptionDialog extends JDialog {
     JTextField usernameField;
     JTextField apikeyField;
     JTextField secretField;
-    JRadioButton generalNTModeRadioButton;
-    JRadioButton patentNTModeRadioButton;
-    JRadioButton voiceTraTaiwaNTModeRadioButton;
-    JRadioButton financeNTModeRadioButton;
-    JRadioButton minnaNTModeRadioButton;
-    JRadioButton nictRadioButton;
-    JRadioButton kiRadioButton;
-    JRadioButton customRadioButton;
+    JComboBox<String> modeComboBox;
+    JComboBox<String> providerComboBox;
     JTextField customIdTextField;
     JLabel connectionStatus;
     JButton connectionTestButton;
 
-    public TextraOptionDialog(Window parent) {
+    public TextraOptionDialog(Window parent, TextraOptionsFactory factory) {
         initGui();
         setLocationRelativeTo(parent);
     }
 
     public static void main(String[] args) {
         JFrame jFrame = new JFrame();
-        TextraOptionDialog dialog = new TextraOptionDialog(jFrame);
+        TextraOptionsFactory factory = new TextraOptionsFactory();
+        TextraOptionDialog dialog = new TextraOptionDialog(jFrame, factory);
+        TextraOptionsFactory textraOptionsFactory = new TextraOptionsFactory();
+        dialog.providerComboBox.setModel(new DefaultComboBoxModel<>(textraOptionsFactory.getServices()));
+        dialog.providerComboBox.setRenderer(new DelegatingComboBoxRenderer<String, String>() {
+            @Override
+            protected String getDisplayText(String s) {
+                return textraOptionsFactory.getName(s);
+            }
+        });
+        String defaultProvider = textraOptionsFactory.getServices()[0];
+        dialog.modeComboBox.setModel(new DefaultComboBoxModel<>(textraOptionsFactory.getModes(defaultProvider)));
+        dialog.modeComboBox.setRenderer(new DelegatingComboBoxRenderer<String, String>() {
+            @Override
+            protected String getDisplayText(String s) {
+                return textraOptionsFactory.getName(s);
+            }
+        });
+        dialog.providerComboBox.setSelectedItem(defaultProvider);
+        dialog.providerComboBox.addActionListener(itemEvent -> {
+            if (itemEvent == null) {
+                return;
+            }
+            String v = (String) dialog.providerComboBox.getSelectedItem();
+            if (v != null) {
+                dialog.modeComboBox.setModel(new DefaultComboBoxModel<>(textraOptionsFactory.getModes(v)));
+            }
+        });
         dialog.pack();
         dialog.setVisible(true);
-        System.exit(0);
     }
 
     private void initGui() {
@@ -137,25 +161,14 @@ public class TextraOptionDialog extends JDialog {
         c.weightx = 0.0d;
         c.anchor = GridBagConstraints.LINE_START;
         contentPane.add(label5, c);
-        nictRadioButton = new JRadioButton();
-        nictRadioButton.setSelected(true);
-        nictRadioButton.setText("NICT TexTra (nonprofit)");
+        providerComboBox = new JComboBox<>();
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 7;
         c.weightx = 0.0d;
         c.gridwidth = 2;
         c.anchor = GridBagConstraints.LINE_START;
-        contentPane.add(nictRadioButton, c);
-        kiRadioButton = new JRadioButton();
-        kiRadioButton.setText("KI TexTra personal business");
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
-        c.gridy = 8;
-        c.weightx = 0.0d;
-        c.gridwidth = 2;
-        c.anchor = GridBagConstraints.LINE_START;
-        contentPane.add(kiRadioButton, c);
+        contentPane.add(providerComboBox, c);
         //
         final JPanel panel2 = new JPanel();
         connectionStatus = new JLabel();
@@ -183,60 +196,13 @@ public class TextraOptionDialog extends JDialog {
         c.gridheight = 1;
         c.anchor = GridBagConstraints.LINE_START;
         contentPane.add(label4, c);
-        generalNTModeRadioButton = new JRadioButton();
-        generalNTModeRadioButton.setSelected(true);
-        generalNTModeRadioButton.setText(getString("GeneralNTMode"));
-        generalNTModeRadioButton.setToolTipText(getString("GeneralNTModeToolTip"));
+        modeComboBox = new JComboBox<>();
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 11;
         c.weightx = 0.0d;
         c.anchor = GridBagConstraints.LINE_START;
-        contentPane.add(generalNTModeRadioButton, c);
-        patentNTModeRadioButton = new JRadioButton();
-        patentNTModeRadioButton.setText(getString("PatentNTMode"));
-        patentNTModeRadioButton.setToolTipText(getString("PatentNTModeToolTip"));
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
-        c.gridy = 12;
-        c.weightx = 0.0d;
-        c.anchor = GridBagConstraints.LINE_START;
-        contentPane.add(patentNTModeRadioButton, c);
-        voiceTraTaiwaNTModeRadioButton = new JRadioButton();
-        voiceTraTaiwaNTModeRadioButton.setText(getString("VoiceTraNTMode"));
-        voiceTraTaiwaNTModeRadioButton.setToolTipText(getString("VoiceTraNTModeToolTip"));
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
-        c.gridy = 13;
-        c.weightx = 0.0d;
-        c.anchor = GridBagConstraints.LINE_START;
-        contentPane.add(voiceTraTaiwaNTModeRadioButton, c);
-        financeNTModeRadioButton = new JRadioButton();
-        financeNTModeRadioButton.setText(getString("FsaNTMode"));
-        financeNTModeRadioButton.setToolTipText(getString("FsaNTModeToolTip"));
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
-        c.gridy = 14;
-        c.weightx = 0.0d;
-        c.anchor = GridBagConstraints.LINE_START;
-        contentPane.add(financeNTModeRadioButton, c);
-        minnaNTModeRadioButton = new JRadioButton();
-        minnaNTModeRadioButton.setText(getString("minnaNTMode"));
-        minnaNTModeRadioButton.setToolTipText(getString("minnaNTModeToolTip"));
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
-        c.gridy = 15;
-        c.weightx = 0.0d;
-        c.anchor = GridBagConstraints.LINE_START;
-        contentPane.add(minnaNTModeRadioButton, c);
-        customRadioButton = new JRadioButton();
-        customRadioButton.setText(getString("Custom"));
-        c.fill = GridBagConstraints.NONE;
-        c.gridx = 0;
-        c.gridy = 16;
-        c.weightx = 0.0d;
-        c.anchor = GridBagConstraints.LINE_START;
-        contentPane.add(customRadioButton, c);
+        contentPane.add(modeComboBox, c);
         customIdTextField = new JTextField();
         customIdTextField.setHorizontalAlignment(JTextField.LEFT);
         customIdTextField.setMinimumSize(new Dimension(100, 24));
@@ -268,19 +234,6 @@ public class TextraOptionDialog extends JDialog {
         c.gridwidth = 2;
         c.anchor = GridBagConstraints.LINE_START;
         contentPane.add(buttonPanel, c);
-        //
-        ButtonGroup buttonGroup;
-        buttonGroup = new ButtonGroup();
-        buttonGroup.add(generalNTModeRadioButton);
-        buttonGroup.add(generalNTModeRadioButton);
-        buttonGroup.add(patentNTModeRadioButton);
-        buttonGroup.add(voiceTraTaiwaNTModeRadioButton);
-        buttonGroup.add(financeNTModeRadioButton);
-        buttonGroup.add(minnaNTModeRadioButton);
-        buttonGroup.add(customRadioButton);
-        buttonGroup = new ButtonGroup();
-        buttonGroup.add(kiRadioButton);
-        buttonGroup.add(nictRadioButton);
         //
         setContentPane(contentPane);
     }
