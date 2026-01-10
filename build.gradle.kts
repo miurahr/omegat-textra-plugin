@@ -37,8 +37,8 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-databind:2.13.4.2")
     packIntoJar("commons-lang:commons-lang:2.6")
     testImplementation("org.codehaus.groovy:groovy-all:3.0.12")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
-    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.9.0")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:6.0.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:6.0.2")
     testImplementation("com.github.tomakehurst:wiremock-jre8:2.35.0")
 
 }
