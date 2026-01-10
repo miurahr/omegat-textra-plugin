@@ -1,0 +1,30 @@
+name: Run Gradle check
+
+on:
+  push:
+    branches:
+      - main
+      - releases/*
+  pull_request:
+
+jobs:
+  gradle-check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v6
+    - uses: actions/setup-java@v5
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+    - uses: kiancross/checkstyle-annotations-action@v1
+    - uses: gradle/gradle-build-action@v3
+      name: Setup Gradle
+      id: setup-gradle
+    - name: gradle check
+      run: ./gradlew -PenvIsCi=true --scan check
+      id: gradle
+    - name: "Add Build Scan URL to summary"
+      if: always() && steps.gradle.outputs.build-scan-url != ''
+      run: |
+        echo "### Gradle Build Scan" >> $GITHUB_STEP_SUMMARY
+        echo "${{ steps.gradle.outputs.build-scan-url }}" >> $GITHUB_STEP_SUMMARY
