@@ -11,7 +11,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 import static tokyo.northside.omegat.textra.BundleMessageUtil.getString;

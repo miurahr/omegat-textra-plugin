@@ -51,8 +51,9 @@ omegat {
 }
 
 dependencies {
+    packIntoJar(libs.commons.lang3)
+
     implementation(libs.bundles.jackson)
-    packIntoJar(libs.commons.lang)
     testImplementation(libs.groovy.all)
     testImplementation(libs.bundles.junit)
     testImplementation(libs.wiremock)
