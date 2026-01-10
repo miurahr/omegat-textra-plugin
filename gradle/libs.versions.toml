@@ -2,7 +2,7 @@
 jackson = "2.13.4"
 jackson-databind = "2.13.4.2"
 commons-lang = "2.6"
-groovy = "3.0.12"
+groovy = "3.0.25"
 junit = "5.9.0"
 wiremock = "2.35.0"
 checksum-plugin = "1.4.0"
