@@ -32,9 +32,9 @@ omegat {
 }
 
 dependencies {
-    implementation("com.fasterxml.jackson.core:jackson-core:2.13.4")
-    implementation("com.fasterxml.jackson.core:jackson-annotations:2.13.4")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.13.4.2")
+    implementation("com.fasterxml.jackson.core:jackson-core:2.20.1")
+    implementation("com.fasterxml.jackson.core:jackson-annotations:2.20.1")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.20.1.2")
     packIntoJar("commons-lang:commons-lang:2.6")
     testImplementation("org.codehaus.groovy:groovy-all:3.0.12")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
