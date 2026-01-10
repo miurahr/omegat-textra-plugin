@@ -8,6 +8,7 @@ wiremock = "3.13.2"
 spotless-plugin = "8.1.0"
 omegat-plugin = "2.0.0-rc2"
 git-version-plugin = "4.2.0"
+commons_io = "2.19.0"
 
 [libraries]
 jackson-core = { group = "com.fasterxml.jackson.core", name = "jackson-core", version.ref = "jackson" }
@@ -17,7 +18,8 @@ commons-lang = { group = "commons-lang", name = "commons-lang", version.ref = "c
 groovy-all = { group = "org.codehaus.groovy", name = "groovy-all", version.ref = "groovy" }
 junit-jupiter-api = { group = "org.junit.jupiter", name = "junit-jupiter-api", version.ref = "junit" }
 junit-jupiter-engine = { group = "org.junit.jupiter", name = "junit-jupiter-engine", version.ref = "junit" }
-wiremock = { group = "com.github.tomakehurst", name = "wiremock", version.ref = "wiremock" }
+wiremock = { group = "org.wiremock", name = "wiremock", version.ref = "wiremock" }
+commons-io = {group = "commons-io", name = "commons-io", version.ref = "commons_io"}
 
 [bundles]
 jackson = ["jackson-core", "jackson-annotations", "jackson-databind"]

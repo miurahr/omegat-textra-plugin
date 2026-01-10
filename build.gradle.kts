@@ -55,6 +55,7 @@ dependencies {
     packIntoJar(libs.commons.lang)
     testImplementation(libs.groovy.all)
     testImplementation(libs.bundles.junit)
+    testImplementation(libs.commons.io)
     testImplementation(libs.wiremock)
 }
 
