@@ -8,7 +8,7 @@ plugins {
     distribution
     id("org.gradle.crypto.checksum") version "1.4.0"
     id("com.diffplug.spotless") version "6.12.0"
-    id("org.omegat.gradle") version "1.5.9"
+    id("org.omegat.gradle") version "1.6.0"
     id("com.palantir.git-version") version "0.13.0"
 }
 
