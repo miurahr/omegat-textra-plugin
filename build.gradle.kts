@@ -39,7 +39,7 @@ dependencies {
     testImplementation("org.codehaus.groovy:groovy-all:3.0.12")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.9.0")
-    testImplementation("com.github.tomakehurst:wiremock-jre8:2.35.0")
+    testImplementation("com.github.tomakehurst:wiremock-jre8:3.0.1")
 
 }
 
