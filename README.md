@@ -15,9 +15,6 @@ you may be interested in [MT plugin for OmegaT](https://codeberg.org/miurahr/ome
 - **17, Jul. 2023** - **Version 2023.3.0** - Support OmegaT 6.0 and later, and drop support 5.8.0 and before.
 - **23, Apr. 2023** - **Version 2023.2.0** - Support OmegaT 5.8 and later, and drop support 5.7.1 and before.
 - **04, Feb. 2023** - **Version 2023.1.0** - Update http access code, Jackson 2.13.4. Last version that supports OmegaT 4.3.3.
-- **04, Aug. 2022** - **Version 2022.2.3** - Update JSON response parser.
-- **25, May, 2022** - **Version 2022.2.1** - Fix korean language code.
-- **23, Apr. 2022** - **Version 2022.2.0** - Credentials check button on an option dialog, Jackson 2.13.3 
 
 ## Install
 

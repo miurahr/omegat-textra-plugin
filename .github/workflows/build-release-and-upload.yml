@@ -1,28 +1,31 @@
+name: Create release and upload asset
+
 on:
   push:
     tags:
     - 'v*'
 
-name: Upload Release Asset
-
 jobs:
   build:
-    name: Upload Release Asset
+    name: Create Release and Upload Asset
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
-    - uses: actions/setup-java@v3
+      uses: actions/checkout@v6
+    - uses: actions/setup-java@v5
       with:
-        distribution: 'adopt'
-        java-version: '8'
-    - uses: eskatos/gradle-command-action@v2
-      with:
-        arguments: build
+        distribution: 'temurin'
+        java-version: '17'
     - name: Get the version
       id: get_version
       run: |
+        REV_COUNT=`git rev-list --count HEAD`
         echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\/v/}
+    - uses: gradle/gradle-build-action@v3
+      name: Setup Gradle
+      id: setup-gradle
+    - name: Build and check
+      run: ./gradlew -PenvIsCi=true build
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
@@ -33,25 +36,10 @@ jobs:
         release_name: Release v${{ steps.get_version.outputs.VERSION }}
         draft: false
         prerelease: false
-    - name: Upload Release Asset(zip)
-      id: upload-release-asset-zip
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Upload to Release
+      uses: svenstaro/upload-release-action@v2
       with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: build/distributions/omegat-textra-plugin-${{ steps.get_version.outputs.VERSION }}.zip
-        asset_name: omegat-textra-plugin-${{ steps.get_version.outputs.VERSION }}.zip
-        asset_content_type: application/zip
-
-    - name: Upload Release Asset(jar)
-      id: upload-release-asset-jar
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: build/libs/omegat-textra-plugin-${{ steps.get_version.outputs.VERSION }}.jar
-        asset_name: omegat-textra-plugin-${{ steps.get_version.outputs.VERSION }}.jar
-        asset_content_type: application/java-archive
-
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: build/libs/deepl-connector-plugin-${{ steps.get_version.outputs.VERSION }}.jar
+        tag: ${{ github.ref }}
+        overwrite: true

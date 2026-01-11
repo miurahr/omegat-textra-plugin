@@ -1,4 +1,5 @@
-import org.gradle.crypto.checksum.Checksum
+import java.io.FileInputStream
+import java.util.Properties
 
 plugins {
     java
@@ -6,18 +7,36 @@ plugins {
     signing
     checkstyle
     distribution
-    id("org.gradle.crypto.checksum") version "1.4.0"
-    id("com.diffplug.spotless") version "6.12.0"
-    id("org.omegat.gradle") version "1.5.9"
-    id("com.palantir.git-version") version "0.13.0"
+    alias(libs.plugins.spotless)
+    alias(libs.plugins.omegat)
+    alias(libs.plugins.git.version) apply false
 }
 
-// calculate version string from git tag, hash and commit distance
-fun getVersionDetails(): com.palantir.gradle.gitversion.VersionDetails = (extra["versionDetails"] as groovy.lang.Closure<*>)() as com.palantir.gradle.gitversion.VersionDetails
-if (getVersionDetails().isCleanTag) {
-    version = getVersionDetails().lastTag.substring(1)
+val dotgit = project.file(".git")
+if (dotgit.exists()) {
+    apply(plugin = libs.plugins.git.version.get().pluginId)
+    val versionDetails: groovy.lang.Closure<com.palantir.gradle.gitversion.VersionDetails> by extra
+    val details = versionDetails()
+    val baseVersion = details.lastTag.substring(1)
+    version = when {
+        details.isCleanTag -> baseVersion
+        else -> baseVersion + "-" + details.commitDistance + "-" + details.gitHash + "-SNAPSHOT"
+    }
 } else {
-    version = getVersionDetails().lastTag.substring(1) + "-" + getVersionDetails().commitDistance + "-" + getVersionDetails().gitHash + "-SNAPSHOT"
+    val gitArchival = project.file(".git-archival.properties")
+    val props = Properties()
+    props.load(FileInputStream(gitArchival))
+    val versionDescribe = props.getProperty("describe")
+    val regex = "^v\\d+\\.\\d+\\.\\d+$".toRegex()
+    version = when {
+        regex.matches(versionDescribe) -> versionDescribe.substring(1)
+        else -> versionDescribe.substring(1) + "-SNAPSHOT"
+    }
+}
+
+tasks.wrapper {
+    distributionType = Wrapper.DistributionType.BIN
+    gradleVersion = "8.13"
 }
 
 java {
@@ -32,15 +51,13 @@ omegat {
 }
 
 dependencies {
-    implementation("com.fasterxml.jackson.core:jackson-core:2.13.4")
-    implementation("com.fasterxml.jackson.core:jackson-annotations:2.13.4")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.13.4.2")
-    packIntoJar("commons-lang:commons-lang:2.6")
-    testImplementation("org.codehaus.groovy:groovy-all:3.0.12")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
-    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.9.0")
-    testImplementation("com.github.tomakehurst:wiremock-jre8:2.35.0")
+    packIntoJar(libs.commons.lang3)
 
+    implementation(libs.bundles.jackson)
+    testImplementation(libs.groovy.all)
+    testImplementation(libs.bundles.junit)
+    testImplementation(libs.commons.io)
+    testImplementation(libs.wiremock)
 }
 
 repositories {
@@ -95,12 +112,4 @@ spotless {
         palantirJavaFormat()
         importOrder("org.omegat", "tokyo.northside.omegat.textra", "java", "javax", "", "\\#")
     }
-}
-
-tasks.register<Checksum>("createChecksums") {
-    dependsOn(tasks.distZip)
-    inputFiles.setFrom(listOf(tasks.jar.get(), tasks.distZip.get()))
-    outputDirectory.set(layout.buildDirectory.dir("distributions"))
-    checksumAlgorithm.set(Checksum.Algorithm.SHA512)
-    appendFileNameToChecksum.set(true)
 }

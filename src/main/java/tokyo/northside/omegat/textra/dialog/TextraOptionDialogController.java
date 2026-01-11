@@ -11,7 +11,7 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 import static tokyo.northside.omegat.textra.BundleMessageUtil.getString;

@@ -1,0 +1,31 @@
+[versions]
+jackson = "2.13.4"
+jackson-databind = "2.13.4.2"
+commons_lang3 = "3.19.0"
+groovy = "3.0.25"
+junit = "5.14.0"
+wiremock = "3.13.2"
+spotless-plugin = "8.1.0"
+omegat-plugin = "2.0.0-rc2"
+git-version-plugin = "4.2.0"
+commons_io = "2.19.0"
+
+[libraries]
+jackson-core = { group = "com.fasterxml.jackson.core", name = "jackson-core", version.ref = "jackson" }
+jackson-annotations = { group = "com.fasterxml.jackson.core", name = "jackson-annotations", version.ref = "jackson" }
+jackson-databind = { group = "com.fasterxml.jackson.core", name = "jackson-databind", version.ref = "jackson-databind" }
+commons-lang3 = {group = "org.apache.commons", name = "commons-lang3", version.ref = "commons_lang3"}
+groovy-all = { group = "org.codehaus.groovy", name = "groovy-all", version.ref = "groovy" }
+junit-jupiter-api = { group = "org.junit.jupiter", name = "junit-jupiter-api", version.ref = "junit" }
+junit-jupiter-engine = { group = "org.junit.jupiter", name = "junit-jupiter-engine", version.ref = "junit" }
+wiremock = { group = "org.wiremock", name = "wiremock", version.ref = "wiremock" }
+commons-io = {group = "commons-io", name = "commons-io", version.ref = "commons_io"}
+
+[bundles]
+jackson = ["jackson-core", "jackson-annotations", "jackson-databind"]
+junit = ["junit-jupiter-api", "junit-jupiter-engine"]
+
+[plugins]
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless-plugin" }
+omegat = { id = "org.omegat.gradle", version.ref = "omegat-plugin" }
+git-version = { id = "com.palantir.git-version", version.ref = "git-version-plugin" }
