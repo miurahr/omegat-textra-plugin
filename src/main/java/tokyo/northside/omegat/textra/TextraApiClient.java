@@ -4,7 +4,6 @@ import org.omegat.util.HttpConnectionUtils;
 
 import java.io.IOException;
 import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -76,7 +75,7 @@ public class TextraApiClient {
                 accessToken = tokenNode.asText();
                 long expireIn = jsonNode.get("expires_in").asLong();
                 LocalTime localTime = LocalTime.now();
-                expire = localTime.plus(expireIn, ChronoUnit.SECONDS).minus(1, ChronoUnit.SECONDS);
+                expire = localTime.plusSeconds(expireIn).minusSeconds(1);
             } catch (Exception e) {
                 throw new Exception("Authentication error!");
             }
