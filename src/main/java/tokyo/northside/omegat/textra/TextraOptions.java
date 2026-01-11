@@ -23,6 +23,7 @@ public class TextraOptions {
     private boolean changed;
 
     private String baseUrl = null;
+    private String path = null;
 
     private final TextraOptionsFactory textraOptionsFactory;
 
@@ -232,6 +233,13 @@ public class TextraOptions {
             baseUrl = textraOptionsFactory.getURL(getProvider());
         }
         return baseUrl;
+    }
+
+    public String getPath() {
+        if (path == null) {
+            path = textraOptionsFactory.getURLPath();
+        }
+        return path;
     }
 
     public boolean isChanged() {

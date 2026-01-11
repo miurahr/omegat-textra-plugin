@@ -18,7 +18,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @author Hiroshi Miura
  */
 public class TextraApiClient {
-    private static final String API_URL_PREFIX = "/api/mt/";
 
     private final ObjectMapper mapper;
 
@@ -125,9 +124,9 @@ public class TextraApiClient {
         return root.resultset.result.text;
     }
 
-    private static String getAccessUrl(final TextraOptions options) {
+    private String getAccessUrl(final TextraOptions options) {
         String apiEngine = getApiEngine(options);
-        return options.getBaseUrl() + API_URL_PREFIX + apiEngine + "_" + options.getSourceLang() + "_"
+        return options.getBaseUrl() + options.getPath() + apiEngine + "_" + options.getSourceLang() + "_"
                 + options.getTargetLang() + "/";
     }
 

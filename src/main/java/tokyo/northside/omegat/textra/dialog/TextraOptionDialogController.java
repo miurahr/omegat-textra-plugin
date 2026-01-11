@@ -6,10 +6,15 @@ import tokyo.northside.omegat.textra.TextraApiClient;
 import tokyo.northside.omegat.textra.TextraOptions;
 import tokyo.northside.omegat.textra.TextraOptionsFactory;
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.Color;
+import java.awt.Window;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
-import javax.swing.*;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComponent;
+import javax.swing.KeyStroke;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -27,7 +32,7 @@ public class TextraOptionDialogController {
     public TextraOptionDialogController() {}
 
     public void show(Window parent, TextraOptionsFactory textraOptionsFactory, TextraOptions options) {
-        TextraOptionDialog dialog = new TextraOptionDialog(parent, textraOptionsFactory);
+        TextraOptionDialog dialog = new TextraOptionDialog(parent);
         dialog.setModal(true);
         setOptions(dialog, options);
         dialog.getRootPane().setDefaultButton(dialog.buttonOK);
