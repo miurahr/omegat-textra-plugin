@@ -59,30 +59,6 @@ public class OmegatTextraMachineTranslation extends BaseCachedTranslate implemen
     public static final String OPTION_ALLOW_TEXTRA_TRANSLATE = "allow_textra_translate";
 
     /**
-     * Preferences key of TexTra API credential option: username.
-     */
-    private static final String OPTION_TEXTRA_USERNAME = "mt_textra_username";
-    /**
-     * Preferences key of TexTra API credential option: api key.
-     */
-    private static final String OPTION_TEXTRA_APIKEY = "mt_textra_apikey";
-    /**
-     * Preferences key of TexTra API credential option: secret.
-     */
-    private static final String OPTION_TEXTRA_SECRET = "mt_textra_secret";
-    /**
-     * Preferences key of TexTra API option: translate mode.
-     */
-    private static final String OPTION_TEXTRA_TRANSLATE_MODE = "mt_textra_translate_mode";
-    /**
-     * Preferences key of TexTra API option: server.
-     */
-    private static final String OPTION_TEXTRA_SERVER = "mt_textra_server";
-    /**
-     * Preferences key of TexTra API option: custom id.
-     */
-    private static final String OPTION_TEXTRA_CUSTOM_ID = "mt_textra_custom_id";
-    /**
      * Menu name of TexTra.
      */
     private static final String MENU_TEXTRA = "TexTra Powered by NICT";
@@ -103,20 +79,8 @@ public class OmegatTextraMachineTranslation extends BaseCachedTranslate implemen
         textraOptionsFactory = new TextraOptionsFactory();
     }
 
-    /**
-     * Save TexTra access credential to credential store.
-     * @param textraOptions TexTra options.
-     */
-    public void saveCredential(TextraOptions textraOptions) {
-        setCredential(OPTION_TEXTRA_USERNAME, textraOptions.getUsername(), false);
-        setCredential(OPTION_TEXTRA_APIKEY, textraOptions.getApikey(), false);
-        setCredential(OPTION_TEXTRA_SECRET, textraOptions.getSecret(), false);
-        Preferences.setPreference(OPTION_TEXTRA_SERVER, textraOptions.getProvider());
-        Preferences.setPreference(OPTION_TEXTRA_TRANSLATE_MODE, textraOptions.getMode());
-        if (textraOptions.getCustomId() != null) {
-            Preferences.setPreference(OPTION_TEXTRA_CUSTOM_ID, textraOptions.getCustomId());
-        }
-        Preferences.save();
+    public void saveCredential(String key, String value) {
+        setCredential(key, value, false);
     }
 
     @Override
@@ -225,12 +189,12 @@ public class OmegatTextraMachineTranslation extends BaseCachedTranslate implemen
         if (textraOptions == null) {
             textraOptions = TextraOptions.builder()
                     .setTextraOptionsFactory(textraOptionsFactory)
-                    .setProvider(Preferences.getPreferenceDefault(OPTION_TEXTRA_SERVER, "nict"))
-                    .setUsername(getCredential(OPTION_TEXTRA_USERNAME))
-                    .setApikey(getCredential(OPTION_TEXTRA_APIKEY))
-                    .setSecret(getCredential(OPTION_TEXTRA_SECRET))
-                    .setCustomId(Preferences.getPreferenceDefault(OPTION_TEXTRA_CUSTOM_ID, null))
-                    .setMode(Preferences.getPreferenceDefault(OPTION_TEXTRA_TRANSLATE_MODE, "generalNT"))
+                    .setProvider(Preferences.getPreferenceDefault(TextraOptions.OPTION_TEXTRA_SERVER, "nict"))
+                    .setUsername(getCredential(TextraOptions.OPTION_TEXTRA_USERNAME))
+                    .setApikey(getCredential(TextraOptions.OPTION_TEXTRA_APIKEY))
+                    .setSecret(getCredential(TextraOptions.OPTION_TEXTRA_SECRET))
+                    .setCustomId(Preferences.getPreferenceDefault(TextraOptions.OPTION_TEXTRA_CUSTOM_ID, null))
+                    .setMode(Preferences.getPreferenceDefault(TextraOptions.OPTION_TEXTRA_TRANSLATE_MODE, "generalNT"))
                     .setOmegatTextraMachineTranslation(this)
                     .build();
         }

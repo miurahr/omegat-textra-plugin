@@ -1,13 +1,39 @@
 package tokyo.northside.omegat.textra;
 
 import org.omegat.util.Language;
+import org.omegat.util.Preferences;
 
 /**
  * Data class for TexTra configuration Options.
  * Also have combination limitation knowledge.
  * @author Hiroshi Miura
  */
-public class TextraOptions {
+public final class TextraOptions {
+    /**
+     * Preferences key of TexTra API credential option: username.
+     */
+    static final String OPTION_TEXTRA_USERNAME = "mt_textra_username";
+    /**
+     * Preferences key of TexTra API credential option: api key.
+     */
+    static final String OPTION_TEXTRA_APIKEY = "mt_textra_apikey";
+    /**
+     * Preferences key of TexTra API credential option: secret.
+     */
+    static final String OPTION_TEXTRA_SECRET = "mt_textra_secret";
+    /**
+     * Preferences key of TexTra API option: translate mode.
+     */
+    static final String OPTION_TEXTRA_TRANSLATE_MODE = "mt_textra_translate_mode";
+    /**
+     * Preferences key of TexTra API option: server.
+     */
+    static final String OPTION_TEXTRA_SERVER = "mt_textra_server";
+    /**
+     * Preferences key of TexTra API option: custom id.
+     */
+    static final String OPTION_TEXTRA_CUSTOM_ID = "mt_textra_custom_id";
+
     private String username;
     private String apikey;
     private String secret;
@@ -48,7 +74,15 @@ public class TextraOptions {
     }
 
     public void saveCredentials() {
-        omegatTextraMachineTranslation.saveCredential(this);
+        omegatTextraMachineTranslation.saveCredential(OPTION_TEXTRA_USERNAME, getUsername());
+        omegatTextraMachineTranslation.saveCredential(OPTION_TEXTRA_APIKEY, getApikey());
+        omegatTextraMachineTranslation.saveCredential(OPTION_TEXTRA_SECRET, getSecret());
+        Preferences.setPreference(OPTION_TEXTRA_SERVER, getProvider());
+        Preferences.setPreference(OPTION_TEXTRA_TRANSLATE_MODE, getMode());
+        if (getCustomId() != null) {
+            Preferences.setPreference(OPTION_TEXTRA_CUSTOM_ID, getCustomId());
+        }
+        Preferences.save();
         changed = true;
     }
 
@@ -247,6 +281,8 @@ public class TextraOptions {
         changed = false;
         return result;
     }
+
+    public void saveCredential() {}
 
     public static TextraOptionsBuilder builder() {
         return new TextraOptionsBuilder();
