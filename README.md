@@ -59,49 +59,31 @@ You need to agree NICT TexTra Service terms and get an account (username, api ke
 to use this plugin with OmegaT. The terms show at
 https://mt-auto-minhon-mlt.ucri.jgn-x.jp/content/policy/
 
-## Supported language combinations
+## Supported models
 
 ### NICT non-profit and OSS translations account
 
-* languages
-    * English
-    * Japanese
-    * Chinese(Mandarin, Taiwanese)
-    * Italian
-    * Indonesian
-    * French
-    * Portuguese
-    * Myanmar
-    * Thai
-    * Vietnamese
-    * Spanish
-    * Arabic
-    * Russian
-    * Germany
-    * Korean
-    * Philippian
-
-* Engines
-    * General NT
-    * Finance NT
-    * Patent NT
-    * General NT+ (minnaNT)
-    * VoiceTra NT
-    
-    * CUSTOM engine
+- generalNT: General Neural Translation
+- voicetraNT: VoiceTra Neural Translation
+- fsaNT: Finance Neural Translation
+- patentNT: Patent Neural Translation
+- indic2: Indic language translation
+- minnaPE: General NT+ (minnaNT)
+- news: News translation
+- patentLM: Patent Language Model
+- seikatsu: Daily life translation
+- shortSnt: Short sentence translation
+- transLM: Translation Language Model
+- transLMT: Translation Language Model with Terminology
+- custom: Custom engine
 
 ### Kawamura-Internaltional Personal Business account
 
-* Languages
-    * Japanese
-    * Chinese(Mandarin, Taiwan)
-    * English
-* Engines
-    * General NT
-    * VoiceTra NT
-    * Patent NT
-    * Science
-    * Finance
+- generalNT: General Neural Translation
+- voicetraNT: VoiceTra Neural Translation
+- fsaNT: Finance Neural Translation
+- patentNT: Patent Neural Translation
+- science: Science translation
 
 ## License
 
