@@ -46,7 +46,7 @@ public class TextraOptionsFactory {
     }
 
     public String getURL(String service) {
-        switch(service) {
+        switch (service) {
             case "nict":
                 return getResourceString("nictUrl");
             case "minna_personal":
