@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [2025.1.0]
+
+### Changed
+- Remove language and model combination checks.
+- Update the configuration dialog to select service and model by ComboBox.
+- Update build configuration to use dependencies version catalog.
+
 ## [2023.3.0] - 2023-12-14
 
 ### Fixed
@@ -275,7 +282,8 @@ Incompatible change:
 - Start project.
 
 
-[Unreleased]: https://codeberg.org/miurahr/omegat-textra-plugin/compare/v2023.3.0...HEAD
+[Unreleased]: https://github.com/miurahr/omegat-textra-plugin/compare/v2025.1.0...HEAD
+[2025.1.0]: https://github.com/miurahr/omegat-textra-plugin/compare/v2023.3.0...v2025.1.0
 [2023.3.0]: https://codeberg.org/miurahr/omegat-textra-plugin/compare/v2023.2.0...v2023.3.0
 [2023.2.0]: https://codeberg.org/miurahr/omegat-textra-plugin/compare/v2023.1.0...v2023.2.0
 [2023.1.0]: https://codeberg.org/miurahr/omegat-textra-plugin/compare/v2022.2.3...v2023.1.0
