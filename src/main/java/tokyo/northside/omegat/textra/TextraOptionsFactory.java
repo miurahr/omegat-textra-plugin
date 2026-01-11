@@ -31,15 +31,29 @@ public class TextraOptionsFactory {
     }
 
     public String[] getModes(String service) {
-        return tokenize(getResourceString(service + "Mode"));
+        switch (service) {
+            case "nict":
+                return tokenize(getResourceString("nictMode"));
+            case "minna_personal":
+                return tokenize(getResourceString("minna_personalMode"));
+            default:
+                return tokenize(getResourceString(service + "Mode"));
+        }
     }
 
     public String getName(String v) {
-        return getResourceString(v + "Name");
+        return BundleMessageUtil.getString(v + "Name");
     }
 
     public String getURL(String service) {
-        return getResourceString(service + "Url");
+        switch(service) {
+            case "nict":
+                return getResourceString("nictUrl");
+            case "minna_personal":
+                return getResourceString("minna_personalUrl");
+            default:
+                return getResourceString(service + "Url");
+        }
     }
 
     public String getURLPath() {
