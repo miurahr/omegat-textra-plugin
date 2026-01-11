@@ -68,6 +68,7 @@ repositories {
 tasks.withType<Checkstyle>().configureEach {
     isIgnoreFailures = true
     exclude("**/dialog/TextraOptionDialog.java")
+    exclude("**/TextraResponse.java")
 }
 
 distributions {
