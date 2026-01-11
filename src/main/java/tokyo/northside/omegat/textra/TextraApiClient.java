@@ -4,7 +4,6 @@ import org.omegat.util.HttpConnectionUtils;
 
 import java.io.IOException;
 import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -18,9 +17,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @author Hiroshi Miura
  */
 public class TextraApiClient {
-    public static final String BASE_URL = "https://mt-auto-minhon-mlt.ucri.jgn-x.jp";
-    public static final String KI_BASE_URL = "https://minna-mt.k-intl.jp";
-    private static final String API_URL_PREFIX = "/api/mt/";
 
     private final ObjectMapper mapper;
 
@@ -79,7 +75,7 @@ public class TextraApiClient {
                 accessToken = tokenNode.asText();
                 long expireIn = jsonNode.get("expires_in").asLong();
                 LocalTime localTime = LocalTime.now();
-                expire = localTime.plus(expireIn, ChronoUnit.SECONDS).minus(1, ChronoUnit.SECONDS);
+                expire = localTime.plusSeconds(expireIn).minusSeconds(1);
             } catch (Exception e) {
                 throw new Exception("Authentication error!");
             }
@@ -127,14 +123,14 @@ public class TextraApiClient {
         return root.resultset.result.text;
     }
 
-    private static String getAccessUrl(final TextraOptions options) {
+    private String getAccessUrl(final TextraOptions options) {
         String apiEngine = getApiEngine(options);
-        return options.getBaseUrl() + API_URL_PREFIX + apiEngine + "_" + options.getSourceLang() + "_"
+        return options.getBaseUrl() + options.getPath() + apiEngine + "_" + options.getSourceLang() + "_"
                 + options.getTargetLang() + "/";
     }
 
     private static String getApiEngine(TextraOptions options) {
-        if (options.getMode() == TextraOptions.Mode.custom) {
+        if (options.getMode().equals("custom")) {
             return options.getCustomId();
         }
         return options.getModeName().replace("_", "-");

@@ -2,8 +2,6 @@ package tokyo.northside.omegat.textra;
 
 import org.omegat.util.Language;
 
-import java.io.IOException;
-
 /**
  * Data class for TexTra configuration Options.
  * Also have combination limitation knowledge.
@@ -14,12 +12,10 @@ public class TextraOptions {
     private String apikey;
     private String secret;
     private String customId;
-    private Mode mode;
-
-    private Provider provider;
+    private String provider;
+    private String mode;
 
     private final OmegatTextraMachineTranslation omegatTextraMachineTranslation;
-    private final TextraOptionCombinations textraOptionCombinations;
 
     private String sourceLang;
     private String targetLang;
@@ -27,16 +23,19 @@ public class TextraOptions {
     private boolean changed;
 
     private String baseUrl = null;
+    private String path = null;
 
-    public TextraOptions(
-            final Provider provider,
+    private final TextraOptionsFactory textraOptionsFactory;
+
+    private TextraOptions(
+            final String provider,
             final String username,
             final String apikey,
             final String secret,
             final String customId,
-            final Mode mode,
-            final OmegatTextraMachineTranslation omegatTextraMachineTranslation)
-            throws IOException {
+            final String mode,
+            final OmegatTextraMachineTranslation omegatTextraMachineTranslation,
+            final TextraOptionsFactory factory) {
         this.username = username;
         this.apikey = apikey;
         this.secret = secret;
@@ -44,94 +43,13 @@ public class TextraOptions {
         this.mode = mode;
         this.omegatTextraMachineTranslation = omegatTextraMachineTranslation;
         this.provider = provider;
-
-        this.textraOptionCombinations = new TextraOptionCombinations();
-
+        this.textraOptionsFactory = factory;
         this.changed = false;
     }
 
-    /**
-     * Dummy constructor for test.
-     */
-    public TextraOptions() throws IOException {
-        this(null);
-    }
-
-    /**
-     * Dummy constructor for test.
-     */
-    public TextraOptions(String baseUrl) throws IOException {
-        this(Provider.nict, "", "", "", null, Mode.generalNT, null);
-        this.baseUrl = baseUrl;
-    }
-
     public void saveCredentials() {
-        this.omegatTextraMachineTranslation.saveCredential(this);
+        omegatTextraMachineTranslation.saveCredential(this);
         changed = true;
-    }
-
-    public boolean isCombinationValid() {
-        if (mode != Mode.custom) {
-            return textraOptionCombinations.isCombinationValid(provider, mode, sourceLang, targetLang);
-        } else {
-            return customId != null && (customId.startsWith("c-") || customId.startsWith("a-"));
-        }
-    }
-
-    /**
-     * Translation provider.
-     * <p>
-     * There are known three services;
-     * 1. NiCT TexTra for nonprofit purpose
-     * 2. Kawamura-Internaltional TexTra for personal business.
-     * 3. Kawamura-Internaltional TexTra for business.
-     * </p>
-     */
-    public enum Provider {
-        /**
-         * NICT free endpoint.
-         */
-        nict,
-        /**
-         * Minna Personal commercial endpoint.
-         */
-        minna_personal,
-    }
-
-    /**
-     * Translation mode.
-     * These name is as same as a part of API URL.
-     */
-    @SuppressWarnings("unused")
-    public enum Mode {
-        /** general NT mode.
-         */
-        generalNT,
-        /** Patent NT mode.
-         * Next generation of Patent NMT
-         */
-        patentNT,
-        /** Taiwa NT mode.
-         * Next generation of Taiwa NMT
-         */
-        voicetraNT,
-        /** Financial NT mode.
-         *
-         */
-        fsaNT,
-        /** Minna NT mode.
-         * Aka. Generic NT+
-         */
-        minnaNT,
-        /**
-         * science mode.
-         * only supported with KI personal edition.
-         */
-        science,
-        /**
-         * Custom mode.
-         */
-        custom,
     }
 
     /**
@@ -212,32 +130,16 @@ public class TextraOptions {
      * Getter of mode.
      * @return TranslateMode enum value.
      */
-    public Mode getMode() {
+    public String getMode() {
         return mode;
     }
 
-    /**
-     * Setter of mode.
-     * @param mode TranslateMode.
-     * @return this object.
-     */
-    @SuppressWarnings("HiddenField")
-    public TextraOptions setMode(final Mode mode) {
-        this.mode = mode;
-        return this;
-    }
-
-    @SuppressWarnings("HiddenField")
-    public boolean isServer(final Provider provider) {
-        return provider.equals(this.provider);
-    }
-
-    public Provider getProvider() {
+    public String getProvider() {
         return provider;
     }
 
     @SuppressWarnings("HiddenField")
-    public TextraOptions setProvider(final Provider provider) {
+    public TextraOptions setProvider(final String provider) {
         this.provider = provider;
         return this;
     }
@@ -247,7 +149,7 @@ public class TextraOptions {
      * @return API mode string for target URL.
      */
     public String getModeName() {
-        return mode.name();
+        return mode;
     }
 
     /**
@@ -256,9 +158,7 @@ public class TextraOptions {
      * @return this object.
      */
     public TextraOptions setMode(final String name) {
-        if (name != null) {
-            mode = Mode.valueOf(name);
-        }
+        mode = name;
         return this;
     }
 
@@ -268,7 +168,7 @@ public class TextraOptions {
      * @return true if mode name equals.
      */
     public boolean isMode(final String name) {
-        return mode.name().equals(name);
+        return mode.equals(name);
     }
 
     /**
@@ -330,20 +230,91 @@ public class TextraOptions {
 
     public String getBaseUrl() {
         if (baseUrl == null) {
-            if (getProvider().equals(Provider.nict)) {
-                baseUrl = TextraApiClient.BASE_URL;
-            } else if (getProvider().equals(Provider.minna_personal)) {
-                baseUrl = TextraApiClient.KI_BASE_URL;
-            } else {
-                baseUrl = TextraApiClient.BASE_URL;
-            }
+            baseUrl = textraOptionsFactory.getURL(getProvider());
         }
         return baseUrl;
+    }
+
+    public String getPath() {
+        if (path == null) {
+            path = textraOptionsFactory.getURLPath();
+        }
+        return path;
     }
 
     public boolean isChanged() {
         final boolean result = changed;
         changed = false;
         return result;
+    }
+
+    public static TextraOptionsBuilder builder() {
+        return new TextraOptionsBuilder();
+    }
+
+    public static class TextraOptionsBuilder {
+        private String provider;
+        private String username;
+        private String apikey;
+        private String secret;
+        private String customId;
+        private String mode;
+        private OmegatTextraMachineTranslation omegatTextraMachineTranslation;
+        private TextraOptionsFactory textraOptionsFactory;
+
+        public TextraOptionsBuilder() {}
+
+        public TextraOptionsBuilder setProvider(String provider) {
+            this.provider = provider;
+            return this;
+        }
+
+        public TextraOptionsBuilder setUsername(String username) {
+            this.username = username;
+            return this;
+        }
+
+        public TextraOptionsBuilder setApikey(String apikey) {
+            this.apikey = apikey;
+            return this;
+        }
+
+        public TextraOptionsBuilder setSecret(String secret) {
+            this.secret = secret;
+            return this;
+        }
+
+        public TextraOptionsBuilder setCustomId(String customId) {
+            this.customId = customId;
+            return this;
+        }
+
+        public TextraOptionsBuilder setMode(String mode) {
+            this.mode = mode;
+            return this;
+        }
+
+        public TextraOptionsBuilder setOmegatTextraMachineTranslation(
+                OmegatTextraMachineTranslation omegatTextraMachineTranslation) {
+            this.omegatTextraMachineTranslation = omegatTextraMachineTranslation;
+            return this;
+        }
+
+        public TextraOptionsBuilder setTextraOptionsFactory(TextraOptionsFactory textraOptionsFactory) {
+            this.textraOptionsFactory = textraOptionsFactory;
+            return this;
+        }
+
+        public TextraOptions build() {
+            return new TextraOptions(
+                    provider,
+                    username,
+                    apikey,
+                    secret,
+                    customId,
+                    mode,
+                    omegatTextraMachineTranslation,
+                    textraOptionsFactory);
+        }
     }
 }

@@ -33,8 +33,6 @@ import java.io.IOException;
 
 import javax.swing.*;
 
-import static tokyo.northside.omegat.textra.TextraOptions.Mode.generalNT;
-
 /**
  * Support TexTra powered by NICT machine translation.
  *
@@ -43,6 +41,8 @@ import static tokyo.northside.omegat.textra.TextraOptions.Mode.generalNT;
 public class OmegatTextraMachineTranslation extends BaseCachedTranslate implements IMachineTranslation {
 
     protected TextraApiClient client;
+    protected TextraOptionDialogController optionDialogController;
+    private final TextraOptionsFactory textraOptionsFactory;
 
     /**
      * Preparation for OmegaT Menu.
@@ -69,6 +69,8 @@ public class OmegatTextraMachineTranslation extends BaseCachedTranslate implemen
             Log.log("Textra Machine Translation plugin disabled.");
         }
         client = new TextraApiClient();
+        optionDialogController = new TextraOptionDialogController();
+        textraOptionsFactory = new TextraOptionsFactory();
     }
 
     public void saveCredential(final TextraOptions textraOptions) {
@@ -102,7 +104,7 @@ public class OmegatTextraMachineTranslation extends BaseCachedTranslate implemen
     @Override
     public void showConfigurationUI(final Window parent) {
         try {
-            TextraOptionDialogController.show(parent, getOptions());
+            optionDialogController.show(parent, textraOptionsFactory, getOptions());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -149,15 +151,6 @@ public class OmegatTextraMachineTranslation extends BaseCachedTranslate implemen
         // Set TexTra access options
         TextraOptions options = getOptions();
         options.setLang(sLang, tLang);
-        if (!options.isCombinationValid()) {
-            Log.log(String.format(
-                    "Textra:Invalid language combination" + " for %s with source %s, and target %s on %s.",
-                    options.getModeName(),
-                    options.getSourceLang(),
-                    options.getTargetLang(),
-                    options.getProvider().name()));
-            return null;
-        }
         return client.executeTranslation(options, text);
     }
 
@@ -172,8 +165,8 @@ public class OmegatTextraMachineTranslation extends BaseCachedTranslate implemen
                 || apiKey.isEmpty()
                 || apiSecret == null
                 || apiSecret.isEmpty()) {
-            SwingUtilities.invokeLater(
-                    () -> TextraOptionDialogController.show(Core.getMainWindow().getApplicationFrame(), options));
+            SwingUtilities.invokeLater(() -> optionDialogController.show(
+                    Core.getMainWindow().getApplicationFrame(), textraOptionsFactory, options));
             return false;
         }
         return true;
@@ -183,14 +176,16 @@ public class OmegatTextraMachineTranslation extends BaseCachedTranslate implemen
 
     private synchronized TextraOptions getOptions() throws IOException {
         if (textraOptions == null) {
-            textraOptions = new TextraOptions(
-                    Preferences.getPreferenceEnumDefault(OPTION_TEXTRA_SERVER, TextraOptions.Provider.nict),
-                    getCredential(OPTION_TEXTRA_USERNAME),
-                    getCredential(OPTION_TEXTRA_APIKEY),
-                    getCredential(OPTION_TEXTRA_SECRET),
-                    Preferences.getPreferenceDefault(OPTION_TEXTRA_CUSTOM_ID, null),
-                    Preferences.getPreferenceEnumDefault(OPTION_TEXTRA_TRANSLATE_MODE, generalNT),
-                    this);
+            textraOptions = TextraOptions.builder()
+                    .setTextraOptionsFactory(textraOptionsFactory)
+                    .setProvider(Preferences.getPreferenceDefault(OPTION_TEXTRA_SERVER, "nict"))
+                    .setUsername(getCredential(OPTION_TEXTRA_USERNAME))
+                    .setApikey(getCredential(OPTION_TEXTRA_APIKEY))
+                    .setSecret(getCredential(OPTION_TEXTRA_SECRET))
+                    .setCustomId(Preferences.getPreferenceDefault(OPTION_TEXTRA_CUSTOM_ID, null))
+                    .setMode(Preferences.getPreferenceDefault(OPTION_TEXTRA_TRANSLATE_MODE, "generalNT"))
+                    .setOmegatTextraMachineTranslation(this)
+                    .build();
         }
         return textraOptions;
     }

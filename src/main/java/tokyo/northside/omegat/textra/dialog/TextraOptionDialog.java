@@ -1,10 +1,23 @@
 package tokyo.northside.omegat.textra.dialog;
 
-import java.awt.*;
+import org.omegat.util.gui.DelegatingComboBoxRenderer;
 
-import javax.swing.*;
+import tokyo.northside.omegat.textra.BundleMessageUtil;
+import tokyo.northside.omegat.textra.TextraOptionsFactory;
 
-import static tokyo.northside.omegat.textra.BundleMessageUtil.getString;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Window;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class TextraOptionDialog extends JDialog {
     JPanel contentPane;
@@ -13,14 +26,8 @@ public class TextraOptionDialog extends JDialog {
     JTextField usernameField;
     JTextField apikeyField;
     JTextField secretField;
-    JRadioButton generalNTModeRadioButton;
-    JRadioButton patentNTModeRadioButton;
-    JRadioButton voiceTraTaiwaNTModeRadioButton;
-    JRadioButton financeNTModeRadioButton;
-    JRadioButton minnaNTModeRadioButton;
-    JRadioButton nictRadioButton;
-    JRadioButton kiRadioButton;
-    JRadioButton customRadioButton;
+    JComboBox<String> modeComboBox;
+    JComboBox<String> providerComboBox;
     JTextField customIdTextField;
     JLabel connectionStatus;
     JButton connectionTestButton;
@@ -33,9 +40,34 @@ public class TextraOptionDialog extends JDialog {
     public static void main(String[] args) {
         JFrame jFrame = new JFrame();
         TextraOptionDialog dialog = new TextraOptionDialog(jFrame);
+        TextraOptionsFactory textraOptionsFactory = new TextraOptionsFactory();
+        dialog.providerComboBox.setModel(new DefaultComboBoxModel<>(textraOptionsFactory.getServices()));
+        dialog.providerComboBox.setRenderer(new DelegatingComboBoxRenderer<String, String>() {
+            @Override
+            protected String getDisplayText(String s) {
+                return textraOptionsFactory.getName(s);
+            }
+        });
+        String defaultProvider = textraOptionsFactory.getServices()[0];
+        dialog.modeComboBox.setModel(new DefaultComboBoxModel<>(textraOptionsFactory.getModes(defaultProvider)));
+        dialog.modeComboBox.setRenderer(new DelegatingComboBoxRenderer<String, String>() {
+            @Override
+            protected String getDisplayText(String s) {
+                return textraOptionsFactory.getName(s);
+            }
+        });
+        dialog.providerComboBox.setSelectedItem(defaultProvider);
+        dialog.providerComboBox.addActionListener(itemEvent -> {
+            if (itemEvent == null) {
+                return;
+            }
+            String v = (String) dialog.providerComboBox.getSelectedItem();
+            if (v != null) {
+                dialog.modeComboBox.setModel(new DefaultComboBoxModel<>(textraOptionsFactory.getModes(v)));
+            }
+        });
         dialog.pack();
         dialog.setVisible(true);
-        System.exit(0);
     }
 
     private void initGui() {
@@ -44,7 +76,7 @@ public class TextraOptionDialog extends JDialog {
         GridBagConstraints c = new GridBagConstraints();
         // Option dialog title
         final JLabel titleLabel = new JLabel();
-        titleLabel.setText(getString("TexTraOptionDialogTitle"));
+        titleLabel.setText(BundleMessageUtil.getString("TexTraOptionDialogTitle"));
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 0;
@@ -64,7 +96,7 @@ public class TextraOptionDialog extends JDialog {
         contentPane.add(panel0, c);
         // Username field
         final JLabel usernameLabel = new JLabel();
-        usernameLabel.setText(getString("Username"));
+        usernameLabel.setText(BundleMessageUtil.getString("Username"));
         c.fill = GridBagConstraints.NONE;
         c.gridx = 0;
         c.gridy = 2;
@@ -84,8 +116,8 @@ public class TextraOptionDialog extends JDialog {
         contentPane.add(usernameField, c);
         // Api key field
         final JLabel label2 = new JLabel();
-        label2.setText(getString("ApiKey"));
-        label2.setToolTipText(getString("APIKeyToolTipText"));
+        label2.setText(BundleMessageUtil.getString("ApiKey"));
+        label2.setToolTipText(BundleMessageUtil.getString("APIKeyToolTipText"));
         c.fill = GridBagConstraints.NONE;
         c.gridx = 0;
         c.gridy = 3;
@@ -93,7 +125,7 @@ public class TextraOptionDialog extends JDialog {
         c.anchor = GridBagConstraints.LINE_START;
         contentPane.add(label2, c);
         apikeyField = new JTextField();
-        apikeyField.setToolTipText(getString("APIKeyToolTipText"));
+        apikeyField.setToolTipText(BundleMessageUtil.getString("APIKeyToolTipText"));
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 1;
         c.gridy = 3;
@@ -102,8 +134,8 @@ public class TextraOptionDialog extends JDialog {
         contentPane.add(apikeyField, c);
         // Api secret field
         final JLabel label3 = new JLabel();
-        label3.setText(getString("ApiSecret"));
-        label3.setToolTipText(getString("SecretToolTipText"));
+        label3.setText(BundleMessageUtil.getString("ApiSecret"));
+        label3.setToolTipText(BundleMessageUtil.getString("SecretToolTipText"));
         c.fill = GridBagConstraints.NONE;
         c.gridx = 0;
         c.gridy = 4;
@@ -111,7 +143,7 @@ public class TextraOptionDialog extends JDialog {
         c.anchor = GridBagConstraints.LINE_START;
         contentPane.add(label3, c);
         secretField = new JTextField();
-        secretField.setToolTipText(getString("SecretToolTipText"));
+        secretField.setToolTipText(BundleMessageUtil.getString("SecretToolTipText"));
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 1;
         c.gridy = 4;
@@ -130,39 +162,28 @@ public class TextraOptionDialog extends JDialog {
         //
         // Service selection
         final JLabel label5 = new JLabel();
-        label5.setText("Select service");
+        label5.setText(BundleMessageUtil.getString("SelectService"));
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 6;
         c.weightx = 0.0d;
         c.anchor = GridBagConstraints.LINE_START;
         contentPane.add(label5, c);
-        nictRadioButton = new JRadioButton();
-        nictRadioButton.setSelected(true);
-        nictRadioButton.setText("NICT TexTra (nonprofit)");
+        providerComboBox = new JComboBox<>();
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 7;
         c.weightx = 0.0d;
         c.gridwidth = 2;
         c.anchor = GridBagConstraints.LINE_START;
-        contentPane.add(nictRadioButton, c);
-        kiRadioButton = new JRadioButton();
-        kiRadioButton.setText("KI TexTra personal business");
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
-        c.gridy = 8;
-        c.weightx = 0.0d;
-        c.gridwidth = 2;
-        c.anchor = GridBagConstraints.LINE_START;
-        contentPane.add(kiRadioButton, c);
+        contentPane.add(providerComboBox, c);
         //
         final JPanel panel2 = new JPanel();
         connectionStatus = new JLabel();
-        connectionStatus.setText(getString("ConnectionStatusNotTested"));
+        connectionStatus.setText(BundleMessageUtil.getString("ConnectionStatusNotTested"));
         connectionTestButton = new JButton();
-        connectionTestButton.setText(getString("ConnectionTestBtn"));
-        connectionTestButton.setToolTipText(getString("ConnectionTestBtnToolTip"));
+        connectionTestButton.setText(BundleMessageUtil.getString("ConnectionTestBtn"));
+        connectionTestButton.setToolTipText(BundleMessageUtil.getString("ConnectionTestBtnToolTip"));
         panel2.add(connectionTestButton);
         panel2.add(connectionStatus);
         //
@@ -175,7 +196,7 @@ public class TextraOptionDialog extends JDialog {
         contentPane.add(panel2, c);
         //  mode selection
         final JLabel label4 = new JLabel();
-        label4.setText(getString("SelectMode"));
+        label4.setText(BundleMessageUtil.getString("SelectMode"));
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 10;
@@ -183,60 +204,13 @@ public class TextraOptionDialog extends JDialog {
         c.gridheight = 1;
         c.anchor = GridBagConstraints.LINE_START;
         contentPane.add(label4, c);
-        generalNTModeRadioButton = new JRadioButton();
-        generalNTModeRadioButton.setSelected(true);
-        generalNTModeRadioButton.setText(getString("GeneralNTMode"));
-        generalNTModeRadioButton.setToolTipText(getString("GeneralNTModeToolTip"));
+        modeComboBox = new JComboBox<>();
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 11;
         c.weightx = 0.0d;
         c.anchor = GridBagConstraints.LINE_START;
-        contentPane.add(generalNTModeRadioButton, c);
-        patentNTModeRadioButton = new JRadioButton();
-        patentNTModeRadioButton.setText(getString("PatentNTMode"));
-        patentNTModeRadioButton.setToolTipText(getString("PatentNTModeToolTip"));
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
-        c.gridy = 12;
-        c.weightx = 0.0d;
-        c.anchor = GridBagConstraints.LINE_START;
-        contentPane.add(patentNTModeRadioButton, c);
-        voiceTraTaiwaNTModeRadioButton = new JRadioButton();
-        voiceTraTaiwaNTModeRadioButton.setText(getString("VoiceTraNTMode"));
-        voiceTraTaiwaNTModeRadioButton.setToolTipText(getString("VoiceTraNTModeToolTip"));
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
-        c.gridy = 13;
-        c.weightx = 0.0d;
-        c.anchor = GridBagConstraints.LINE_START;
-        contentPane.add(voiceTraTaiwaNTModeRadioButton, c);
-        financeNTModeRadioButton = new JRadioButton();
-        financeNTModeRadioButton.setText(getString("FsaNTMode"));
-        financeNTModeRadioButton.setToolTipText(getString("FsaNTModeToolTip"));
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
-        c.gridy = 14;
-        c.weightx = 0.0d;
-        c.anchor = GridBagConstraints.LINE_START;
-        contentPane.add(financeNTModeRadioButton, c);
-        minnaNTModeRadioButton = new JRadioButton();
-        minnaNTModeRadioButton.setText(getString("minnaNTMode"));
-        minnaNTModeRadioButton.setToolTipText(getString("minnaNTModeToolTip"));
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
-        c.gridy = 15;
-        c.weightx = 0.0d;
-        c.anchor = GridBagConstraints.LINE_START;
-        contentPane.add(minnaNTModeRadioButton, c);
-        customRadioButton = new JRadioButton();
-        customRadioButton.setText(getString("Custom"));
-        c.fill = GridBagConstraints.NONE;
-        c.gridx = 0;
-        c.gridy = 16;
-        c.weightx = 0.0d;
-        c.anchor = GridBagConstraints.LINE_START;
-        contentPane.add(customRadioButton, c);
+        contentPane.add(modeComboBox, c);
         customIdTextField = new JTextField();
         customIdTextField.setHorizontalAlignment(JTextField.LEFT);
         customIdTextField.setMinimumSize(new Dimension(100, 24));
@@ -268,19 +242,6 @@ public class TextraOptionDialog extends JDialog {
         c.gridwidth = 2;
         c.anchor = GridBagConstraints.LINE_START;
         contentPane.add(buttonPanel, c);
-        //
-        ButtonGroup buttonGroup;
-        buttonGroup = new ButtonGroup();
-        buttonGroup.add(generalNTModeRadioButton);
-        buttonGroup.add(generalNTModeRadioButton);
-        buttonGroup.add(patentNTModeRadioButton);
-        buttonGroup.add(voiceTraTaiwaNTModeRadioButton);
-        buttonGroup.add(financeNTModeRadioButton);
-        buttonGroup.add(minnaNTModeRadioButton);
-        buttonGroup.add(customRadioButton);
-        buttonGroup = new ButtonGroup();
-        buttonGroup.add(kiRadioButton);
-        buttonGroup.add(nictRadioButton);
         //
         setContentPane(contentPane);
     }

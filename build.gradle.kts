@@ -58,6 +58,7 @@ dependencies {
     testImplementation(libs.bundles.junit)
     testImplementation(libs.commons.io)
     testImplementation(libs.wiremock)
+    testRuntimeOnly(libs.slf4j.simple)
 }
 
 repositories {
