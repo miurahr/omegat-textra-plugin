@@ -31,7 +31,7 @@ import tokyo.northside.omegat.textra.dialog.TextraOptionDialogController;
 import java.awt.Window;
 import java.io.IOException;
 
-import javax.swing.*;
+import javax.swing.SwingUtilities;
 
 /**
  * Support TexTra powered by NICT machine translation.
@@ -40,21 +40,51 @@ import javax.swing.*;
  */
 public class OmegatTextraMachineTranslation extends BaseCachedTranslate implements IMachineTranslation {
 
+    /**
+     * TexTra API client.
+     */
     protected TextraApiClient client;
+    /**
+     * Option dialog controller.
+     */
     protected TextraOptionDialogController optionDialogController;
+    /**
+     * Factory of TexTra options.
+     */
     private final TextraOptionsFactory textraOptionsFactory;
 
     /**
-     * Preparation for OmegaT Menu.
+     * Preferences to enable/disable TexTra plugin.
      */
     public static final String OPTION_ALLOW_TEXTRA_TRANSLATE = "allow_textra_translate";
 
+    /**
+     * Preferences key of TexTra API credential option: username.
+     */
     private static final String OPTION_TEXTRA_USERNAME = "mt_textra_username";
+    /**
+     * Preferences key of TexTra API credential option: api key.
+     */
     private static final String OPTION_TEXTRA_APIKEY = "mt_textra_apikey";
+    /**
+     * Preferences key of TexTra API credential option: secret.
+     */
     private static final String OPTION_TEXTRA_SECRET = "mt_textra_secret";
+    /**
+     * Preferences key of TexTra API option: translate mode.
+     */
     private static final String OPTION_TEXTRA_TRANSLATE_MODE = "mt_textra_translate_mode";
+    /**
+     * Preferences key of TexTra API option: server.
+     */
     private static final String OPTION_TEXTRA_SERVER = "mt_textra_server";
+    /**
+     * Preferences key of TexTra API option: custom id.
+     */
     private static final String OPTION_TEXTRA_CUSTOM_ID = "mt_textra_custom_id";
+    /**
+     * Menu name of TexTra.
+     */
     private static final String MENU_TEXTRA = "TexTra Powered by NICT";
 
     /**
@@ -73,7 +103,11 @@ public class OmegatTextraMachineTranslation extends BaseCachedTranslate implemen
         textraOptionsFactory = new TextraOptionsFactory();
     }
 
-    public void saveCredential(final TextraOptions textraOptions) {
+    /**
+     * Save TexTra access credential to credential store.
+     * @param textraOptions TexTra options.
+     */
+    public void saveCredential(TextraOptions textraOptions) {
         setCredential(OPTION_TEXTRA_USERNAME, textraOptions.getUsername(), false);
         setCredential(OPTION_TEXTRA_APIKEY, textraOptions.getApikey(), false);
         setCredential(OPTION_TEXTRA_SECRET, textraOptions.getSecret(), false);
@@ -135,7 +169,9 @@ public class OmegatTextraMachineTranslation extends BaseCachedTranslate implemen
      * Currently not supported.
      */
     @SuppressWarnings("unused")
-    public static void unloadPlugins() {}
+    public static void unloadPlugins() {
+        // nothing to do
+    }
 
     /**
      * Call Web API to translate.
@@ -154,6 +190,10 @@ public class OmegatTextraMachineTranslation extends BaseCachedTranslate implemen
         return client.executeTranslation(options, text);
     }
 
+    /**
+     * Check configuration.
+     * @return true if configuration is valid.
+     */
     protected boolean checkConfig() throws IOException {
         TextraOptions options = getOptions();
         String apiUsername = options.getUsername();
@@ -172,8 +212,15 @@ public class OmegatTextraMachineTranslation extends BaseCachedTranslate implemen
         return true;
     }
 
+    /**
+     * TexTra options.
+     */
     private TextraOptions textraOptions;
 
+    /**
+     * Get TexTra options.
+     * @return TexTraOptions object generated from preferences.
+     */
     private synchronized TextraOptions getOptions() throws IOException {
         if (textraOptions == null) {
             textraOptions = TextraOptions.builder()

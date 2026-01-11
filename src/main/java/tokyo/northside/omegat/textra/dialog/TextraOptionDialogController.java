@@ -29,8 +29,12 @@ public class TextraOptionDialogController {
     private static final String API_SECRET_HINT_KEY = "ApiSecretHint";
     private TextraOptionsFactory factory;
 
-    public TextraOptionDialogController() {}
-
+    /**
+     * Show Dialog.
+     * @param parent parent window.
+     * @param textraOptionsFactory factory of TextraOptions.
+     * @param options options.
+     */
     public void show(Window parent, TextraOptionsFactory textraOptionsFactory, TextraOptions options) {
         TextraOptionDialog dialog = new TextraOptionDialog(parent);
         dialog.setModal(true);
@@ -150,6 +154,10 @@ public class TextraOptionDialogController {
     }
 
     private String getBaseUrl(TextraOptionDialog dialog) {
-        return factory.getURL((String) dialog.providerComboBox.getSelectedItem());
+        Object o = dialog.providerComboBox.getSelectedItem();
+        if (o == null) {
+            return "";
+        }
+        return factory.getURL((String) o);
     }
 }

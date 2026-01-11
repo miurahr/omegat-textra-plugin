@@ -12,20 +12,48 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.JTextComponent;
 
+/**
+ * Handler for displaying ghost text in JTextComponent.
+ */
 public class GhostTextHandler implements FocusListener, DocumentListener, PropertyChangeListener {
+    /**
+     * component to add ghost text.
+     */
     private final JTextComponent textComponent;
+    /**
+     * Ghost text to display.
+     */
     private final String ghostText;
+    /**
+     * The color of the ghost text displayed in the associated text component.
+     * This color is used to differentiate the ghost text from the user-entered text,
+     * typically by setting it to a lighter or more subtle shade.
+     */
     private final Color foregroundColor;
+    /**
+     * Indicates whether the text component is currently empty.
+     */
     private boolean isEmpty;
 
-    public static void register(final JTextComponent textComponent, final String ghostText) {
+    /**
+     * Constructor for GhostTextHandler.
+     *
+     * @param textComponent JTextComponent to handle ghost text.
+     * @param ghostText     Ghost text to display.
+     */
+    public static void register(JTextComponent textComponent, String ghostText) {
         GhostTextHandler handler = new GhostTextHandler(textComponent, ghostText);
         textComponent.addFocusListener(handler);
         textComponent.getDocument().addDocumentListener(handler);
         textComponent.addPropertyChangeListener("foreground", handler);
     }
 
-    protected GhostTextHandler(final JTextComponent textComponent, final String ghostText) {
+    /**
+     * Constructor for GhostTextHandler.
+     * @param textComponent JTextComponent to handle ghost text.
+     * @param ghostText Ghost text to display.
+     */
+    protected GhostTextHandler(JTextComponent textComponent, String ghostText) {
         this.textComponent = textComponent;
         this.ghostText = ghostText;
         isEmpty = StringUtil.isEmpty(textComponent.getText());
