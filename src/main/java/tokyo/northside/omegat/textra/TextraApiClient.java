@@ -18,15 +18,34 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 public class TextraApiClient {
 
+    /**
+     * JSON mapper.
+     */
     private final ObjectMapper mapper;
 
+    /**
+     * Access token.
+     */
     private String accessToken = null;
+    /**
+     * Access token expire time.
+     */
     private LocalTime expire = null;
 
+    /**
+     * Constructor.
+     */
     public TextraApiClient() {
         mapper = new ObjectMapper();
     }
 
+    /**
+     * Check authentication.
+     * @param authUrl url to connect authentication server.
+     * @param apiKey API key string.
+     * @param apiSecret API secret string.
+     * @return true if authentication success, otherwise return false.
+     */
     public static boolean checkAuth(String authUrl, String apiKey, String apiSecret) {
         try {
             return getToken(authUrl, apiKey, apiSecret).contains("access_token");
@@ -35,6 +54,14 @@ public class TextraApiClient {
         return false;
     }
 
+    /**
+     * Get access token from authentication server.
+     * @param authUrl authentication server URL.
+     * @param apiKey API key.
+     * @param apiSecret API secret.
+     * @return token string if success.
+     * @throws IOException if failed to get token.
+     */
     private static String getToken(String authUrl, String apiKey, String apiSecret) throws IOException {
         Map<String, String> postParameters = new LinkedHashMap<>(3);
         postParameters.put("grant_type", "client_credentials");
@@ -82,7 +109,7 @@ public class TextraApiClient {
         }
 
         String accessUrl = getAccessUrl(options);
-        String api_param = getApiParam(options);
+        String apiParam = getApiParam(options);
 
         Map<String, String> postParameters = new HashMap<>(5);
         postParameters.put("key", apiKey);
@@ -92,16 +119,27 @@ public class TextraApiClient {
         postParameters.put("xml", "2"); // handle tags
         postParameters.put("access_token", accessToken);
         postParameters.put("api_name", "mt");
-        postParameters.put("api_param", api_param);
+        postParameters.put("api_param", apiParam);
 
         String response = HttpConnectionUtils.post(accessUrl, postParameters, null);
         return parseResponse(response);
     }
 
+    /**
+     * Get API parameter string.
+     * @param options connectivity options.
+     * @return API parameter string.
+     */
     private String getApiParam(TextraOptions options) {
         return String.format("%s_%s_%s", getApiEngine(options), options.getSourceLang(), options.getTargetLang());
     }
 
+    /**
+     * Parse response from TexTra API.
+     * @param response body of response.
+     * @return translated text when success, otherwise return null.
+     * @throws Exception if failed to parse response.
+     */
     protected String parseResponse(String response) throws Exception {
         TextraResponse root = mapper.readValue(response, TextraResponse.class);
         if (root == null || root.resultset == null) {
@@ -123,12 +161,22 @@ public class TextraApiClient {
         return root.resultset.result.text;
     }
 
-    private String getAccessUrl(final TextraOptions options) {
+    /**
+     * Get access URL.
+     * @param options connectivity options.
+     * @return access URL.
+     */
+    private String getAccessUrl(TextraOptions options) {
         String apiEngine = getApiEngine(options);
         return options.getBaseUrl() + options.getPath() + apiEngine + "_" + options.getSourceLang() + "_"
                 + options.getTargetLang() + "/";
     }
 
+    /**
+     * Get API engine name.
+     * @param options connectivity options.
+     * @return API engine name.
+     */
     private static String getApiEngine(TextraOptions options) {
         if (options.getMode().equals("custom")) {
             return options.getCustomId();

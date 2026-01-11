@@ -19,17 +19,31 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+/**
+ * TexTra option dialog.
+ */
 public class TextraOptionDialog extends JDialog {
+    /** content panel. */
     JPanel contentPane;
+    /** OK button. */
     JButton buttonOK;
+    /** Cancel button. */
     JButton buttonCancel;
+    /** Field to enter username. */
     JTextField usernameField;
+    /** Field to enter API key. */
     JTextField apikeyField;
+    /** Field to enter secret key. */
     JTextField secretField;
+    /** Combo box to select model mode. */
     JComboBox<String> modeComboBox;
+    /** Combo box to select service provider. */
     JComboBox<String> providerComboBox;
+    /** Field to enter custom id. */
     JTextField customIdTextField;
+    /** Label to display connection status. */
     JLabel connectionStatus;
+    /** Button to test connection. */
     JButton connectionTestButton;
 
     public TextraOptionDialog(Window parent) {
