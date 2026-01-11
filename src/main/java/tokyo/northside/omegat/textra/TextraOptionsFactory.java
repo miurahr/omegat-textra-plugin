@@ -39,7 +39,11 @@ public class TextraOptionsFactory {
     private String getResourceString(String name) {
         String str;
         try {
-            str = Objects.nonNull(resources) ? resources.getString(name) : null;
+            if (Objects.nonNull(resources)) {
+                str = resources.getString(name);
+            } else {
+                str = null;
+            }
         } catch (MissingResourceException ex) {
             str = null;
         }

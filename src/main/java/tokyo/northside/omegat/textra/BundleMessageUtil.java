@@ -14,8 +14,7 @@ public final class BundleMessageUtil {
         500, 501, 502, 503, 504, 505, 510, 511, 520, 521, 522, 523, 524, 525, 530, 531, 532, 533
     };
 
-    private BundleMessageUtil() {
-    }
+    private BundleMessageUtil() {}
 
     /** Resource bundle that contains all the strings. */
     private static final ResourceBundle BUNDLE =
