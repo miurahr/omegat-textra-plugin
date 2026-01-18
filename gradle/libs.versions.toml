@@ -9,7 +9,7 @@ spotless-plugin = "8.1.0"
 omegat-plugin = "2.0.0-rc2"
 git-version-plugin = "4.2.0"
 commons_io = "2.19.0"
-slf4j = "2.0.7"
+slf4j = "2.0.17"
 
 [libraries]
 jackson-core = { group = "com.fasterxml.jackson.core", name = "jackson-core", version.ref = "jackson" }
