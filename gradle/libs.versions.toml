@@ -7,7 +7,7 @@ junit = "5.14.0"
 wiremock = "3.13.2"
 spotless-plugin = "8.2.0"
 omegat-plugin = "2.0.0-rc2"
-git-version-plugin = "4.2.0"
+git-version-plugin = "4.3.0"
 commons_io = "2.19.0"
 slf4j = "2.0.17"
 
