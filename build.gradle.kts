@@ -52,8 +52,7 @@ omegat {
 
 dependencies {
     packIntoJar(libs.commons.lang3)
-
-    implementation(libs.bundles.jackson)
+    packIntoJar(libs.bundles.jackson)
     testImplementation(libs.groovy.all)
     testImplementation(libs.bundles.junit)
     testImplementation(libs.commons.io)
