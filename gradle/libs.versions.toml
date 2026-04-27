@@ -8,7 +8,7 @@ wiremock = "3.13.2"
 spotless-plugin = "8.4.0"
 omegat-plugin = "2.0.0-rc2"
 git-version-plugin = "5.0.0"
-commons_io = "2.19.0"
+commons_io = "2.22.0"
 slf4j = "2.0.17"
 
 [libraries]
