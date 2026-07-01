@@ -10,12 +10,6 @@ provided by NiCT for non-profit and OSS translations, and Kawamura-International
 When you are looking for Mirai Translator(R) connector, based on NICT engine and NTT collaboration,
 you may be interested in [MT plugin for OmegaT](https://codeberg.org/miurahr/omegat-mirai).
 
-## NEWS
-
-- **17, Jul. 2023** - **Version 2023.3.0** - Support OmegaT 6.0 and later, and drop support 5.8.0 and before.
-- **23, Apr. 2023** - **Version 2023.2.0** - Support OmegaT 5.8 and later, and drop support 5.7.1 and before.
-- **04, Feb. 2023** - **Version 2023.1.0** - Update http access code, Jackson 2.13.4. Last version that supports OmegaT 4.3.3.
-
 ## Install
 
 Please download latest omegat-textra-plugin-x.x.zip file from [releases](https://github.com/miurahr/omegat-textra-plugin/releases) page 
